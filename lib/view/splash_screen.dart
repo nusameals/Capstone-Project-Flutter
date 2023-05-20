@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:async';
 import '../main.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,8 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Image.asset(
             'assets/images/logo.png',
-            width: 250,
-            height: 250,
+            height: 300,
           ),
         ],
       ),
