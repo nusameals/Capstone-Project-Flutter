@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:nusameals/view/menu_test_screen.dart';
+import 'package:nusameals/view/menu/menu_screen.dart';
 
-import 'home_screen.dart';
+import 'home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   int? selectedIndex;
@@ -20,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 1;
   final listScreen = [
     const HomeScreen(),
-    const MenuScreen(), // const MenuScreen()
+    MenuScreen(),
     const HomeScreen(), // const MyOrderScreen()
     const HomeScreen(), // const ReservationScreen()
   ];

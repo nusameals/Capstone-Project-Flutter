@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/main_screen.dart';
-import 'package:nusameals/view/menu_test_screen.dart';
-
-import 'component/card_product.dart';
+import '../component/card_product.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +10,50 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List dataMenu = [
+    {
+      'imageProduct': "assets/images/gambar_soto.png",
+      'nameProduct': 'Soto Ayam',
+      'lokasi': 'Jakarta',
+      'price': '25000',
+      'kalori': '215 kkal'
+    },
+    {
+      'imageProduct': "assets/images/rendang.png",
+      'nameProduct': 'Rendang',
+      'lokasi': 'Jakarta',
+      'price': '10000',
+      'kalori': '468 kkal'
+    },
+    {
+      'imageProduct': "assets/images/ayam_taliwang.png",
+      'nameProduct': 'Ayam Taliwang',
+      'lokasi': 'Taliwang',
+      'price': '35000',
+      'kalori': '459 kkal'
+    },
+    {
+      'imageProduct': "assets/images/gudeg.png",
+      'nameProduct': 'Gudeg',
+      'lokasi': 'Yogyakarta',
+      'price': '25000',
+      'kalori': '1027,75 kkal'
+    },
+    {
+      'imageProduct': "assets/images/gulai_ikan_patin.png",
+      'nameProduct': 'Gulai Ikan Patin',
+      'lokasi': 'Jakarta',
+      'price': '20000',
+      'kalori': '132 kkal'
+    },
+    {
+      'imageProduct': "assets/images/rujak_cingur.png",
+      'nameProduct': 'Rujak Cingur',
+      'lokasi': 'Jawa Timur',
+      'price': '18000',
+      'kalori': '285 kkal'
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,51 +230,26 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 width: double.infinity,
-                child: GridView(
+                child: GridView.builder(
+                  itemCount: dataMenu.length,
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 10),
-                  children: const [
-                    CardProduct(
-                        imageProduct: "assets/images/gambar_soto.png",
-                        nameProduct: "Soto",
-                        lokasi: "Kudus",
-                        price: "50000",
-                        kalori: "220 kkal"),
-                    CardProduct(
-                        imageProduct: "assets/images/gambar_soto.png",
-                        nameProduct: "Soto",
-                        lokasi: "Kudus",
-                        price: "50000",
-                        kalori: "220 kkal"),
-                    CardProduct(
-                        imageProduct: "assets/images/gambar_soto.png",
-                        nameProduct: "Soto",
-                        lokasi: "Kudus",
-                        price: "50000",
-                        kalori: "220 kkal"),
-                    CardProduct(
-                        imageProduct: "assets/images/gambar_soto.png",
-                        nameProduct: "Soto",
-                        lokasi: "Kudus",
-                        price: "50000",
-                        kalori: "220 kkal"),
-                    CardProduct(
-                        imageProduct: "assets/images/gambar_soto.png",
-                        nameProduct: "Soto",
-                        lokasi: "Kudus",
-                        price: "50000",
-                        kalori: "220 kkal"),
-                    CardProduct(
-                        imageProduct: "assets/images/gambar_soto.png",
-                        nameProduct: "Soto",
-                        lokasi: "Kudus",
-                        price: "50000",
-                        kalori: "220 kkal"),
-                  ],
+                  itemBuilder: (context, index) {
+                    final item = dataMenu[index];
+                    return GestureDetector(
+                      onTap: () {},
+                      child: CardProduct(
+                          imageProduct: item['imageProduct'],
+                          nameProduct: item['nameProduct'],
+                          lokasi: item['lokasi'],
+                          price: item['price'],
+                          kalori: item['kalori']),
+                    );
+                  },
                 ),
               ),
             ),

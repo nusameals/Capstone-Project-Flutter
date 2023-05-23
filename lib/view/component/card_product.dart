@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../themes/constant.dart';
+
 class CardProduct extends StatelessWidget {
   final String imageProduct;
   final String nameProduct;
@@ -25,11 +27,11 @@ class CardProduct extends StatelessWidget {
     return Container(
       height: 250,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 253, 253, 253),
+        color: light1,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: const Color.fromARGB(255, 242, 241, 241),
-          width: 1,
+          width: 2,
         ),
       ),
       child: Column(
@@ -52,26 +54,28 @@ class CardProduct extends StatelessWidget {
             child: Text(
               nameProduct,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
+                color: dark1,
               ),
             ),
           ),
           const SizedBox(
-            height: 4,
+            height: 5,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               lokasi,
               style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: dark5,
               ),
             ),
           ),
           const SizedBox(
-            height: 4,
+            height: 5,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -83,16 +87,17 @@ class CardProduct extends StatelessWidget {
                       int.parse(price),
                     ),
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: dark1,
                     ),
                   ),
                   Text(
                     kalori,
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
+                      color: dark5,
                     ),
                   )
                 ]),
