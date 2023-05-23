@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nusameals/view/auth/login_screen.dart';
 import 'dart:async';
-import '../main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MyHomePage(title: ''),
+          builder: (context) => const LoginScreen(),
         ),
       );
     });
