@@ -1,21 +1,19 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/auth/register_screen.dart';
-import 'forgot_password_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmpasswordController = TextEditingController();
   bool _secureText = true;
-  bool validForm = false;
 
   showHide() {
     setState(() {
@@ -27,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmpasswordController.dispose();
     super.dispose();
   }
 
@@ -35,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     void showSnackbar(BuildContext context) {
       const snackBar = SnackBar(
         content: Text(
-          'Successfully. Please wait... ',
+          'Successfully create your account. Please wait... ',
           style: TextStyle(color: Color(0XFFCDE1F2), fontSize: 14),
         ),
       );
@@ -82,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   children: [
                                     const SizedBox(height: 41),
                                     const Text(
-                                      'Login',
+                                      'Create Account',
                                       style: TextStyle(
                                         fontSize: 32,
                                         color: Color(0xff0669BD),
@@ -135,35 +134,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                         }
                                       },
                                     ),
-                                    const SizedBox(height: 33),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const SizedBox(),
-                                        TextButton(
-                                          onPressed: () {
-                                            // tampilkan modal forgot password
-                                            showModalBottomSheet(
-                                              context: context,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                  top: Radius.circular(20),
+                                    const SizedBox(height: 20),
+                                    TextFormField(
+                                      controller: _confirmpasswordController,
+                                      obscureText: _secureText,
+                                      decoration: InputDecoration(
+                                        labelText: 'Confirm Password',
+                                        suffixIcon: IconButton(
+                                          onPressed: showHide,
+                                          icon: _secureText
+                                              ? const Icon(
+                                                  Icons.visibility_outlined,
+                                                  size: 20,
+                                                  color: Colors.black,
+                                                )
+                                              : const Icon(
+                                                  Icons.visibility_off,
+                                                  size: 20,
+                                                  color: Colors.black,
                                                 ),
-                                              ),
-                                              builder: (context) =>
-                                                  const ForgotPasswordScreen(),
-                                            );
-                                          },
-                                          child: const Text(
-                                            'Forgot Password',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
                                         ),
-                                      ],
+                                      ),
+                                      validator: (value) {
+                                        if (value != null && value.length < 5) {
+                                          return 'Enter min. 5 characters';
+                                        } else {
+                                          return null; //form is valid
+                                        }
+                                      },
                                     ),
                                     const SizedBox(height: 33),
                                     SizedBox(
@@ -183,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                           onPressed: () {},
                                           child: const Text(
-                                            'Login',
+                                            'Create Account',
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
@@ -199,16 +197,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       children: [
                                         const Text("Don't have an account ?"),
                                         TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const RegisterScreen(),
-                                                ));
-                                          },
+                                          onPressed: () {},
                                           child: const Text(
-                                            'Create Account',
+                                            'Login',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),

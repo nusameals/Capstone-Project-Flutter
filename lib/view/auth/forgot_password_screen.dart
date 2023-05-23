@@ -1,6 +1,6 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
+import 'change_password_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -19,6 +19,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       padding: const EdgeInsets.all(16),
       child: SizedBox(
         height: 241,
+        width: 428,
         child: Column(
           children: [
             Row(
@@ -36,7 +37,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 const SizedBox(width: 20),
                 const Text(
                   'Forgot Password',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style: TextStyle(fontSize: 20, color: Colors.black),
                 )
               ],
             ),
@@ -52,33 +53,44 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   validForm = _emailController.text.isNotEmpty;
                 });
               },
-              validator: (email) {
-                // 5 install package email_validator
-                if (email != null && !EmailValidator.validate(email)) {
-                  return 'Enter a valid email';
-                } else {
-                  return null; //form is valid
-                }
-              },
+              // validator: (email) {
+              //   // 5 install package email_validator
+              //   if (email != null && !EmailValidator.validate(email)) {
+              //     return 'Enter a valid email';
+              //   } else {
+              //     return null; //form is valid
+              //   }
+              // },
             ),
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      validForm ? Color(0xff0669BD) : Color(0xffEFEFEF),
+                  backgroundColor: validForm
+                      ? const Color(0xff0669BD)
+                      : const Color(0xffEFEFEF),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: BorderRadius.circular(80),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => const ChangePassword(),
+                  );
+                },
                 child: Text(
                   'Submit',
                   style: TextStyle(
                     fontSize: 14,
                     color: validForm
-                        ? const Color(0xffFFFFFF)
+                        ? const Color.fromARGB(255, 132, 84, 84)
                         : const Color(0xff484848),
                   ),
                 ),
