@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nusameals/view/auth/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -8,15 +9,22 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
-  bool _secureText = true;
+  bool _passwordSecureText = true;
+  bool _confirmPasswordSecureText = true;
 
-  showHide() {
+  showHidePassword() {
     setState(() {
-      _secureText = !_secureText;
+      _passwordSecureText = !_passwordSecureText;
+    });
+  }
+
+  showHideConfirmPassword() {
+    setState(() {
+      _confirmPasswordSecureText = !_confirmPasswordSecureText;
     });
   }
 
@@ -53,7 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 40),
                   child: Column(children: [
                     Image.asset('assets/images/nusameals.png', height: 100),
-                    const SizedBox(height: 41),
+                    const SizedBox(height: 30),
                     Expanded(
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
@@ -74,11 +82,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Form(
-                                key: _formKey,
+                                key: formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(height: 41),
+                                    const SizedBox(height: 25),
                                     const Text(
                                       'Create Account',
                                       style: TextStyle(
@@ -87,23 +95,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    const SizedBox(height: 41),
+                                    const SizedBox(height: 25),
                                     TextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
                                       decoration: const InputDecoration(
                                         labelText: 'Email',
                                       ),
+                                      validator: (email) {
+                                        if (email!.isEmpty) {
+                                          return "please enter email";
+                                        }
+                                        if (!RegExp(
+                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                            .hasMatch(email)) {
+                                          return "please enter valid email";
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
                                       controller: _passwordController,
-                                      obscureText: _secureText,
+                                      obscureText: _passwordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
                                         suffixIcon: IconButton(
-                                          onPressed: showHide,
-                                          icon: _secureText
+                                          onPressed: showHidePassword,
+                                          icon: _passwordSecureText
                                               ? const Icon(
                                                   Icons.visibility_outlined,
                                                   size: 20,
@@ -116,16 +135,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
+                                      validator: (password) {
+                                        if (password!.isEmpty) {
+                                          return 'Please a Enter Password';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
                                       controller: _confirmpasswordController,
-                                      obscureText: _secureText,
+                                      obscureText: _confirmPasswordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Confirm Password',
                                         suffixIcon: IconButton(
-                                          onPressed: showHide,
-                                          icon: _secureText
+                                          onPressed: showHideConfirmPassword,
+                                          icon: _confirmPasswordSecureText
                                               ? const Icon(
                                                   Icons.visibility_outlined,
                                                   size: 20,
@@ -138,8 +163,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
+                                      validator: (confirmPassword) {
+                                        if (confirmPassword!.isEmpty) {
+                                          return 'Please re-enter password';
+                                        }
+
+                                        if (_passwordController.text !=
+                                            _confirmpasswordController.text) {
+                                          return "Password does not match";
+                                        }
+
+                                        return null;
+                                      },
                                     ),
-                                    const SizedBox(height: 33),
+                                    const SizedBox(height: 25),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width,
                                       child: Container(
@@ -155,7 +192,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   BorderRadius.circular(100),
                                             ),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              print("Successfully");
+                                            } else {
+                                              print('Unsuccessfully');
+                                            }
+                                          },
                                           child: const Text(
                                             'Create Account',
                                             style: TextStyle(
@@ -166,14 +210,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 33),
+                                    const SizedBox(height: 25),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         const Text("Don't have an account ?"),
                                         TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginScreen(),
+                                                ));
+                                          },
                                           child: const Text(
                                             'Login',
                                             style: TextStyle(
