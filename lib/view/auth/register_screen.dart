@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -95,15 +94,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       decoration: const InputDecoration(
                                         labelText: 'Email',
                                       ),
-                                      validator: (email) {
-                                        // 5 install package email_validator
-                                        if (email != null &&
-                                            !EmailValidator.validate(email)) {
-                                          return 'Enter a valid email';
-                                        } else {
-                                          return null; //form is valid
-                                        }
-                                      },
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
@@ -126,13 +116,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
-                                      validator: (value) {
-                                        if (value != null && value.length < 5) {
-                                          return 'Enter min. 5 characters';
-                                        } else {
-                                          return null; //form is valid
-                                        }
-                                      },
                                     ),
                                     const SizedBox(height: 20),
                                     TextFormField(
@@ -155,13 +138,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
-                                      validator: (value) {
-                                        if (value != null && value.length < 5) {
-                                          return 'Enter min. 5 characters';
-                                        } else {
-                                          return null; //form is valid
-                                        }
-                                      },
                                     ),
                                     const SizedBox(height: 33),
                                     SizedBox(

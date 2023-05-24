@@ -12,11 +12,18 @@ class _ChangePasswordState extends State<ChangePassword> {
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
   bool validForm = false;
-  bool _secureText = true;
+  bool _passwordSecureText = true;
+  bool _confirmPasswordSecureText = true;
 
-  showHide() {
+  showHidePassword() {
     setState(() {
-      _secureText = !_secureText;
+      _passwordSecureText = !_passwordSecureText;
+    });
+  }
+
+  showHideConfirmPassword() {
+    setState(() {
+      _confirmPasswordSecureText = !_confirmPasswordSecureText;
     });
   }
 
@@ -42,124 +49,122 @@ class _ChangePasswordState extends State<ChangePassword> {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(16),
-      child: SizedBox(
-        height: 340,
-        width: 428,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreen(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.arrow_back)),
-                const SizedBox(width: 20),
-                const Text(
-                  'Changed Password',
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                )
-              ],
-            ),
-            const SizedBox(height: 41),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: _secureText,
-              decoration: InputDecoration(
-                labelText: 'New Password',
-                suffixIcon: IconButton(
-                  onPressed: showHide,
-                  icon: _secureText
-                      ? const Icon(
-                          Icons.visibility_outlined,
-                          size: 20,
-                          color: Colors.black,
-                        )
-                      : const Icon(
-                          Icons.visibility_off,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                ),
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: SizedBox(
+          height: 360,
+          width: 528,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back)),
+                  const SizedBox(width: 20),
+                  const Text(
+                    'Changed Password',
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  )
+                ],
               ),
-              onChanged: (value) {
-                setState(() {
-                  validForm = _passwordController.text.isNotEmpty;
-                });
-              },
-              // validator: (value) {
-              //   if (value != null && value.length < 5) {
-              //     return 'Enter min. 5 characters';
-              //   } else {
-              //     return null; //form is valid
-              //   }
-              // },
-            ),
-            const SizedBox(height: 24),
-            TextFormField(
-              controller: _confirmpasswordController,
-              obscureText: _secureText,
-              decoration: InputDecoration(
-                labelText: 'Confirm New Password',
-                suffixIcon: IconButton(
-                  onPressed: showHide,
-                  icon: _secureText
-                      ? const Icon(
-                          Icons.visibility_outlined,
-                          size: 20,
-                          color: Colors.black,
-                        )
-                      : const Icon(
-                          Icons.visibility_off,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  validForm = _confirmpasswordController.text.isNotEmpty;
-                });
-              },
-              // validator: (value) {
-              //   if (value != null && value.length < 5) {
-              //     return 'Enter min. 5 characters';
-              //   } else {
-              //     return null; //form is valid
-              //   }
-              // },
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: validForm
-                      ? const Color(0xff0669BD)
-                      : const Color(0xffEFEFEF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
+              const SizedBox(height: 41),
+              TextFormField(
+                controller: _passwordController,
+                obscureText: _passwordSecureText,
+                decoration: InputDecoration(
+                  labelText: 'New Password',
+                  suffixIcon: IconButton(
+                    onPressed: showHidePassword,
+                    icon: _passwordSecureText
+                        ? const Icon(
+                            Icons.visibility_outlined,
+                            size: 20,
+                            color: Colors.black,
+                          )
+                        : const Icon(
+                            Icons.visibility_off,
+                            size: 20,
+                            color: Colors.black,
+                          ),
                   ),
                 ),
-                onPressed: () {},
-                child: Text(
-                  'Submit',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: validForm
-                        ? const Color(0xffFFFFFF)
-                        : const Color(0xff484848),
+                onChanged: (value) {
+                  setState(() {
+                    validForm = _passwordController.text.isNotEmpty;
+                  });
+                },
+                // validator: (value) {
+                //   if (value != null && value.length < 5) {
+                //     return 'Enter min. 5 characters';
+                //   } else {
+                //     return null; //form is valid
+                //   }
+                // },
+              ),
+              const SizedBox(height: 24),
+              TextFormField(
+                controller: _confirmpasswordController,
+                obscureText: _confirmPasswordSecureText,
+                decoration: InputDecoration(
+                  labelText: 'Confirm New Password',
+                  suffixIcon: IconButton(
+                    onPressed: showHideConfirmPassword,
+                    icon: _confirmPasswordSecureText
+                        ? const Icon(
+                            Icons.visibility_outlined,
+                            size: 20,
+                            color: Colors.black,
+                          )
+                        : const Icon(
+                            Icons.visibility_off,
+                            size: 20,
+                            color: Colors.black,
+                          ),
                   ),
                 ),
+                onChanged: (value) {
+                  setState(() {
+                    validForm = _confirmpasswordController.text.isNotEmpty;
+                  });
+                },
+                // validator: (value) {
+                //   if (value != null && value.length < 5) {
+                //     return 'Enter min. 5 characters';
+                //   } else {
+                //     return null; //form is valid
+                //   }
+                // },
               ),
-            )
-          ],
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: validForm
+                        ? const Color(0xff0669BD)
+                        : const Color(0xffEFEFEF),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: validForm
+                          ? const Color(0xffFFFFFF)
+                          : const Color(0xff484848),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

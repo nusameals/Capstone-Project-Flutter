@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'forgot_password_screen.dart';
@@ -11,7 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _secureText = true;
@@ -43,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
@@ -76,11 +76,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Form(
-                                key: _formKey,
+                                key: formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(height: 41),
+                                    const SizedBox(height: 31),
                                     const Text(
                                       'Login',
                                       style: TextStyle(
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    const SizedBox(height: 41),
+                                    const SizedBox(height: 31),
                                     TextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
@@ -97,13 +97,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         labelText: 'Email',
                                       ),
                                       validator: (email) {
-                                        // 5 install package email_validator
-                                        if (email != null &&
-                                            !EmailValidator.validate(email)) {
-                                          return 'Enter a valid email';
-                                        } else {
-                                          return null; //form is valid
+                                        if (email!.isEmpty) {
+                                          return "please enter email";
                                         }
+                                        if (!RegExp(
+                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                            .hasMatch(email)) {
+                                          return "please enter valid email";
+                                        }
+                                        return null;
                                       },
                                     ),
                                     const SizedBox(height: 20),
@@ -127,15 +129,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 ),
                                         ),
                                       ),
-                                      validator: (value) {
-                                        if (value != null && value.length < 5) {
-                                          return 'Enter min. 5 characters';
-                                        } else {
-                                          return null; //form is valid
+                                      validator: (password) {
+                                        if (password == null ||
+                                            password.isEmpty) {
+                                          return 'Masukaan Password';
+                                        } else if (password.length < 6) {
+                                          return 'Enter min 5 characters';
                                         }
                                       },
                                     ),
-                                    const SizedBox(height: 33),
+                                    const SizedBox(height: 30),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -145,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           onPressed: () {
                                             // tampilkan modal forgot password
                                             showModalBottomSheet(
+                                              isScrollControlled: true,
                                               context: context,
                                               shape:
                                                   const RoundedRectangleBorder(
@@ -165,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 33),
+                                    const SizedBox(height: 30),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width,
                                       child: Container(
@@ -181,7 +185,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   BorderRadius.circular(100),
                                             ),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              return;
+                                            } else {
+                                              print('Unsuccessfully');
+                                            }
+                                          },
                                           child: const Text(
                                             'Login',
                                             style: TextStyle(
@@ -192,7 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 33),
+                                    const SizedBox(height: 30),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
