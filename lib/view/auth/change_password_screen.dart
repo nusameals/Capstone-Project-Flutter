@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/auth/forgot_password_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -32,15 +32,17 @@ class _ChangePasswordState extends State<ChangePassword> {
     void showSnackbar(BuildContext context) {
       final snackBar = SnackBar(
         content: Row(
-          children: const [
+          children: [
             Text(
               'Password has been changed. Please login now!',
-              style: TextStyle(color: Color(0XFFCDE1F2), fontSize: 14),
+              style: GoogleFonts.poppins(
+                  color: const Color(0XFFCDE1F2), fontSize: 14),
             ),
-            SizedBox(width: 39),
+            const SizedBox(width: 39),
             Text(
               'Login',
-              style: TextStyle(fontSize: 14, color: Color(0xff000000)),
+              style: GoogleFonts.poppins(
+                  color: const Color(0xff000000), fontSize: 14),
             )
           ],
         ),
@@ -64,11 +66,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.arrow_back)),
-                  const SizedBox(width: 20),
-                  const Text(
-                    'Changed Password',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                  )
+                  const SizedBox(width: 10),
+                  Text('Changed Password',
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, color: Colors.black))
                 ],
               ),
               const SizedBox(height: 41),
@@ -77,6 +78,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 obscureText: _passwordSecureText,
                 decoration: InputDecoration(
                   labelText: 'New Password',
+                  labelStyle: GoogleFonts.poppins(fontSize: 14),
                   suffixIcon: IconButton(
                     onPressed: showHidePassword,
                     icon: _passwordSecureText
@@ -111,6 +113,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 obscureText: _confirmPasswordSecureText,
                 decoration: InputDecoration(
                   labelText: 'Confirm New Password',
+                  labelStyle: GoogleFonts.poppins(fontSize: 14),
                   suffixIcon: IconButton(
                     onPressed: showHideConfirmPassword,
                     icon: _confirmPasswordSecureText
@@ -154,7 +157,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   onPressed: () {},
                   child: Text(
                     'Submit',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: validForm
                           ? const Color(0xffFFFFFF)

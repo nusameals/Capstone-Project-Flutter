@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -87,20 +88,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const SizedBox(height: 25),
-                                    const Text(
+                                    Text(
                                       'Create Account',
-                                      style: TextStyle(
+                                      style: GoogleFonts.poppins(
                                         fontSize: 32,
-                                        color: Color(0xff0669BD),
-                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xff0669BD),
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     const SizedBox(height: 25),
                                     TextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         labelText: 'Email',
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 16),
                                       ),
                                       validator: (email) {
                                         if (email!.isEmpty) {
@@ -120,6 +123,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       obscureText: _passwordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 16),
                                         suffixIcon: IconButton(
                                           onPressed: showHidePassword,
                                           icon: _passwordSecureText
@@ -148,6 +153,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       obscureText: _confirmPasswordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Confirm Password',
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 16),
                                         suffixIcon: IconButton(
                                           onPressed: showHideConfirmPassword,
                                           icon: _confirmPasswordSecureText
@@ -200,9 +207,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               print('Unsuccessfully');
                                             }
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'Create Account',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.white),
@@ -215,7 +222,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Text("Don't have an account ?"),
+                                        Text("Don't have an account ?",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14)),
                                         TextButton(
                                           onPressed: () {
                                             Navigator.push(
@@ -225,9 +234,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       const LoginScreen(),
                                                 ));
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'Login',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),
                                           ),

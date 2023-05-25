@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'forgot_password_screen.dart';
 
@@ -32,10 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     void showSnackbar(BuildContext context) {
-      const snackBar = SnackBar(
+      final snackBar = SnackBar(
         content: Text(
           'Successfully. Please wait... ',
-          style: TextStyle(color: Color(0XFFCDE1F2), fontSize: 14),
+          style:
+              GoogleFonts.poppins(color: const Color(0XFFCDE1F2), fontSize: 14),
         ),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -81,21 +83,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const SizedBox(height: 31),
-                                    const Text(
+                                    Text(
                                       'Login',
-                                      style: TextStyle(
+                                      style: GoogleFonts.poppins(
                                         fontSize: 32,
-                                        color: Color(0xff0669BD),
-                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xff0669BD),
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     const SizedBox(height: 31),
                                     TextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Email',
-                                      ),
+                                      decoration: InputDecoration(
+                                          labelText: 'Email',
+                                          labelStyle: GoogleFonts.poppins(
+                                              fontSize: 16)),
                                       validator: (email) {
                                         if (email!.isEmpty) {
                                           return "please enter email";
@@ -114,6 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       obscureText: _secureText,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 16),
                                         suffixIcon: IconButton(
                                           onPressed: showHide,
                                           icon: _secureText
@@ -161,10 +166,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   const ForgotPasswordScreen(),
                                             );
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'Forgot Password',
-                                            style:
-                                                TextStyle(color: Colors.black),
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.black),
                                           ),
                                         ),
                                       ],
@@ -193,9 +198,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               print('Unsuccessfully');
                                             }
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'Login',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.white),
@@ -208,7 +213,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Text("Don't have an account ?"),
+                                        Text("Don't have an account ?",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14)),
                                         TextButton(
                                           onPressed: () {
                                             Navigator.push(
@@ -218,9 +225,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       const RegisterScreen(),
                                                 ));
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'Create Account',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold),
                                           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'change_password_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -10,6 +11,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   bool validForm = false;
 
@@ -36,10 +38,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         );
                       },
                       icon: const Icon(Icons.arrow_back)),
-                  const SizedBox(width: 20),
-                  const Text(
+                  const SizedBox(width: 10),
+                  Text(
                     'Forgot Password',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
                   )
                 ],
               ),
@@ -47,9 +52,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                ),
+                decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: GoogleFonts.poppins(fontSize: 14)),
                 onChanged: (value) {
                   setState(() {
                     validForm = _emailController.text.isNotEmpty;
@@ -80,15 +85,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       builder: (context) => const ChangePassword(),
                     );
                   },
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: validForm
-                          ? const Color(0xffFFFFFF)
-                          : const Color(0xff484848),
-                    ),
-                  ),
+                  child: Text('Submit',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: validForm
+                            ? const Color(0xffFFFFFF)
+                            : const Color(0xff484848),
+                      )),
                 ),
               )
             ],

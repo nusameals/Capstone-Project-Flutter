@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/auth/login_screen.dart';
 import 'view/splash_screen.dart';
 
 void main() {
@@ -19,10 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'poppins',
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const LoginScreen(),
-      },
+      home: const SplashScreen(),
     );
   }
 }
