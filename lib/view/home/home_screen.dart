@@ -1,91 +1,53 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/main_screen.dart';
+import 'package:nusameals/view/scan/scan_screen.dart';
+import '../../themes/constant.dart';
 import '../component/card_product.dart';
+import '../menu/dummy.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Function? onPressedLowCalories;
+  final Function? onPressedSavingPackages;
+  final Function? onPressedSpecialForYou;
+  const HomeScreen({
+    Key? key,
+    this.onPressedLowCalories,
+    this.onPressedSavingPackages,
+    this.onPressedSpecialForYou,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List dataMenu = [
-    {
-      'imageProduct': "assets/images/gambar_soto.png",
-      'nameProduct': 'Soto Ayam',
-      'lokasi': 'Jakarta',
-      'price': '25000',
-      'kalori': '215 kkal'
-    },
-    {
-      'imageProduct': "assets/images/rendang.png",
-      'nameProduct': 'Rendang',
-      'lokasi': 'Jakarta',
-      'price': '10000',
-      'kalori': '468 kkal'
-    },
-    {
-      'imageProduct': "assets/images/ayam_taliwang.png",
-      'nameProduct': 'Ayam Taliwang',
-      'lokasi': 'Taliwang',
-      'price': '35000',
-      'kalori': '459 kkal'
-    },
-    {
-      'imageProduct': "assets/images/gudeg.png",
-      'nameProduct': 'Gudeg',
-      'lokasi': 'Yogyakarta',
-      'price': '25000',
-      'kalori': '1027,75 kkal'
-    },
-    {
-      'imageProduct': "assets/images/gulai_ikan_patin.png",
-      'nameProduct': 'Gulai Ikan Patin',
-      'lokasi': 'Jakarta',
-      'price': '20000',
-      'kalori': '132 kkal'
-    },
-    {
-      'imageProduct': "assets/images/rujak_cingur.png",
-      'nameProduct': 'Rujak Cingur',
-      'lokasi': 'Jawa Timur',
-      'price': '18000',
-      'kalori': '285 kkal'
-    },
+  static final List<String> imgSlider = [
+    'carousel.png',
+    'carousel2.png',
   ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff0669BD),
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.account_circle_outlined,
-                size: 30,
-              )),
-        ),
-        title: const Text('Name'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: IconButton(
-              icon: const Icon(
-                Icons.notifications_none,
-                color: Colors.white,
-                size: 30,
+    final CarouselSlider autoPlayImage = CarouselSlider(
+        items: imgSlider.map((fileImage) {
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Image.asset(
+                'assets/images/$fileImage',
               ),
-              onPressed: () {
-                // Aksi ketika tombol notifikasi diklik
-              },
             ),
-          ),
-        ],
-      ),
+          );
+        }).toList(),
+        options: CarouselOptions(
+          height: 180,
+          autoPlay: true,
+          enlargeCenterPage: true,
+          aspectRatio: 2.0,
+        ));
+    return Scaffold(
       body: SafeArea(
         child: ListView(
           children: [
@@ -93,14 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  height: 260,
+                  height: 230,
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                   decoration: const BoxDecoration(
-                    color: Color(0xff0669BD),
+                    color: ColorTheme.primaryBlue,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30),
@@ -108,30 +67,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: ListView(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Image.asset(
-                          'assets/images/carousel.png',
-                          height: 160,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 160,
+                        child: autoPlayImage,
                       ),
                     ],
                   ),
                 ),
                 Positioned(
-                  top: 200,
+                  top: 170,
                   left: 22,
                   child: Container(
-                    padding: const EdgeInsets.all(20),
-                    height: 110,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    height: 95,
                     width: 370,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: ColorTheme.light1,
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
                         color: Color.fromARGB(255, 220, 220, 220),
@@ -146,52 +98,62 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                //page scan
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ScanScreen()));
                               },
                               icon: const Icon(
                                 Icons.qr_code_scanner,
-                                size: 30,
+                                size: 44,
                               ),
                             ),
-                            Text('Scan Menu'),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              'Scan Menu',
+                              style: ThemeText.bodyR12,
+                            ),
                           ],
                         ),
                         Column(
                           children: [
                             IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MainScreen(
-                                              selectedIndex: 1,
-                                            )));
-                              },
+                              onPressed: widget.onPressedLowCalories as void
+                                  Function()?,
                               icon: const Icon(
                                 Icons.restaurant_menu,
-                                size: 30,
+                                size: 44,
                               ),
                             ),
-                            Text('Low Calories'),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              'Low Calories',
+                              style: ThemeText.bodyR12,
+                            ),
                           ],
                         ),
                         Column(
                           children: [
                             IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MainScreen(
-                                              selectedIndex: 1,
-                                            )));
-                              },
+                              onPressed: widget.onPressedSavingPackages as void
+                                  Function()?,
                               icon: const Icon(
                                 Icons.fastfood,
-                                size: 30,
+                                size: 44,
                               ),
                             ),
-                            Text('Saving Packages'),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              'Saving Packages',
+                              style: ThemeText.bodyR12,
+                            ),
                           ],
                         ),
                       ],
@@ -201,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -210,16 +172,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Special for you',
-                        style: TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.w600),
+                        style: ThemeText.bodyB16,
                       ),
                       IconButton(
-                          onPressed: () {},
-                          icon: Icon(
+                          onPressed:
+                              widget.onPressedSpecialForYou as void Function()?,
+                          icon: const Icon(
                             Icons.arrow_forward,
-                            size: 28,
+                            size: 22,
                           ))
                     ],
                   ),
@@ -228,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: GridView.builder(
                   itemCount: dataMenu.length,

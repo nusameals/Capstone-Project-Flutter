@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../themes/constant.dart';
 
 class CardProduct extends StatelessWidget {
@@ -25,12 +24,12 @@ class CardProduct extends StatelessWidget {
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
 
     return Container(
-      height: 250,
+      height: 240,
       decoration: BoxDecoration(
-        color: light1,
+        color: ColorTheme.light1,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color.fromARGB(255, 242, 241, 241),
+          color: ColorTheme.light4,
           width: 2,
         ),
       ),
@@ -39,43 +38,39 @@ class CardProduct extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
             child: Image.asset(
               imageProduct,
               height: 100,
             ),
           ),
           const SizedBox(
-            height: 8,
+            height: 5,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               nameProduct,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: dark1,
-              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: ThemeText.bodyB14,
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 2,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               lokasi,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: dark5,
-              ),
+              style: ThemeText.bodyR12Dark5,
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 2,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -86,23 +81,15 @@ class CardProduct extends StatelessWidget {
                     priceFormat.format(
                       int.parse(price),
                     ),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: dark1,
-                    ),
+                    style: ThemeText.bodyB14,
                   ),
                   Text(
                     kalori,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: dark5,
-                    ),
+                    style: ThemeText.bodyR12Dark5,
                   )
                 ]),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
         ],
