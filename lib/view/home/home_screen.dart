@@ -43,11 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }).toList(),
         options: CarouselOptions(
-          height: 180,
+          viewportFraction: 1,
+          height: 500,
           autoPlay: true,
           enlargeCenterPage: true,
-          aspectRatio: 2.0,
-        ));
+        )
+    );
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -76,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Positioned(
-                  top: 170,
+                  top: 173,
                   left: 22,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -164,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(
-              height: 30,
+              height: 43,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
