@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
+import 'package:nusameals/view/cart/cart_screen.dart';
+
+import '../component/costum_snackbar.dart';
 
 class DetailMenuScreen extends StatefulWidget {
   const DetailMenuScreen({super.key});
@@ -151,7 +154,17 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        //logic add to cart
+                        CustomSnackbar.showSnackbar(
+                          context,
+                          '"${item['nameProduct']}" put in basket.',
+                          actionText: 'Close',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorTheme.light1,
                         padding: const EdgeInsets.symmetric(
