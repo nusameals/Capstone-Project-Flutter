@@ -143,13 +143,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               )
             : _selectedIndex == 1
                 ? InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, '/search');
+                    },
                     child: Container(
-                      width: MediaQuery.of(context).size.width - 100,
+                      width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      margin: const EdgeInsets.only(left: 5),
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -159,7 +161,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         enabled: false,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.search,
                             color: ColorTheme.dark1,
                             size: 18,
@@ -171,9 +173,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             color: ColorTheme.dark1,
                           ),
                         ),
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
+                        style: ThemeText.bodyR16,
                       ),
                     ),
                   )
@@ -235,7 +235,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           ? MenuScreen(tabController: _tabController)
           : listScreen.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFFf7f5ef),
+        elevation: 3,
+        backgroundColor: ColorTheme.light3,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
@@ -261,7 +262,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         currentIndex: _selectedIndex,
         onTap: onTapItem,
         selectedItemColor: ColorTheme.primaryBlue,
-        unselectedItemColor: const Color.fromARGB(255, 192, 189, 189),
+        unselectedItemColor: ColorTheme.dark5,
       ),
     );
   }

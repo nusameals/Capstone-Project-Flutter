@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nusameals/view/main_screen.dart';
 import 'package:nusameals/view/menu/detail_menu_screen.dart';
 
+import 'view/menu/search_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const MainScreen(),
+        '/search': (context) => const SearchScreen(),
       },
     );
   }
