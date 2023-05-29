@@ -45,6 +45,7 @@ class CardProduct extends StatelessWidget {
             child: Image.asset(
               imageProduct,
               height: 100,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(

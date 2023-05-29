@@ -40,7 +40,7 @@ List dataMenu = [
     'lokasi': 'Jawa Timur',
     'price': '18000',
     'kalori': '285 kkal'
-  },
+  }
 ];
 
 List dataMenuInCart = [

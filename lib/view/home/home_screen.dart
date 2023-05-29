@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nusameals/view/scan/scan_screen.dart';
 import '../../themes/constant.dart';
 import '../component/card_product.dart';
+import '../menu/detail_menu_screen.dart';
 import '../menu/dummy.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -203,7 +204,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     final item = dataMenu[index];
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailMenuScreen(),
+                            settings: RouteSettings(arguments: item),
+                          ),
+                        );
+                      },
                       child: CardProduct(
                           imageProduct: item['imageProduct'],
                           nameProduct: item['nameProduct'],
