@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
 import '../component/button_primary.dart';
@@ -68,6 +69,9 @@ class _CartScreenState extends State<CartScreen> {
         children: [
           ListView(
             children: [
+              const SizedBox(
+                height: 10,
+              ),
               ListView.builder(
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
@@ -114,7 +118,7 @@ class _CartScreenState extends State<CartScreen> {
                                         onTap: () {},
                                         child: const Icon(
                                           Icons.delete_outline,
-                                          size: 18,
+                                          size: 20,
                                           color: ColorTheme.secondaryDanger,
                                         ),
                                       ),
@@ -258,11 +262,11 @@ class _CartScreenState extends State<CartScreen> {
                           });
                         },
                         child: Container(
-                          height: 29,
+                          height: 35,
                           decoration: BoxDecoration(
                             color: dineInSelected
                                 ? ColorTheme.primaryBlue20
-                                : ColorTheme.light4,
+                                : ColorTheme.light1,
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               bottomLeft: Radius.circular(20),
@@ -280,11 +284,13 @@ class _CartScreenState extends State<CartScreen> {
                                   : const SizedBox(),
                               const SizedBox(width: 4),
                               Text(
-                                'Dine In',
-                                style: TextStyle(
+                                'Dine in',
+                                style: GoogleFonts.poppins(
                                   color: dineInSelected
                                       ? ColorTheme.dark1
                                       : ColorTheme.dark1,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -294,7 +300,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     Container(
                       width: 1,
-                      height: 30,
+                      height: 35,
                       color: ColorTheme.primaryBlue,
                     ),
                     Expanded(
@@ -306,11 +312,11 @@ class _CartScreenState extends State<CartScreen> {
                           });
                         },
                         child: Container(
-                          height: 30,
+                          height: 35,
                           decoration: BoxDecoration(
                             color: takeAwaySelected
                                 ? ColorTheme.primaryBlue20
-                                : ColorTheme.light4,
+                                : ColorTheme.light1,
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20),
@@ -328,11 +334,13 @@ class _CartScreenState extends State<CartScreen> {
                                   : const SizedBox(),
                               const SizedBox(width: 4),
                               Text(
-                                'Take Away',
-                                style: TextStyle(
-                                  color: takeAwaySelected
+                                'Take away',
+                                style: GoogleFonts.poppins(
+                                  color: dineInSelected
                                       ? ColorTheme.dark1
                                       : ColorTheme.dark1,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -418,16 +426,18 @@ class _CartScreenState extends State<CartScreen> {
                       itemBuilder: (context, index) {
                         final item = dataMenuInCart[index];
                         if (item['quantity'] >= 0) {
-                          return Container(
+                          return SizedBox(
                             width: double.infinity,
                             height: 30,
-                            // margin: EdgeInsets.symmetric(vertical: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  '-${item['nameProduct']} x ${item['quantity']}',
-                                  style: ThemeText.bodyR14,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    '• ${item['nameProduct']} x ${item['quantity']}',
+                                    style: ThemeText.bodyR14,
+                                  ),
                                 ),
                                 Text(
                                   priceFormat.format(int.parse(item['price']) *
@@ -436,23 +446,6 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ],
                             ),
-                            // child: ListTile(
-                            //   // leading: Icon(
-                            //   //   Icons.circle,
-                            //   //   size: 8,
-                            //   // ),
-                            //   title: Text(
-                            //     ' - ${item['nameProduct']} x ${item['quantity']}',
-                            //     style: ThemeText.bodyR14,
-                            //   ),
-                            //   trailing: Text(
-                            //     priceFormat.format(int.parse(item['price']) *
-                            //         item['quantity']),
-                            //     style: ThemeText.bodyR14,
-                            //   ),
-                            //   contentPadding:
-                            //       const EdgeInsets.symmetric(vertical: 2),
-                            // ),
                           );
                         } else {
                           return const SizedBox();
@@ -465,11 +458,11 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         Text(
                           'Total',
-                          style: ThemeText.bodyB14,
+                          style: ThemeText.bodyB16,
                         ),
                         Text(
                           priceFormat.format(getTotalPrice()),
-                          style: ThemeText.bodyB14,
+                          style: ThemeText.bodyB16,
                         ),
                       ],
                     ),
