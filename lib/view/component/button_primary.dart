@@ -23,7 +23,10 @@ class PrimaryButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        child: Text(text),
+        child: Text(
+          text,
+          style: ThemeText.bodyB145W,
+        ),
       ),
     );
   }
