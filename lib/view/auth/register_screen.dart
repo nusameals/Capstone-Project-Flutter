@@ -11,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
@@ -50,8 +51,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Container(
                   color: const Color(0xff0669BD),
                   height: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(children: [
                     Image.asset('assets/images/nusameals.png', height: 100),
                     const SizedBox(height: 30),
@@ -70,7 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           topRight: Radius.circular(20),
                         ),
                         child: Container(
-                          padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                          padding: const EdgeInsets.fromLTRB(35, 25, 35, 25),
                           height: MediaQuery.of(context).size.height,
                           decoration: const BoxDecoration(
                             color: Colors.white,
@@ -87,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const SizedBox(height: 25),
+                                    const SizedBox(height: 10),
                                     Text(
                                       'Create Account',
                                       style: GoogleFonts.poppins(
@@ -96,7 +97,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    const SizedBox(height: 25),
+                                    const SizedBox(height: 10),
+                                    TextFormField(
+                                      controller: _usernameController,
+                                      keyboardType: TextInputType.text,
+                                      decoration: InputDecoration(
+                                        labelText: 'Username',
+                                        labelStyle:
+                                            GoogleFonts.poppins(fontSize: 16),
+                                      ),
+                                      validator: (username) {
+                                        if (username!.isEmpty) {
+                                          return 'username cannot be empty';
+                                        } else if (RegExp(r'^[a-z][A-Za-z]*$')
+                                            .hasMatch(username)) {
+                                          return 'username must start with capital letter';
+                                        }
+                                      },
+                                    ),
+                                    const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _emailController,
                                       keyboardType: TextInputType.text,
@@ -107,9 +126,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       validator: (email) {
                                         if (email!.isEmpty) {
-                                          return "please enter email";
-                                        }
-                                        if (!RegExp(
+                                          return "email cannot be empty";
+                                        } else if (!RegExp(
                                                 "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                             .hasMatch(email)) {
                                           return "please enter valid email";
@@ -117,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _passwordController,
                                       obscureText: _passwordSecureText,
@@ -147,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    const SizedBox(height: 20),
+                                    const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _confirmpasswordController,
                                       obscureText: _confirmPasswordSecureText,
@@ -183,67 +201,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
-                                    const SizedBox(height: 25),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Container(
-                                        height: 40,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 20),
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color(0xff0669BD),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            if (formKey.currentState!
-                                                .validate()) {
-                                              print("Successfully");
-                                            } else {
-                                              print('Unsuccessfully');
-                                            }
-                                          },
-                                          child: Text(
-                                            'Create Account',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 25),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("Don't have an account ?",
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14)),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const LoginScreen(),
-                                                ));
-                                          },
-                                          child: Text(
-                                            'Login',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )
-                                      ],
-                                    )
+                                    const SizedBox(height: 10),
+                                    bottomSizeBox(),
+                                    const SizedBox(height: 10),
+                                    bottomLogin()
                                   ],
                                 ),
                               )
@@ -259,6 +220,60 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget bottomSizeBox() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Container(
+        height: 40,
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff0669BD),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100),
+            ),
+          ),
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              print("Successfully");
+            } else {
+              print('Unsuccessfully');
+            }
+          },
+          child: Text(
+            'Create Account',
+            style: GoogleFonts.poppins(
+                fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget bottomLogin() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Don't have an account ?",
+            style: GoogleFonts.poppins(fontSize: 14)),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ));
+          },
+          child: Text(
+            'Login',
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 }

@@ -45,8 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -144,97 +144,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       },
                                     ),
                                     const SizedBox(height: 30),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const SizedBox(),
-                                        TextButton(
-                                          onPressed: () {
-                                            // tampilkan modal forgot password
-                                            showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              context: context,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                  top: Radius.circular(20),
-                                                ),
-                                              ),
-                                              builder: (context) =>
-                                                  const ForgotPasswordScreen(),
-                                            );
-                                          },
-                                          child: Text(
-                                            'Forgot Password',
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    bottomSheet(),
                                     const SizedBox(height: 30),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Container(
-                                        height: 40,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 20),
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color(0xff0669BD),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            if (formKey.currentState!
-                                                .validate()) {
-                                              print("Successfully");
-                                            } else {
-                                              print('Unsuccessfully');
-                                            }
-                                          },
-                                          child: Text(
-                                            'Login',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    bottomLogin(),
                                     const SizedBox(height: 30),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("Don't have an account ?",
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14)),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const RegisterScreen(),
-                                                ));
-                                          },
-                                          child: Text(
-                                            'Create Account',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )
-                                      ],
-                                    )
+                                    createAccount()
                                   ],
                                 ),
                               )
@@ -250,6 +164,88 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const SizedBox(),
+        TextButton(
+          onPressed: () {
+            // tampilkan modal forgot password
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+              ),
+              builder: (context) => const ForgotPasswordScreen(),
+            );
+          },
+          child: Text(
+            'Forgot Password',
+            style: GoogleFonts.poppins(color: Colors.black),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget bottomLogin() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Container(
+        height: 40,
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff0669BD),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100),
+            ),
+          ),
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              print("Successfully");
+            } else {
+              print('Unsuccessfully');
+            }
+          },
+          child: Text(
+            'Login',
+            style: GoogleFonts.poppins(
+                fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget createAccount() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Don't have an account ?",
+            style: GoogleFonts.poppins(fontSize: 14)),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RegisterScreen(),
+                ));
+          },
+          child: Text(
+            'Create Account',
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 }
