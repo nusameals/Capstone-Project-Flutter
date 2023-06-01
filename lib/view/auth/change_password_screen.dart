@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,27 +31,6 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) {
-    void showSnackbar(BuildContext context) {
-      final snackBar = SnackBar(
-        content: Row(
-          children: [
-            Text(
-              'Password has been changed. Please login now!',
-              style: GoogleFonts.poppins(
-                  color: const Color(0XFFCDE1F2), fontSize: 14),
-            ),
-            const SizedBox(width: 39),
-            Text(
-              'Login',
-              style: GoogleFonts.poppins(
-                  color: const Color(0xff000000), fontSize: 14),
-            )
-          ],
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
@@ -154,7 +135,26 @@ class _ChangePasswordState extends State<ChangePassword> {
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    void showSnackbar(BuildContext context,
+                        {String actionText = 'Login',
+                        VoidCallback? onPressed}) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: const Color(0xffCDE1F2),
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text(
+                            'Password has been changed. Please login now!',
+                          ),
+                          action: SnackBarAction(
+                            label: actionText,
+                            textColor: Colors.black,
+                            onPressed: onPressed ?? () {},
+                          ),
+                        ),
+                      );
+                    }
+                  },
                   child: Text(
                     'Submit',
                     style: GoogleFonts.poppins(

@@ -1,6 +1,8 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
+import '../../model/register_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,6 +19,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmpasswordController = TextEditingController();
   bool _passwordSecureText = true;
   bool _confirmPasswordSecureText = true;
+  late RegisterRequestModel requestModels;
+
+  @override
+  void initState() {
+    super.initState();
+    requestModels = RegisterRequestModel(
+        username: "", email: "", password: "", confirmPassword: "");
+  }
 
   showHidePassword() {
     setState(() {
@@ -40,16 +50,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void showSnackbar(BuildContext context) {
-      const snackBar = SnackBar(
-        content: Text(
-          'Successfully create your account. Please wait... ',
-          style: TextStyle(color: Color(0XFFCDE1F2), fontSize: 14),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -106,6 +106,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         labelStyle:
                                             GoogleFonts.poppins(fontSize: 16),
                                       ),
+                                      onSaved: (input) =>
+                                          requestModels.username = input!,
+                                      // ignore: body_might_complete_normally_nullable
                                       validator: (username) {
                                         if (username!.isEmpty) {
                                           return 'username cannot be empty';
@@ -124,6 +127,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         labelStyle:
                                             GoogleFonts.poppins(fontSize: 16),
                                       ),
+                                      onSaved: (input) =>
+                                          requestModels.username = input!,
                                       validator: (email) {
                                         if (email!.isEmpty) {
                                           return "email cannot be empty";
@@ -158,6 +163,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
+                                      onSaved: (input) =>
+                                          requestModels.password = input!,
                                       validator: (password) {
                                         if (password!.isEmpty) {
                                           return 'Please a Enter Password';
@@ -188,6 +195,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
+                                      onSaved: (input) => requestModels
+                                          .confirmPassword = input!,
                                       validator: (confirmPassword) {
                                         if (confirmPassword!.isEmpty) {
                                           return 'Please re-enter password';
@@ -237,11 +246,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           onPressed: () {
-            if (formKey.currentState!.validate()) {
-              print("Successfully");
-            } else {
-              print('Unsuccessfully');
+            if (ValidateAndSave()) {
+              // ignore: prefer_const_declarations, unused_local_variable
+              final text = 'Successefully create account, please wait...';
+              // ignore: unused_local_variable
+              final snackBar = SnackBar(
+                content: Text(
+                  text,
+                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
+                ),
+                backgroundColor: const Color(0xffCDE1F2),
+                behavior: SnackBarBehavior.floating,
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              print(requestModels.toJson());
             }
+            _usernameController.clear();
+            _emailController.clear();
+            _passwordController.clear();
+            _confirmpasswordController.clear();
           },
           child: Text(
             'Create Account',
@@ -251,6 +275,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  bool ValidateAndSave() {
+    final form = formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
   }
 
   Widget bottomLogin() {

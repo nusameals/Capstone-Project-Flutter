@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nusameals/model/login_model.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'forgot_password_screen.dart';
 
@@ -16,6 +17,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _secureText = true;
   bool validForm = false;
+  late LoginRequestModel requestModel;
+
+  @override
+  void initState() {
+    super.initState();
+    requestModel = LoginRequestModel(email: "", password: "");
+  }
 
   showHide() {
     setState(() {
@@ -32,17 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void showSnackbar(BuildContext context) {
-      final snackBar = SnackBar(
-        content: Text(
-          'Successfully. Please wait... ',
-          style:
-              GoogleFonts.poppins(color: const Color(0XFFCDE1F2), fontSize: 14),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -99,6 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           labelText: 'Email',
                                           labelStyle: GoogleFonts.poppins(
                                               fontSize: 16)),
+                                      onSaved: (input) =>
+                                          requestModel.email = input!,
                                       validator: (email) {
                                         if (email!.isEmpty) {
                                           return "please enter email";
@@ -134,6 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 ),
                                         ),
                                       ),
+                                      onSaved: (input) =>
+                                          requestModel.password = input!,
+                                      // ignore: body_might_complete_normally_nullable
                                       validator: (password) {
                                         if (password == null ||
                                             password.isEmpty) {
@@ -209,11 +211,25 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           onPressed: () {
-            if (formKey.currentState!.validate()) {
-              print("Successfully");
-            } else {
-              print('Unsuccessfully');
+            if (validateAndSave()) {
+              // ignore: prefer_const_declarations, unused_local_variable
+              final text = 'Successefully, please wait...';
+              // ignore: unused_local_variable
+              final snackBar = SnackBar(
+                content: Text(
+                  text,
+                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
+                ),
+                backgroundColor: const Color(0xffCDE1F2),
+                behavior: SnackBarBehavior.floating,
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // ignore: avoid_print
+              print(requestModel.toJson());
             }
+            _emailController.clear();
+            _passwordController.clear();
           },
           child: Text(
             'Login',
@@ -223,6 +239,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
   }
 
   Widget createAccount() {
