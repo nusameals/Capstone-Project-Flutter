@@ -47,6 +47,11 @@ class ThemeText {
     fontSize: 20,
     color: ColorTheme.dark1,
   );
+  static TextStyle subHeadingR20W = GoogleFonts.poppins(
+    fontWeight: FontWeight.w400,
+    fontSize: 20,
+    color: ColorTheme.light1,
+  );
   static TextStyle bodyB20 = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 20,
