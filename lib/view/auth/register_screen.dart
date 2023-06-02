@@ -128,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             GoogleFonts.poppins(fontSize: 16),
                                       ),
                                       onSaved: (input) =>
-                                          requestModels.username = input!,
+                                          requestModels.email = input!,
                                       validator: (email) {
                                         if (email!.isEmpty) {
                                           return "email cannot be empty";

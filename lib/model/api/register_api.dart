@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class RegisterApi {
   Future<RegisterResponsModel> login(RegisterRequestModel requestModels) async {
-    String url = "localhost:8080/login";
+    String url = "13.229.218.76:8080";
 
     // ignore: unused_local_variable
     final respons = await http.post(url as Uri, body: requestModels.toJson());

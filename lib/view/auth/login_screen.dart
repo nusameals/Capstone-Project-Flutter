@@ -1,7 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/model/login_model.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
+import 'package:nusameals/view_model/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,6 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -148,7 +155,64 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const SizedBox(height: 30),
                                     bottomSheet(),
                                     const SizedBox(height: 30),
-                                    bottomLogin(),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Container(
+                                        height: 40,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 20),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color(0xff0669BD),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            authProvider.login(
+                                                _emailController.text
+                                                    .toString(),
+                                                _passwordController.text
+                                                    .toString());
+
+                                            if (validateAndSave()) {
+                                              // ignore: prefer_const_declarations, unused_local_variable
+                                              final text =
+                                                  'Successefully, please wait...';
+                                              // ignore: unuseds_local_variable
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                  text,
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      color: Colors.black),
+                                                ),
+                                                backgroundColor:
+                                                    const Color(0xffCDE1F2),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                              );
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+
+                                              print(requestModel.toJson());
+                                            }
+                                            _emailController.clear();
+                                            _passwordController.clear();
+                                          },
+                                          child: Text(
+                                            'Login',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                     const SizedBox(height: 30),
                                     createAccount()
                                   ],
@@ -194,50 +258,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget bottomLogin() {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: Container(
-        height: 40,
-        margin: const EdgeInsets.symmetric(vertical: 20),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xff0669BD),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          onPressed: () {
-            if (validateAndSave()) {
-              // ignore: prefer_const_declarations, unused_local_variable
-              final text = 'Successefully, please wait...';
-              // ignore: unused_local_variable
-              final snackBar = SnackBar(
-                content: Text(
-                  text,
-                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
-                ),
-                backgroundColor: const Color(0xffCDE1F2),
-                behavior: SnackBarBehavior.floating,
-              );
-
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              // ignore: avoid_print
-              print(requestModel.toJson());
-            }
-            _emailController.clear();
-            _passwordController.clear();
-          },
-          child: Text(
-            'Login',
-            style: GoogleFonts.poppins(
-                fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
-          ),
-        ),
-      ),
     );
   }
 
