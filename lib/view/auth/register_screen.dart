@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
+import 'package:provider/provider.dart';
 import '../../model/register_model.dart';
+import '../../view_model/provider/auth_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -50,6 +52,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers, unused_local_variable
+    final _authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -261,6 +266,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               print(requestModels.toJson());
+
+              Provider.of<AuthProvider>(context, listen: false)
+                  .toRegisterJson();
             }
             _usernameController.clear();
             _emailController.clear();

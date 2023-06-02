@@ -1,43 +1,44 @@
-// ignore_for_file: unused_local_variable, avoid_print
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 class AuthProvider with ChangeNotifier {
-  void login(String email, String password) async {
-    try {
-      Response response = await post(Uri.parse("13.229.218.76:8080"), body: {
-        'email': email,
-        'password': password,
-      });
+  String? email;
+  String? password;
+  String? username;
+  String? confirmPassword;
 
-      if (response.statusCode == 200) {
-        print('successfull');
-      } else {
-        print('failed');
-      }
-    } catch (e) {
-      print(e.toString());
-    }
+  void setEmail(String value) {
+    email = value;
+    notifyListeners();
   }
 
-  void register(String username, String email, String password,
-      String confirmPassword) async {
-    try {
-      Response response = await post(Uri.parse("13.229.218.76:8080"), body: {
-        'username': username,
-        'email': email,
-        'password': password,
-        'confirmpassword': confirmPassword,
-      });
+  void setPassword(String value) {
+    password = value;
+    notifyListeners();
+  }
 
-      if (response.statusCode == 200) {
-        print('successfull');
-      } else {
-        print('failed');
-      }
-    } catch (e) {
-      print(e.toString());
-    }
+  void setUsername(String value) {
+    username = value;
+    notifyListeners();
+  }
+
+  void setConfirmPassword(String value) {
+    confirmPassword = value;
+    notifyListeners();
+  }
+
+  Map<String, dynamic> toLoginJson() {
+    return {
+      'email': email,
+      'password': password,
+    };
+  }
+
+  Map<String, dynamic> toRegisterJson() {
+    return {
+      'username': username,
+      'email': email,
+      'password': password,
+      'confirmPassword': confirmPassword,
+    };
   }
 }

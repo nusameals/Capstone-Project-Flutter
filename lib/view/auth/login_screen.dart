@@ -44,8 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final authProvider = Provider.of<AuthProvider>(context);
+    // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
+    final _authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -171,12 +171,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            authProvider.login(
-                                                _emailController.text
-                                                    .toString(),
-                                                _passwordController.text
-                                                    .toString());
-
                                             if (validateAndSave()) {
                                               // ignore: prefer_const_declarations, unused_local_variable
                                               final text =
@@ -199,6 +193,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   .showSnackBar(snackBar);
 
                                               print(requestModel.toJson());
+
+                                              Provider.of<AuthProvider>(context,
+                                                      listen: false)
+                                                  .toLoginJson();
                                             }
                                             _emailController.clear();
                                             _passwordController.clear();
