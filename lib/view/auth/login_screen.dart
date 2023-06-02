@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/model/login_model.dart';
+import 'package:nusameals/view/account/profil_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'package:nusameals/view_model/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -170,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   BorderRadius.circular(100),
                                             ),
                                           ),
-                                          onPressed: () {
+                                          onPressed: () async {
                                             authProvider.login(
                                                 _emailController.text
                                                     .toString(),
@@ -197,11 +198,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(snackBar);
+                                              await Future.delayed(
+                                                  const Duration(seconds: 2));
 
                                               print(requestModel.toJson());
                                             }
                                             _emailController.clear();
                                             _passwordController.clear();
+
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProfilScreen()),
+                                            );
                                           },
                                           child: Text(
                                             'Login',
