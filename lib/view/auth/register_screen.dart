@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:provider/provider.dart';
-import '../../model/register_model.dart';
-import '../../view_model/provider/auth_provider.dart';
+import '../../model/user_model.dart';
+import '../../view_model/auth_view_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

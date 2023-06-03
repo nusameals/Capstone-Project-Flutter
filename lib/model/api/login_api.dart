@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:nusameals/model/login_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../user_model.dart';
 
 class LoginApi {
   Future<LoginResponsModel> login(LoginRequestModel requestModel) async {
-    String url = "13.229.218.76:8080";
+    String url = "13.229.218.76:8080/login";
 
     // ignore: unused_local_variable
     final respons = await http.post(url as Uri, body: requestModel.toJson());

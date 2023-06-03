@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nusameals/model/login_model.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
-import 'package:nusameals/view_model/provider/auth_provider.dart';
+import 'package:nusameals/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
+import '../../model/user_model.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {

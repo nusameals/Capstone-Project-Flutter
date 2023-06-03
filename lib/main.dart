@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:provider/provider.dart';
-import 'view/splash_screen.dart';
-import 'view_model/provider/auth_provider.dart';
+import 'view_model/auth_view_model.dart';
 
 void main() {
   runApp(const MyApp());
