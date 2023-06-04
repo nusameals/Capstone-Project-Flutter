@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class LoginApi {
   Future<LoginResponsModel> login(LoginRequestModel requestModel) async {
-    String url = "13.229.218.76:8080";
+    String url = "http://testing.hopto.org/login";
 
     // ignore: unused_local_variable
     final respons = await http.post(url as Uri, body: requestModel.toJson());

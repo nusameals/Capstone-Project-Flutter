@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/account/update_profil_screen.dart';
-
 import '../auth/login_screen.dart';
 
 class ProfilScreen extends StatefulWidget {

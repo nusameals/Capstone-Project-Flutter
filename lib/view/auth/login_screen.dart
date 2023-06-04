@@ -1,12 +1,12 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nusameals/model/login_model.dart';
-import 'package:nusameals/view/account/profil_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
-import 'package:nusameals/view_model/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
+import '../../model/login_model.dart';
+import '../../view_model/provider/auth_provider.dart';
+import '../account/profil_screen.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,8 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final authProvider = Provider.of<AuthProvider>(context);
+    // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
+    final _authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -172,12 +172,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           onPressed: () async {
-                                            authProvider.login(
-                                                _emailController.text
-                                                    .toString(),
-                                                _passwordController.text
-                                                    .toString());
-
                                             if (validateAndSave()) {
                                               // ignore: prefer_const_declarations, unused_local_variable
                                               final text =
@@ -198,6 +192,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(snackBar);
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
                                               await Future.delayed(
                                                   const Duration(seconds: 2));
 
@@ -206,6 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             _emailController.clear();
                                             _passwordController.clear();
 
+                                            // ignore: use_build_context_synchronously
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
