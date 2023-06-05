@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Notifications', style: TextStyle(fontFamily: 'Poppins'),),
+          title: Text('Notifications', style: GoogleFonts.poppins(),),
           leading: IconButton(
               onPressed: (){},
               icon: Icon(Icons.arrow_back)),
@@ -31,7 +32,7 @@ class _NotificationsState extends State<Notifications> {
                     onPressed: (){
 
                     }, child: Text('Clear All',
-                  style: TextStyle(color: Colors.blue,fontSize: 15,fontFamily: 'Poppins'),)
+                  style: GoogleFonts.poppins(fontSize: 15,color: Colors.blue),)
                 ),
               ],
             ),
@@ -40,16 +41,17 @@ class _NotificationsState extends State<Notifications> {
                 children: [
                   ListTile(
                       title: Text('Update Profile',
-                        style: TextStyle(fontWeight: FontWeight.w900,fontFamily: 'Poppins'),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                       ),
                       subtitle:Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Please update your profile',style: TextStyle(fontFamily: 'Poppins')),
+                          Text('Please update your profile',
+                              style: GoogleFonts.poppins()),
                           InkWell(
                             onTap: (){},
                             child: Text('go to Profile',
-                              style: TextStyle(fontWeight: FontWeight.w900,color: Color(0xFF0669BD),fontFamily: 'Poppins'),),
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.bold,color: Color(0xFF0669BD)),),
                           )
                         ],
                       ),
@@ -62,7 +64,7 @@ class _NotificationsState extends State<Notifications> {
                         ),
                         child: Center(
                           child: Text('T',
-                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900,fontSize: 28,fontFamily: 'Poppins'),),
+                            style: GoogleFonts.poppins(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 30,),),
                         ),
                       )
                   ),
@@ -73,15 +75,16 @@ class _NotificationsState extends State<Notifications> {
                   ),
                   ListTile(
                       title: Text('Update Menu',
-                        style: TextStyle(fontWeight: FontWeight.w900,fontFamily: 'Poppins'),),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.bold,),),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Check the latest menu, maybe it suits you',style: TextStyle(fontFamily: 'Poppins'),),
+                          Text('Check the latest menu, maybe it suits you',
+                            style: GoogleFonts.poppins(),),
                           InkWell(
                             onTap: (){},
                             child: Text('See details',
-                              style: TextStyle(fontWeight: FontWeight.w900,color: Color(0xFF0669BD),fontFamily: 'Poppins'),),
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.bold,color: Color(0xFF0669BD)),),
                           )
                         ],
                       ),
@@ -101,16 +104,16 @@ class _NotificationsState extends State<Notifications> {
                   ),
                   ListTile(
                     title: Text('Order Status',
-                      style: TextStyle(fontWeight: FontWeight.w900,fontFamily: 'Poppins'),),
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Your order is being processed',
-                        style: TextStyle(fontFamily: 'Poppins'),),
+                        style: GoogleFonts.poppins(),),
                         InkWell(
                           onTap: (){},
                           child: Text('See details',
-                            style: TextStyle(fontWeight: FontWeight.w900,color: Color(0xFF0669BD),fontFamily: 'Poppins'),),
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold,color: Color(0xFF0669BD)),),
                         )
                       ],
                     ),
