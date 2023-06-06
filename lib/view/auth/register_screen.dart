@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:provider/provider.dart';
-import '../../model/user_model.dart';
-import '../../view_model/auth_view_model.dart';
+import '../../view_model/user_view_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,21 +13,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
   bool _passwordSecureText = true;
   bool _confirmPasswordSecureText = true;
-  late RegisterRequestModel requestModels;
-
-  @override
-  void initState() {
-    super.initState();
-    requestModels = RegisterRequestModel(
-        username: "", email: "", password: "", confirmPassword: "");
-  }
+  bool isRetypePasswordValid = true;
 
   showHidePassword() {
     setState(() {
@@ -53,8 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     // ignore: no_leading_underscores_for_local_identifiers, unused_local_variable
-    final _authProvider = Provider.of<AuthProvider>(context);
-
+    final _userViewModel = Provider.of<UserViewModel>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -89,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Form(
-                                key: formKey,
+                                key: _formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -111,8 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         labelStyle:
                                             GoogleFonts.poppins(fontSize: 16),
                                       ),
-                                      onSaved: (input) =>
-                                          requestModels.username = input!,
+
                                       // ignore: body_might_complete_normally_nullable
                                       validator: (username) {
                                         if (username!.isEmpty) {
@@ -132,8 +122,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         labelStyle:
                                             GoogleFonts.poppins(fontSize: 16),
                                       ),
-                                      onSaved: (input) =>
-                                          requestModels.email = input!,
                                       validator: (email) {
                                         if (email!.isEmpty) {
                                           return "email cannot be empty";
@@ -168,8 +156,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
-                                      onSaved: (input) =>
-                                          requestModels.password = input!,
                                       validator: (password) {
                                         if (password!.isEmpty) {
                                           return 'Please a Enter Password';
@@ -183,6 +169,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       obscureText: _confirmPasswordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Confirm Password',
+                                        errorText: isRetypePasswordValid
+                                            ? null
+                                            : 'Field ini harus diisi.',
                                         labelStyle:
                                             GoogleFonts.poppins(fontSize: 16),
                                         suffixIcon: IconButton(
@@ -200,20 +189,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
-                                      onSaved: (input) => requestModels
-                                          .confirmPassword = input!,
-                                      validator: (confirmPassword) {
-                                        if (confirmPassword!.isEmpty) {
-                                          return 'Please re-enter password';
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          setState(() {
+                                            isRetypePasswordValid = false;
+                                          });
+                                          return 'Field ini harus diisi.';
                                         }
-
-                                        if (_passwordController.text !=
-                                            _confirmpasswordController.text) {
-                                          return "Password does not match";
-                                        }
-
+                                        setState(() {
+                                          isRetypePasswordValid = true;
+                                        });
                                         return null;
                                       },
+                                      // validator: (confirmPassword) {
+                                      //   if (confirmPassword!.isEmpty) {
+                                      //     return 'Please re-enter password';
+                                      //   }
+
+                                      //   if (_passwordController.text !=
+                                      //       _confirmpasswordController.text) {
+                                      //     return "Password does not match";
+                                      //   }
+
+                                      //   return null;
+                                      // },
                                     ),
                                     const SizedBox(height: 10),
                                     bottomSizeBox(),
@@ -251,29 +250,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           onPressed: () {
-            if (ValidateAndSave()) {
-              // ignore: prefer_const_declarations, unused_local_variable
-              final text = 'Successefully create account, please wait...';
-              // ignore: unused_local_variable
-              final snackBar = SnackBar(
-                content: Text(
-                  text,
-                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
-                ),
-                backgroundColor: const Color(0xffCDE1F2),
-                behavior: SnackBarBehavior.floating,
-              );
+            // ignore: unused_local_variable
+            final isValidForm = _formKey.currentState!.validate();
+            // ignore: unused_local_variable
+            final username = _usernameController.text;
+            // ignore: unused_local_variable
+            final email = _emailController.text;
+            // ignore: unused_local_variable
+            final password = _passwordController.text;
+            // ignore: unused_local_variable
+            final confirmPassword = _confirmpasswordController.text;
 
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              print(requestModels.toJson());
+            // ignore: unused_local_variable
+            final user =
+                Provider.of<UserViewModel>(context, listen: false).registerUser(
+              username: username,
+              email: email,
+              password: password,
+              retype_password: confirmPassword,
+            );
 
-              Provider.of<AuthProvider>(context, listen: false)
-                  .toRegisterJson();
-            }
-            _usernameController.clear();
-            _emailController.clear();
-            _passwordController.clear();
-            _confirmpasswordController.clear();
+            // _usernameController.clear();
+            // _emailController.clear();
+            // _passwordController.clear();
+            // _confirmpasswordController.clear();
           },
           child: Text(
             'Create Account',
@@ -283,15 +283,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
-  }
-
-  bool ValidateAndSave() {
-    final form = formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
   }
 
   Widget bottomLogin() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:provider/provider.dart';
-import 'view_model/auth_view_model.dart';
+import 'view_model/user_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => UserViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

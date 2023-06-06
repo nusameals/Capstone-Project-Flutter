@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
-import 'package:nusameals/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
-import '../../model/user_model.dart';
+import '../../view_model/user_view_model.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,18 +15,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _secureText = true;
   bool validForm = false;
-  late LoginRequestModel requestModel;
-
-  @override
-  void initState() {
-    super.initState();
-    requestModel = LoginRequestModel(email: "", password: "");
-  }
 
   showHide() {
     setState(() {
@@ -37,16 +30,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
-    final _authProvider = Provider.of<AuthProvider>(context);
-
+    // ignore: no_leading_underscores_for_local_identifiers, unused_local_variable
+    final _userViewModel = Provider.of<UserViewModel>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -82,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Form(
-                                key: formKey,
+                                key: _formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -97,24 +89,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     const SizedBox(height: 31),
                                     TextFormField(
-                                      controller: _emailController,
+                                      controller: _usernameController,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
-                                          labelText: 'Email',
+                                          labelText: 'Username',
                                           labelStyle: GoogleFonts.poppins(
                                               fontSize: 16)),
-                                      onSaved: (input) =>
-                                          requestModel.email = input!,
-                                      validator: (email) {
-                                        if (email!.isEmpty) {
-                                          return "please enter email";
+                                      // ignore: body_might_complete_normally_nullable
+                                      validator: (username) {
+                                        if (username!.isEmpty) {
+                                          return 'username cannot be empty';
+                                        } else if (RegExp(r'^[a-z][A-Za-z]*$')
+                                            .hasMatch(username)) {
+                                          return 'username must start with capital letter';
                                         }
-                                        if (!RegExp(
-                                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                            .hasMatch(email)) {
-                                          return "please enter valid email";
-                                        }
-                                        return null;
                                       },
                                     ),
                                     const SizedBox(height: 20),
@@ -140,8 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 ),
                                         ),
                                       ),
-                                      onSaved: (input) =>
-                                          requestModel.password = input!,
+
                                       // ignore: body_might_complete_normally_nullable
                                       validator: (password) {
                                         if (password == null ||
@@ -171,35 +158,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            if (validateAndSave()) {
-                                              // ignore: prefer_const_declarations, unused_local_variable
-                                              final text =
-                                                  'Successefully, please wait...';
-                                              // ignore: unuseds_local_variable
-                                              final snackBar = SnackBar(
-                                                content: Text(
-                                                  text,
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 14,
-                                                      color: Colors.black),
-                                                ),
-                                                backgroundColor:
-                                                    const Color(0xffCDE1F2),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                              );
+                                            // ignore: unused_local_variable
+                                            final validForm = _formKey
+                                                .currentState!
+                                                .validate();
 
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
+                                            // ignore: unused_local_variable
+                                            final email =
+                                                _usernameController.text;
+                                            // ignore: unused_local_variable
+                                            final password =
+                                                _passwordController.text;
 
-                                              print(requestModel.toJson());
+                                            // ignore: unused_local_variable
+                                            final user =
+                                                Provider.of<UserViewModel>(
+                                                        context,
+                                                        listen: false)
+                                                    .loginUser(
+                                                        email_or_username:
+                                                            email,
+                                                        password: password);
 
-                                              Provider.of<AuthProvider>(context,
-                                                      listen: false)
-                                                  .toLoginJson();
-                                            }
-                                            _emailController.clear();
-                                            _passwordController.clear();
+                                            // _emailController.clear();
+                                            // _passwordController.clear();
                                           },
                                           child: Text(
                                             'Login',
@@ -257,15 +239,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ],
     );
-  }
-
-  bool validateAndSave() {
-    final form = formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
   }
 
   Widget createAccount() {

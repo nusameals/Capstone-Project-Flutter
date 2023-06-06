@@ -1,69 +1,39 @@
-class LoginResponsModel {
-  final String token;
-  final String error;
+class UserModel {
+  // ignore: non_constant_identifier_names
+  final String email_or_username;
+  final String username;
+  final String email;
+  final String password;
+  // ignore: non_constant_identifier_names
+  final String retype_Password;
 
-  LoginResponsModel({required this.token, required this.error});
+  UserModel({
+    // ignore: non_constant_identifier_names
+    required this.email_or_username,
+    required this.username,
+    required this.email,
+    required this.password,
+    // ignore: non_constant_identifier_names
+    required this.retype_Password,
+  });
 
-  factory LoginResponsModel.formJson(Map<String, dynamic> json) {
-    return LoginResponsModel(
-        // ignore: prefer_if_null_operators
-        token: json["token"] != null ? json["token"] : "",
-        // ignore: prefer_if_null_operators
-        error: json["error"] != null ? json["error"] : "");
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      email_or_username: json['email_or_username'],
+      username: json['username'],
+      email: json['email'],
+      password: json['password'],
+      retype_Password: json['retype_password'],
+    );
   }
-}
-
-class LoginRequestModel {
-  String email;
-  String password;
-
-  LoginRequestModel({required this.email, required this.password});
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'email': email.toString(),
-      'password': password.toString(),
+    return {
+      'usernamelog': email_or_username,
+      'username': username,
+      'email': email,
+      'password': password,
+      'retype_password': retype_Password,
     };
-
-    return map;
-  }
-}
-
-class RegisterResponsModel {
-  final String token;
-  final String error;
-
-  RegisterResponsModel({required this.token, required this.error});
-
-  factory RegisterResponsModel.formJson(Map<String, dynamic> json) {
-    return RegisterResponsModel(
-        // ignore: prefer_if_null_operators
-        token: json["token"] != null ? json["token"] : "",
-        // ignore: prefer_if_null_operators
-        error: json["error"] != null ? json["error"] : "");
-  }
-}
-
-class RegisterRequestModel {
-  String username;
-  String email;
-  String password;
-  String confirmPassword;
-
-  RegisterRequestModel(
-      {required this.username,
-      required this.email,
-      required this.password,
-      required this.confirmPassword});
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'username': username.toString(),
-      'email': email.toString(),
-      'password': password.toString(),
-      'confirmpassword': confirmPassword.toString(),
-    };
-
-    return map;
   }
 }
