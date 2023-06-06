@@ -50,7 +50,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   const SizedBox(width: 10),
                   Text('Changed Password',
                       style: GoogleFonts.poppins(
-                          fontSize: 20, color: Colors.black))
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black))
                 ],
               ),
               const SizedBox(height: 41),
@@ -59,7 +61,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                 obscureText: _passwordSecureText,
                 decoration: InputDecoration(
                   labelText: 'New Password',
-                  labelStyle: GoogleFonts.poppins(fontSize: 14),
+                  labelStyle: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                   suffixIcon: IconButton(
                     onPressed: showHidePassword,
                     icon: _passwordSecureText
@@ -94,7 +97,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                 obscureText: _confirmPasswordSecureText,
                 decoration: InputDecoration(
                   labelText: 'Confirm New Password',
-                  labelStyle: GoogleFonts.poppins(fontSize: 14),
+                  labelStyle: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                   suffixIcon: IconButton(
                     onPressed: showHideConfirmPassword,
                     icon: _confirmPasswordSecureText
@@ -159,6 +163,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     'Submit',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: validForm
                           ? const Color(0xffFFFFFF)
                           : const Color(0xff484848),

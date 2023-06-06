@@ -42,9 +42,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Text(
                     'Forgot Password',
                     style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
                   )
                 ],
               ),
@@ -54,7 +54,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: GoogleFonts.poppins(fontSize: 14)),
+                    labelStyle: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w400)),
                 onChanged: (value) {
                   setState(() {
                     validForm = _emailController.text.isNotEmpty;
@@ -88,6 +89,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   child: Text('Submit',
                       style: GoogleFonts.poppins(
                         fontSize: 14,
+                        fontWeight: FontWeight.w400,
                         color: validForm
                             ? const Color(0xffFFFFFF)
                             : const Color(0xff484848),

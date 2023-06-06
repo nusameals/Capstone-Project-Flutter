@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       style: GoogleFonts.poppins(
                                         fontSize: 32,
                                         color: const Color(0xff0669BD),
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                     const SizedBox(height: 10),
@@ -99,8 +99,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                         labelText: 'Username',
-                                        labelStyle:
-                                            GoogleFonts.poppins(fontSize: 16),
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
                                       ),
 
                                       // ignore: body_might_complete_normally_nullable
@@ -119,8 +120,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                         labelText: 'Email',
-                                        labelStyle:
-                                            GoogleFonts.poppins(fontSize: 16),
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
                                       ),
                                       validator: (email) {
                                         if (email!.isEmpty) {
@@ -139,8 +141,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       obscureText: _passwordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
-                                        labelStyle:
-                                            GoogleFonts.poppins(fontSize: 16),
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
                                         suffixIcon: IconButton(
                                           onPressed: showHidePassword,
                                           icon: _passwordSecureText
@@ -172,8 +175,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         errorText: isRetypePasswordValid
                                             ? null
                                             : 'Field ini harus diisi.',
-                                        labelStyle:
-                                            GoogleFonts.poppins(fontSize: 16),
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
                                         suffixIcon: IconButton(
                                           onPressed: showHideConfirmPassword,
                                           icon: _confirmPasswordSecureText
@@ -278,7 +282,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Text(
             'Create Account',
             style: GoogleFonts.poppins(
-                fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+                fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
           ),
         ),
       ),
@@ -290,7 +294,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Don't have an account ?",
-            style: GoogleFonts.poppins(fontSize: 14)),
+            style:
+                GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400)),
         TextButton(
           onPressed: () {
             Navigator.push(
@@ -302,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Text(
             'Login',
             style: GoogleFonts.poppins(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
           ),
         )
       ],

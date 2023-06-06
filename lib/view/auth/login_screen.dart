@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: GoogleFonts.poppins(
                                         fontSize: 32,
                                         color: const Color(0xff0669BD),
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                     const SizedBox(height: 31),
@@ -94,7 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       decoration: InputDecoration(
                                           labelText: 'Username',
                                           labelStyle: GoogleFonts.poppins(
-                                              fontSize: 16)),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400)),
                                       // ignore: body_might_complete_normally_nullable
                                       validator: (username) {
                                         if (username!.isEmpty) {
@@ -111,8 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       obscureText: _secureText,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
-                                        labelStyle:
-                                            GoogleFonts.poppins(fontSize: 16),
+                                        labelStyle: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
                                         suffixIcon: IconButton(
                                           onPressed: showHide,
                                           icon: _secureText
@@ -187,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             'Login',
                                             style: GoogleFonts.poppins(
                                                 fontSize: 14,
-                                                fontWeight: FontWeight.w600,
+                                                fontWeight: FontWeight.w700,
                                                 color: Colors.white),
                                           ),
                                         ),
@@ -234,7 +236,8 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Text(
             'Forgot Password',
-            style: GoogleFonts.poppins(color: Colors.black),
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           ),
         ),
       ],
@@ -246,7 +249,8 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Don't have an account ?",
-            style: GoogleFonts.poppins(fontSize: 14)),
+            style:
+                GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400)),
         TextButton(
           onPressed: () {
             Navigator.push(
@@ -258,7 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text(
             'Create Account',
             style: GoogleFonts.poppins(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.w700),
           ),
         )
       ],
