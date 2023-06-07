@@ -39,8 +39,10 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
                   ),
                   Text(
                     'Update Profile',
-                    style:
-                        GoogleFonts.poppins(fontSize: 22, color: Colors.black),
+                    style: GoogleFonts.poppins(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
                   )
                 ],
               ),
@@ -108,6 +110,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
             'Choose profile photo',
             style: GoogleFonts.poppins(
               fontSize: 20,
+              fontWeight: FontWeight.w400,
             ),
           ),
           const SizedBox(height: 10),
@@ -121,7 +124,10 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
               ),
               Text(
                 'Camera',
-                style: GoogleFonts.poppins(fontSize: 14),
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               IconButton(
                 onPressed: () {
@@ -131,7 +137,10 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
               ),
               Text(
                 'Gallery',
-                style: GoogleFonts.poppins(fontSize: 14),
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           )
@@ -154,25 +163,28 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
         TextFormField(
           controller: _usernameController,
           keyboardType: TextInputType.text,
-          decoration: const InputDecoration(
-            labelText: 'Username',
-          ),
+          decoration: InputDecoration(
+              labelText: 'Username',
+              labelStyle: GoogleFonts.poppins(
+                  fontSize: 14, fontWeight: FontWeight.w400)),
         ),
         const SizedBox(height: 20),
         TextFormField(
           controller: _emailController,
           keyboardType: TextInputType.text,
-          decoration: const InputDecoration(
-            labelText: 'Email',
-          ),
+          decoration: InputDecoration(
+              labelText: 'Email',
+              labelStyle: GoogleFonts.poppins(
+                  fontSize: 14, fontWeight: FontWeight.w400)),
         ),
         const SizedBox(height: 20),
         TextFormField(
           controller: _phoneNumberController,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: 'Phone',
-          ),
+          decoration: InputDecoration(
+              labelText: 'Phone',
+              labelStyle: GoogleFonts.poppins(
+                  fontSize: 14, fontWeight: FontWeight.w400)),
         ),
       ],
     );
@@ -188,14 +200,44 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
             borderRadius: BorderRadius.circular(80),
           ),
         ),
-        onPressed: () {},
+        onPressed: () async {
+          if (validateAndSave()) {
+            // ignore: prefer_const_declarations, unused_local_variable
+            final text = 'Proile has been updated';
+            // ignore: unuseds_local_variable
+            final snackBar = SnackBar(
+              content: Text(
+                text,
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+              backgroundColor: const Color(0xffCDE1F2),
+              behavior: SnackBarBehavior.floating,
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            await Future.delayed(const Duration(seconds: 2));
+          }
+        },
         child: Text(
           'Updates',
           style: GoogleFonts.poppins(
             fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
   }
 }

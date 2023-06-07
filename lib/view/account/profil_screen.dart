@@ -25,7 +25,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
         title: Text('Profile',
-            style: GoogleFonts.poppins(fontSize: 20, color: Colors.white)),
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.w400)),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -65,7 +68,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           style: GoogleFonts.poppins(
                               fontSize: 20,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
@@ -100,6 +103,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 'Username',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
               ),
@@ -107,6 +111,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 'Triana Davis',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
               )
@@ -120,6 +125,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 'Email',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
               ),
@@ -127,6 +133,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 'trianadavis@gmail.com',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
               )
@@ -140,6 +147,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 'Phone',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
               ),
@@ -147,6 +155,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 '-',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),
               )
@@ -181,9 +190,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
         },
         child: Text(
           'Update Profile',
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-          ),
+          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -220,7 +227,8 @@ class _ProfilScreenState extends State<ProfilScreen> {
           ),
           child: const Text(
             'Logout',
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(
+                fontSize: 14, fontWeight: FontWeight.w400, color: Colors.red),
           ),
         ),
       ),

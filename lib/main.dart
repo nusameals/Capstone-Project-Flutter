@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:provider/provider.dart';
+import 'view/account/profil_screen.dart';
 import 'view/splash_screen.dart';
 import 'view_model/provider/auth_provider.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           fontFamily: 'poppins',
         ),
-        home: const LoginScreen(),
+        home: const ProfilScreen(),
       ),
     );
   }
