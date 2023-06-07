@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+<<<<<<< HEAD
 import 'package:shared_preferences/shared_preferences.dart';
+=======
+import 'package:nusameals/view/auth/login_screen.dart';
+>>>>>>> account
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     Timer(const Duration(seconds: 3), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
@@ -25,6 +30,13 @@ class _SplashScreenState extends State<SplashScreen> {
         // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, '/login');
       }
+=======
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+>>>>>>> account
     });
   }
 

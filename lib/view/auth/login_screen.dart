@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'package:provider/provider.dart';
+<<<<<<< HEAD
 import '../../view_model/user_view_model.dart';
+=======
+import '../../model/login_model.dart';
+import '../../view_model/provider/auth_provider.dart';
+import '../account/profil_screen.dart';
+>>>>>>> account
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -37,8 +43,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     // ignore: no_leading_underscores_for_local_identifiers, unused_local_variable
     final _userViewModel = Provider.of<UserViewModel>(context);
+=======
+    // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
+    final _authProvider = Provider.of<AuthProvider>(context);
+
+>>>>>>> account
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -159,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   BorderRadius.circular(100),
                                             ),
                                           ),
+<<<<<<< HEAD
                                           onPressed: () {
                                             // ignore: unused_local_variable
                                             final validForm = _formKey
@@ -171,6 +184,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                             // ignore: unused_local_variable
                                             final password =
                                                 _passwordController.text;
+=======
+                                          onPressed: () async {
+                                            if (validateAndSave()) {
+                                              // ignore: prefer_const_declarations, unused_local_variable
+                                              final text =
+                                                  'Successefully, please wait...';
+                                              // ignore: unuseds_local_variable
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                  text,
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      color: Colors.black),
+                                                ),
+                                                backgroundColor:
+                                                    const Color(0xffCDE1F2),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                              );
+>>>>>>> account
 
                                             // ignore: unused_local_variable
                                             final user =
@@ -182,8 +215,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                                             email,
                                                         password: password);
 
+<<<<<<< HEAD
                                             // _emailController.clear();
                                             // _passwordController.clear();
+=======
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                              await Future.delayed(
+                                                  const Duration(seconds: 2));
+
+                                              print(requestModel.toJson());
+                                            }
+                                            _emailController.clear();
+                                            _passwordController.clear();
+
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProfilScreen()),
+                                            );
+>>>>>>> account
                                           },
                                           child: Text(
                                             'Login',
