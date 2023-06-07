@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/auth/login_screen.dart';
 import 'dart:async';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +14,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
+    Timer(const Duration(seconds: 3), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+      if (isLoggedIn) {
+        // Pengguna sudah login, navigasikan ke halaman profil
+      } else {
+        // Pengguna belum login atau register, navigasikan ke halaman login
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/login');
+      }
     });
   }
 

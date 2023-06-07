@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
+import 'package:nusameals/view/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'view_model/user_view_model.dart';
 
@@ -24,7 +25,11 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           fontFamily: 'poppins',
         ),
-        home: const LoginScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+        },
       ),
     );
   }
