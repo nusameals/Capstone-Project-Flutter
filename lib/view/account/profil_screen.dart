@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/account/update_profil_screen.dart';
-import '../auth/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({super.key});
@@ -11,6 +11,30 @@ class ProfilScreen extends StatefulWidget {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
+  late SharedPreferences prefs;
+  bool isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    loadSharedPreferences();
+  }
+
+  Future<void> loadSharedPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    setState(() {
+      this.isLoggedIn = isLoggedIn;
+    });
+  }
+
+  Future<void> setLoggedIn(bool value) async {
+    await prefs.setBool('isLoggedIn', value);
+    setState(() {
+      isLoggedIn = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -209,12 +233,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-                (route) => false);
+            Navigator.pushNamed(context, '/login');
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,

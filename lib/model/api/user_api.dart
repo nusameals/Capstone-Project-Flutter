@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,11 +23,17 @@ class UserAPI {
       });
 
       if (response.statusCode == 200) {
-        String token = response.body;
-        // ignore: avoid_print
-        print(token);
-        await prefs.setString('token', token);
-        return token;
+        final responData = jsonDecode(response.body);
+        String id = responData['id'].toString();
+        String username = responData['username'];
+        String token = responData['token'];
+        debugPrint(id);
+        debugPrint(username);
+        debugPrint(token);
+        prefs.setString('id', responData['id'].toString());
+        prefs.setString('username', responData['username']);
+        prefs.setString('token', responData['token']);
+        return responData;
       } else {
         throw Exception('user or email not found');
       }

@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/user_view_model.dart';
 
@@ -220,11 +219,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                     const SizedBox(height: 10),
                                     bottomSizeBox(),
-                                    const SizedBox(height: 10),
-                                    bottomLogin()
+                                    // const SizedBox(height: 10),
                                   ],
                                 ),
-                              )
+                              ),
+                              bottomLogin()
                             ],
                           ),
                         ),
@@ -298,11 +297,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400)),
         TextButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ));
+            Navigator.pushNamed(context, '/login');
           },
           child: Text(
             'Login',

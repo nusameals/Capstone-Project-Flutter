@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserModel {
   // ignore: non_constant_identifier_names
   final String email_or_username;
@@ -17,23 +19,14 @@ class UserModel {
     required this.retype_Password,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  static UserModel fromJson({required json}) {
+    // ignore: unused_local_variable
+    final data = jsonDecode(json);
     return UserModel(
-      email_or_username: json['email_or_username'],
-      username: json['username'],
-      email: json['email'],
-      password: json['password'],
-      retype_Password: json['retype_password'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'usernamelog': email_or_username,
-      'username': username,
-      'email': email,
-      'password': password,
-      'retype_password': retype_Password,
-    };
+        email_or_username: json['email_or_username'],
+        username: json['username'],
+        email: json['email'],
+        password: json['password'],
+        retype_Password: json['retype_password']);
   }
 }
