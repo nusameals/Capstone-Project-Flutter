@@ -273,10 +273,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               retype_password: confirmPassword,
             );
 
-            // _usernameController.clear();
-            // _emailController.clear();
-            // _passwordController.clear();
-            // _confirmpasswordController.clear();
+            _usernameController.clear();
+            _emailController.clear();
+            _passwordController.clear();
+            _confirmpasswordController.clear();
           },
           child: Text(
             'Create Account',

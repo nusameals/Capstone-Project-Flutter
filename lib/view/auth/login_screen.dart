@@ -20,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _secureText = true;
   bool validForm = false;
+  late SharedPreferences loginData;
+  late bool newUser;
 
   @override
   void initState() {
@@ -27,11 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
     _checkLoginStatus();
   }
 
-  Future<void> _checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-    if (isLoggedIn) {
-      // Pengguna telah login, lakukan navigasi ke layar berikutnya
+  void _checkLoginStatus() async {
+    loginData = await SharedPreferences.getInstance();
+    newUser = loginData.getBool('login') ?? true;
+
+    if (newUser == false) {
       // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, '/profile');
     }
@@ -205,9 +207,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                               final validForm = _formKey
                                                   .currentState!
                                                   .validate();
+                                              // ignore: non_constant_identifier_names
+                                              String Username =
+                                                  _usernameController.text;
+                                              if (validForm) {
+                                                loginData.setBool(
+                                                    'login', false);
+                                                loginData.setString(
+                                                    'username', Username);
+                                              }
 
                                               // ignore: unused_local_variable
-                                              final email =
+                                              final username =
                                                   _usernameController.text;
                                               // ignore: unused_local_variable
                                               final password =
@@ -221,11 +232,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           listen: false)
                                                       .loginUser(
                                                           email_or_username:
-                                                              email,
+                                                              username,
                                                           password: password);
 
-                                              // _emailController.clear();
-                                              // _passwordController.clear();
+                                              _usernameController.clear();
+                                              _passwordController.clear();
 
                                               // ignore: use_build_context_synchronously
                                               Navigator.pushNamed(

@@ -151,9 +151,11 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
 
   void takePhoto(ImageSource source) async {
     // ignore: deprecated_member_use, non_constant_identifier_names
-    final PickedFile = await _picker.getImage(source: source);
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
     setState(() {
-      _imageFile = PickedFile!;
+      _imageFile = pickedFile!;
     });
   }
 

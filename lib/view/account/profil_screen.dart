@@ -11,27 +11,20 @@ class ProfilScreen extends StatefulWidget {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
-  late SharedPreferences prefs;
-  bool isLoggedIn = false;
+  late SharedPreferences loginData;
+  // ignore: non_constant_identifier_names
+  String Username = '';
 
   @override
   void initState() {
     super.initState();
-    loadSharedPreferences();
+    initial();
   }
 
-  Future<void> loadSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  void initial() async {
+    loginData = await SharedPreferences.getInstance();
     setState(() {
-      this.isLoggedIn = isLoggedIn;
-    });
-  }
-
-  Future<void> setLoggedIn(bool value) async {
-    await prefs.setBool('isLoggedIn', value);
-    setState(() {
-      isLoggedIn = value;
+      Username = loginData.getString('username').toString();
     });
   }
 
@@ -88,7 +81,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         const SizedBox(width: 10, height: 21),
                         Text(
-                          'Triana Davis',
+                          Username,
                           style: GoogleFonts.poppins(
                               fontSize: 20,
                               color: Colors.black,
@@ -233,6 +226,8 @@ class _ProfilScreenState extends State<ProfilScreen> {
         ),
         child: ElevatedButton(
           onPressed: () {
+            loginData.setBool('login', true);
+            loginData.remove('username');
             Navigator.pushNamed(context, '/login');
           },
           style: ElevatedButton.styleFrom(
