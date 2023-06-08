@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nusameals/view/reservation/reservationnow.dart';
 
 class DetailReservation extends StatefulWidget {
   final String imageUrl;
@@ -40,7 +41,11 @@ class _DetailReservationState extends State<DetailReservation> {
             width: 370,
             child: ElevatedButton(
               onPressed: () {
-                // Tambahkan logika aksi yang ingin Anda lakukan saat tombol ditekan
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => const ReservationNow(),
+
+                );
               },
               child: Text('Reservasi Now',style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
