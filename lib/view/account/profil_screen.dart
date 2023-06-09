@@ -14,6 +14,8 @@ class _ProfilScreenState extends State<ProfilScreen> {
   late SharedPreferences loginData;
   // ignore: non_constant_identifier_names
   String Username = '';
+  // ignore: non_constant_identifier_names
+  String Email = '';
 
   @override
   void initState() {
@@ -25,6 +27,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
     loginData = await SharedPreferences.getInstance();
     setState(() {
       Username = loginData.getString('username').toString();
+      Email = loginData.getString('email').toString();
     });
   }
 
@@ -125,7 +128,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 ),
               ),
               Text(
-                'Triana Davis',
+                Username,
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -147,7 +150,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 ),
               ),
               Text(
-                'trianadavis@gmail.com',
+                Email,
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

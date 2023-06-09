@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_model/user_view_model.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -20,6 +21,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _passwordSecureText = true;
   bool _confirmPasswordSecureText = true;
   bool isRetypePasswordValid = true;
+  late SharedPreferences registerData;
+  late bool newUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  void _checkLoginStatus() async {
+    registerData = await SharedPreferences.getInstance();
+    newUser = registerData.getBool('register') ?? true;
+
+    if (newUser == false) {
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, '/login');
+    }
+  }
 
   showHidePassword() {
     setState(() {
@@ -204,18 +223,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         });
                                         return null;
                                       },
-                                      // validator: (confirmPassword) {
-                                      //   if (confirmPassword!.isEmpty) {
-                                      //     return 'Please re-enter password';
-                                      //   }
-
-                                      //   if (_passwordController.text !=
-                                      //       _confirmpasswordController.text) {
-                                      //     return "Password does not match";
-                                      //   }
-
-                                      //   return null;
-                                      // },
                                     ),
                                     const SizedBox(height: 10),
                                     bottomSizeBox(),
@@ -252,9 +259,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.circular(100),
             ),
           ),
-          onPressed: () {
+          onPressed: () async {
+            if (validateAndSave()) {
+              // ignore: prefer_const_declarations, unused_local_variable
+              final text = 'Successefully create your account, please wait...';
+              // ignore: unused_local_variable
+              final snackBar = SnackBar(
+                content: Text(
+                  text,
+                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
+                ),
+                backgroundColor: const Color(0xffCDE1F2),
+                behavior: SnackBarBehavior.floating,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              await Future.delayed(
+                const Duration(seconds: 3),
+              );
+            }
             // ignore: unused_local_variable
             final isValidForm = _formKey.currentState!.validate();
+            String Username = _usernameController.text;
+            String Email = _emailController.text;
+            if (isValidForm) {
+              registerData.setBool('login', false);
+              registerData.setString('username', Username);
+              registerData.setString('email', Email);
+            }
             // ignore: unused_local_variable
             final username = _usernameController.text;
             // ignore: unused_local_variable
@@ -266,6 +297,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             // ignore: unused_local_variable
             final user =
+                // ignore: use_build_context_synchronously
                 Provider.of<UserViewModel>(context, listen: false).registerUser(
               username: username,
               email: email,
@@ -286,6 +318,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
   }
 
   Widget bottomLogin() {

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_model/user_view_model.dart';
 import 'forgot_password_screen.dart';
 
@@ -20,24 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _secureText = true;
   bool validForm = false;
-  late SharedPreferences loginData;
-  late bool newUser;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkLoginStatus();
-  }
-
-  void _checkLoginStatus() async {
-    loginData = await SharedPreferences.getInstance();
-    newUser = loginData.getBool('login') ?? true;
-
-    if (newUser == false) {
-      // ignore: use_build_context_synchronously
-      Navigator.pushNamed(context, '/profile');
-    }
-  }
 
   showHide() {
     setState(() {
@@ -207,20 +189,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               final validForm = _formKey
                                                   .currentState!
                                                   .validate();
-                                              // ignore: non_constant_identifier_names
-                                              String Username =
-                                                  _usernameController.text;
-                                              if (validForm) {
-                                                loginData.setBool(
-                                                    'login', false);
-                                                loginData.setString(
-                                                    'username', Username);
-                                              }
 
-                                              // ignore: unused_local_variable
                                               final username =
                                                   _usernameController.text;
-                                              // ignore: unused_local_variable
+
                                               final password =
                                                   _passwordController.text;
 
@@ -239,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               _passwordController.clear();
 
                                               // ignore: use_build_context_synchronously
-                                              Navigator.pushNamed(
+                                              Navigator.pushReplacementNamed(
                                                   context, '/profile');
                                             },
                                             child: Text(
@@ -252,7 +224,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                       ),
-                                      // const SizedBox(height: 30),
                                     ],
                                   ),
                                 ),
