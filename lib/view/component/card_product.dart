@@ -24,7 +24,6 @@ class CardProduct extends StatelessWidget {
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
 
     return Container(
-      height: 240,
       decoration: BoxDecoration(
         color: ColorTheme.light1,
         borderRadius: BorderRadius.circular(20),
@@ -33,67 +32,70 @@ class CardProduct extends StatelessWidget {
           width: 2,
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              child: Image.asset(
+                imageProduct,
+                height: 95,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Image.asset(
-              imageProduct,
-              height: 100,
-              fit: BoxFit.cover,
+            const SizedBox(
+              height: 5,
             ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              nameProduct,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: ThemeText.bodyB14,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                nameProduct,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: ThemeText.bodyB14,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              lokasi,
-              style: ThemeText.bodyR12Dark5,
+            const SizedBox(
+              height: 2,
             ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    priceFormat.format(
-                      int.parse(price),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                lokasi,
+                style: ThemeText.bodyR12Dark5,
+              ),
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      priceFormat.format(
+                        int.parse(price),
+                      ),
+                      style: ThemeText.bodyB14,
                     ),
-                    style: ThemeText.bodyB14,
-                  ),
-                  Text(
-                    kalori,
-                    style: ThemeText.bodyR12Dark5,
-                  )
-                ]),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-        ],
+                    Text(
+                      kalori,
+                      style: ThemeText.bodyR12Dark5,
+                    )
+                  ]),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+          ],
+        ),
       ),
     );
   }

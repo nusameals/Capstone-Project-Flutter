@@ -47,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 500,
           autoPlay: true,
           enlargeCenterPage: true,
-        )
-    );
+        ));
     return Scaffold(
       body: SafeArea(
         child: ListView(
