@@ -78,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Positioned(
                   top: 173,
                   left: 22,
+                  right: 22,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 10),
