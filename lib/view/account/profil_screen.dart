@@ -230,7 +230,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
         child: ElevatedButton(
           onPressed: () {
             loginData.setBool('login', true);
-            loginData.remove('username');
+
             Navigator.pushNamed(context, '/login');
           },
           style: ElevatedButton.styleFrom(

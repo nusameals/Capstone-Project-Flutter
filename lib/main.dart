@@ -25,11 +25,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Nusa Meals',
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          fontFamily: 'poppins',
-        ),
+        title: 'Nusameals',
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),

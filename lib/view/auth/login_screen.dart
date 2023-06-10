@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_model/user_view_model.dart';
 import 'forgot_password_screen.dart';
 
@@ -98,14 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400)),
                                         // ignore: body_might_complete_normally_nullable
-                                        validator: (username) {
-                                          if (username!.isEmpty) {
-                                            return 'username cannot be empty';
-                                          } else if (RegExp(r'^[a-z][A-Za-z]*$')
-                                              .hasMatch(username)) {
-                                            return 'username must start with capital letter';
-                                          }
-                                        },
+                                        // validator: (username) {
+                                        //   if (username!.isEmpty) {
+                                        //     return 'Username masih kosong';
+                                        //   }
+                                        //   return null;
+                                        // },
                                       ),
                                       const SizedBox(height: 20),
                                       TextFormField(
@@ -131,16 +128,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   ),
                                           ),
                                         ),
-
                                         // ignore: body_might_complete_normally_nullable
-                                        validator: (password) {
-                                          if (password == null ||
-                                              password.isEmpty) {
-                                            return 'Masukaan Password';
-                                          } else if (password.length < 6) {
-                                            return 'Enter min 5 characters';
-                                          }
-                                        },
+                                        // validator: (password) {
+                                        //   if (password!.isEmpty) {
+                                        //     return 'Password masiih kosong';
+                                        //   }
+                                        //   return null;
+                                        // },
                                       ),
                                       const SizedBox(height: 30),
                                       bottomSheet(),
@@ -162,33 +156,91 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                             onPressed: () async {
-                                              if (validateAndSave()) {
-                                                // ignore: prefer_const_declarations, unused_local_variable
-                                                final text =
-                                                    'Successefully, please wait...';
-                                                // ignore: unused_local_variable
-                                                final snackBar = SnackBar(
-                                                  content: Text(
-                                                    text,
-                                                    style: GoogleFonts.poppins(
-                                                        fontSize: 14,
-                                                        color: Colors.black),
-                                                  ),
-                                                  backgroundColor:
-                                                      const Color(0xffCDE1F2),
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                );
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(snackBar);
-                                                await Future.delayed(
-                                                  const Duration(seconds: 5),
-                                                );
-                                              }
-                                              // ignore: unused_local_variable
-                                              final validForm = _formKey
+                                              if (validForm = _formKey
                                                   .currentState!
-                                                  .validate();
+                                                  .validate()) {
+                                                final email =
+                                                    _usernameController.text
+                                                        .trim();
+                                                final password =
+                                                    _passwordController.text
+                                                        .trim();
+                                                if (email.isEmpty ||
+                                                    password.isEmpty) {
+                                                  // ignore: use_build_context_synchronously
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                          'Username dan Password wajib di isi !!',
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: Colors
+                                                                      .red)),
+                                                      backgroundColor:
+                                                          const Color(
+                                                              0xffCDE1F2),
+                                                      behavior: SnackBarBehavior
+                                                          .floating,
+                                                    ),
+                                                  );
+                                                  return;
+                                                }
+                                                try {
+                                                  // ignore: unused_local_variable
+                                                  final responData =
+                                                      await loginUser(
+                                                    email_or_username: email,
+                                                    password: password,
+                                                  );
+                                                  if (validateAndSave()) {
+                                                    // ignore: prefer_const_declarations, unused_local_variable
+                                                    final text =
+                                                        'Successefully, please wait...';
+                                                    // ignore: unused_local_variable
+                                                    final snackBar = SnackBar(
+                                                      content: Text(
+                                                        text,
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .black),
+                                                      ),
+                                                      backgroundColor:
+                                                          const Color(
+                                                              0xffCDE1F2),
+                                                      behavior: SnackBarBehavior
+                                                          .floating,
+                                                    );
+                                                    // ignore: use_build_context_synchronously
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(snackBar);
+                                                    await Future.delayed(
+                                                      const Duration(
+                                                          seconds: 5),
+                                                    );
+                                                  }
+                                                  // ignore: use_build_context_synchronously
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context, '/profile');
+                                                } catch (error) {
+                                                  // ignore: use_build_context_synchronously
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                          'Failed to login. ${error.toString()}'),
+                                                    ),
+                                                  );
+                                                }
+                                              }
 
                                               final username =
                                                   _usernameController.text;
@@ -209,10 +261,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                               _usernameController.clear();
                                               _passwordController.clear();
-
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.pushReplacementNamed(
-                                                  context, '/profile');
                                             },
                                             child: Text(
                                               'Login',
@@ -303,3 +351,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+// ignore: non_constant_identifier_names
+loginUser({required String email_or_username, required String password}) {}
