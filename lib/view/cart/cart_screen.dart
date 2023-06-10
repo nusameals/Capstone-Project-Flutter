@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
 import '../component/button_primary.dart';
+import '../component/costum_snackbar.dart';
+import '../home/home_screen.dart';
 import '../menu/dummy.dart';
 
 class CartScreen extends StatefulWidget {
@@ -18,6 +20,8 @@ class _CartScreenState extends State<CartScreen> {
   bool dineInSelected = false;
   bool takeAwaySelected = false;
   int selectedNumber = 0;
+  final TextEditingController _controller = TextEditingController();
+  String _selectedPaymentMethod = '';
 
   void incrementQuantity(int index) {
     setState(() {
@@ -143,7 +147,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                 Navigator.pop(
                                                                     context);
                                                               },
-                                                              icon: Icon(Icons
+                                                              icon: const Icon(Icons
                                                                   .arrow_back)),
                                                           Text(
                                                             'Confirmation',
@@ -621,7 +625,254 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 color: ColorTheme.light1,
               ),
-              child: PrimaryButton(text: "Make an order", onPressed: () {}),
+              child: PrimaryButton(
+                  text: "Make an order",
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
+                        builder: (BuildContext context) {
+                          return StatefulBuilder(builder:
+                              (BuildContext context, StateSetter setState) {
+                            return Container(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: const Icon(Icons.arrow_back)),
+                                      Text(
+                                        'Payment Method',
+                                        style: ThemeText.subHeadingR20,
+                                      ),
+                                    ],
+                                  ),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/cash.png",
+                                          width: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Cash',
+                                            style: ThemeText.subHeadingB20),
+                                      ],
+                                    ),
+                                    leading: Radio(
+                                      value: 'Cash',
+                                      groupValue: _selectedPaymentMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedPaymentMethod =
+                                              value as String;
+                                        });
+                                      },
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                  ),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/debit.png",
+                                          width: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Debit Card',
+                                            style: ThemeText.subHeadingB20),
+                                      ],
+                                    ),
+                                    leading: Radio(
+                                      value: 'Debit Card',
+                                      groupValue: _selectedPaymentMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedPaymentMethod =
+                                              value as String;
+                                        });
+                                      },
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                  ),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/dana.png",
+                                          width: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Dana',
+                                            style: ThemeText.subHeadingB20),
+                                      ],
+                                    ),
+                                    leading: Radio(
+                                      value: 'Dana',
+                                      groupValue: _selectedPaymentMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedPaymentMethod =
+                                              value as String;
+                                        });
+                                      },
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                  ),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/ovo.png",
+                                          width: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Ovo',
+                                            style: ThemeText.subHeadingB20),
+                                      ],
+                                    ),
+                                    leading: Radio(
+                                      value: 'Ovo',
+                                      groupValue: _selectedPaymentMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedPaymentMethod =
+                                              value as String;
+                                        });
+                                      },
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                  ),
+                                  ListTile(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/gopay.png",
+                                          width: 30,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Gopay',
+                                            style: ThemeText.subHeadingB20),
+                                      ],
+                                    ),
+                                    leading: Radio(
+                                      value: 'Gopay',
+                                      groupValue: _selectedPaymentMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedPaymentMethod =
+                                              value as String;
+                                        });
+                                      },
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Divider(
+                                    thickness: 2,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Total',
+                                              style: ThemeText.bodyB16,
+                                            ),
+                                            Text(
+                                              'Rp55.000',
+                                              style: ThemeText.bodyB16,
+                                            )
+                                          ],
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            _controller.text =
+                                                _selectedPaymentMethod;
+                                            // final selectedPaymentMethod =
+                                            //     _controller.text;
+                                            CustomSnackbar.showSnackbar(
+                                              context,
+                                              'Thanks for order, please wait...',
+                                              actionText: 'Order more',
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const HomeScreen()));
+                                              },
+                                            );
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                ColorTheme.primaryBlue,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 60,
+                                              vertical: 8,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            'Checkout',
+                                            style: ThemeText.bodyB145W,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          });
+                        });
+                  }),
             ),
           ),
         ],
