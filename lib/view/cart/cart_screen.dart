@@ -115,7 +115,143 @@ class _CartScreenState extends State<CartScreen> {
                                         style: ThemeText.subHeadingB18,
                                       ),
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          showModalBottomSheet<void>(
+                                              context: context,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                  top: Radius.circular(20),
+                                                ),
+                                              ),
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                  padding:
+                                                      const EdgeInsets.all(16),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          IconButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              icon: Icon(Icons
+                                                                  .arrow_back)),
+                                                          Text(
+                                                            'Confirmation',
+                                                            style: ThemeText
+                                                                .subHeadingR20,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 16),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 16),
+                                                        child: Text(
+                                                          'Do you want to remove "${item['nameProduct']}" ?',
+                                                          // style:
+                                                          //     ThemeText.bodyR18,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 16),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Expanded(
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                backgroundColor:
+                                                                    ColorTheme
+                                                                        .light1,
+                                                                // padding:
+                                                                //     const EdgeInsets
+                                                                //         .symmetric(
+                                                                //   horizontal: 75,
+                                                                //   vertical: 8,
+                                                                // ),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              50),
+                                                                  side: const BorderSide(
+                                                                      color: ColorTheme
+                                                                          .primaryBlue),
+                                                                ),
+                                                              ),
+                                                              child: Text(
+                                                                'No',
+                                                                style: ThemeText
+                                                                    .bodyR14B,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 6,
+                                                          ),
+                                                          Expanded(
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  dataMenuInCart
+                                                                      .removeAt(
+                                                                          index);
+                                                                });
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                backgroundColor:
+                                                                    ColorTheme
+                                                                        .secondaryDanger,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              50),
+                                                                ),
+                                                              ),
+                                                              child: Text(
+                                                                'Yes',
+                                                                style: ThemeText
+                                                                    .bodyB145W,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              });
+                                        },
                                         child: const Icon(
                                           Icons.delete_outline,
                                           size: 20,
