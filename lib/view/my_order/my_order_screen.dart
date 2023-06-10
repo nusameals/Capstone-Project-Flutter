@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'dummy.dart';
+import 'orders_details.dart';
 
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
@@ -65,7 +66,12 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                       itemCount: orderedList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OrderDetailScreen()));
+                          },
                           child: Card(
                             child: ListTile(
                               contentPadding: EdgeInsets.zero,
