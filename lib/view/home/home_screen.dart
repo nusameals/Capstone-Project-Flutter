@@ -49,46 +49,46 @@ class _HomeScreenState extends State<HomeScreen> {
           enlargeCenterPage: true,
         ));
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
+        body: CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(74),
+            child: Stack(
               children: [
-                Container(
-                  height: 230,
-                  width: double.infinity,
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-                  decoration: const BoxDecoration(
-                    color: ColorTheme.primaryBlue,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30),
-                    ),
-                  ),
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                        height: 160,
-                        child: autoPlayImage,
+                Column(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
+                        color: ColorTheme.primaryBlue,
                       ),
-                    ],
-                  ),
+                      width: double.infinity,
+                      height: 70,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+                      color: Colors.transparent,
+                    ),
+                  ],
                 ),
                 Positioned(
-                  top: 173,
+                  bottom: 0,
                   left: 22,
                   right: 22,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 10),
-                    height: 95,
-                    width: 370,
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: ColorTheme.light1,
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
-                        color: Color.fromARGB(255, 220, 220, 220),
+                        color: ColorTheme.light4,
                         width: 1,
                         style: BorderStyle.solid,
                       ),
@@ -164,70 +164,84 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 43,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
+          ),
+          pinned: true,
+          forceElevated: true,
+          expandedHeight: 300,
+          flexibleSpace: FlexibleSpaceBar(
+            background: SizedBox(
+              width: double.infinity,
+              child: ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Special for you',
-                        style: ThemeText.bodyB16,
-                      ),
-                      IconButton(
-                          onPressed:
-                              widget.onPressedSpecialForYou as void Function()?,
-                          icon: const Icon(
-                            Icons.arrow_forward,
-                            size: 22,
-                          ))
-                    ],
+                  Container(
+                    color: ColorTheme.primaryBlue,
+                    height: 170,
+                    child: autoPlayImage,
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SizedBox(
-                width: double.infinity,
-                child: GridView.builder(
-                  itemCount: dataMenu.length,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 10),
-                  itemBuilder: (context, index) {
-                    final item = dataMenu[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailMenuScreen(),
-                            settings: RouteSettings(arguments: item),
-                          ),
-                        );
-                      },
-                      child: CardProduct(
-                          imageProduct: item['imageProduct'],
-                          nameProduct: item['nameProduct'],
-                          lokasi: item['lokasi'],
-                          price: item['price'],
-                          kalori: item['kalori']),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Special for you',
+                      style: ThemeText.bodyB16,
+                    ),
+                    IconButton(
+                        onPressed:
+                            widget.onPressedSpecialForYou as void Function()?,
+                        icon: const Icon(
+                          Icons.arrow_forward,
+                          size: 22,
+                        ))
+                  ],
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: GridView.builder(
+                    itemCount: dataMenu.length,
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 10),
+                    itemBuilder: (context, index) {
+                      final item = dataMenu[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailMenuScreen(),
+                              settings: RouteSettings(arguments: item),
+                            ),
+                          );
+                        },
+                        child: CardProduct(
+                            imageProduct: item['imageProduct'],
+                            nameProduct: item['nameProduct'],
+                            lokasi: item['lokasi'],
+                            price: item['price'],
+                            kalori: item['kalori']),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 }
