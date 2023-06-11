@@ -99,7 +99,11 @@ class ThemeText {
     fontSize: 14,
     color: ColorTheme.dark4,
   );
-
+  static TextStyle bodyR18 = GoogleFonts.poppins(
+    fontWeight: FontWeight.w400,
+    fontSize: 18,
+    color: ColorTheme.dark1,
+  );
   static TextStyle bodyR16 = GoogleFonts.poppins(
     fontWeight: FontWeight.w400,
     fontSize: 16,

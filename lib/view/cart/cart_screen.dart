@@ -165,8 +165,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                 horizontal: 16),
                                                         child: Text(
                                                           'Do you want to remove "${item['nameProduct']}" ?',
-                                                          // style:
-                                                          //     ThemeText.bodyR18,
+                                                          style:
+                                                              ThemeText.bodyR18,
                                                         ),
                                                       ),
                                                       const SizedBox(
