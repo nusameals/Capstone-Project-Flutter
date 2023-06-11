@@ -27,10 +27,14 @@ class CardProduct extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorTheme.light1,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: ColorTheme.light4,
-          width: 2,
-        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.15),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: SingleChildScrollView(
         child: Column(
