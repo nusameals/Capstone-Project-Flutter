@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import '../component/card_my_order.dart';
 import 'dummy.dart';
 import 'orders_details.dart';
 
@@ -27,6 +28,8 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                 color: Color(0xFF0669BD),
                 child: const TabBar(
                   indicatorColor: Colors.white,
+                  unselectedLabelColor: Colors.grey,
+                  labelColor: Colors.white,
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorPadding: EdgeInsets.symmetric(horizontal: 16),
                   tabs: [
@@ -60,119 +63,97 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    ListView.builder(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      itemCount: orderedList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => OrderDetailScreen()));
-                          },
-                          child: Card(
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(14),
-                                    bottomLeft: Radius.circular(14)),
-                                child: Image.network(
-                                  orderedList[index].imageUrl,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
+                    orderedList.isEmpty
+                        ? _listIsEmpty()
+                        : ListView.builder(
+                            itemCount: orderedList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
                                 ),
-                              ),
-                              title: Text(
-                                orderedList[index].id,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(orderedList[index].dateTime),
-                              trailing: Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Text(orderedList[index].price),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    ListView.builder(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      itemCount: processedList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(14),
-                                    bottomLeft: Radius.circular(14)),
-                                child: Image.network(
-                                  processedList[index].imageUrl,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const OrderDetailScreen()));
+                                  },
+                                  child: CardMyOrder(
+                                      id: orderedList[index].id,
+                                      dateTime: orderedList[index].dateTime,
+                                      price: orderedList[index].price,
+                                      imageUrl: orderedList[index].imageUrl),
                                 ),
-                              ),
-                              title: Text(
-                                processedList[index].id,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(processedList[index].dateTime),
-                              trailing: Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Text(processedList[index].price),
-                              ),
-                            ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                    ListView.builder(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      itemCount: orderedList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(14),
-                                    bottomLeft: Radius.circular(14)),
-                                child: Image.network(
-                                  orderedList[index].imageUrl,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              title: Text(
-                                orderedList[index].id,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(orderedList[index].dateTime),
-                              trailing: Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Text(orderedList[index].price),
-                              ),
-                            ),
+                    processedList.isEmpty
+                        ? _listIsEmpty()
+                        : ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 16),
+                            itemCount: processedList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: CardMyOrder(
+                                    id: processedList[index].id,
+                                    dateTime: processedList[index].dateTime,
+                                    price: processedList[index].price,
+                                    imageUrl: processedList[index].imageUrl),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
+                    finishedList.isEmpty
+                        ? _listIsEmpty()
+                        : ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 16),
+                            itemCount: finishedList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: CardMyOrder(
+                                    id: finishedList[index].id,
+                                    dateTime: finishedList[index].dateTime,
+                                    price: finishedList[index].price,
+                                    imageUrl: finishedList[index].imageUrl),
+                              );
+                            },
+                          ),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _listIsEmpty() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(
+            Icons.restaurant,
+            color: Colors.grey,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'You have not ordered anything yet',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }

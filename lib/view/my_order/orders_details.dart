@@ -23,14 +23,14 @@ class OrderDetailScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title: const Text(
           'Orders Detail',
         ),
       ),
       body: ListView(
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(20, 10, 20, 5),
+            margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,10 +52,10 @@ class OrderDetailScreen extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                        children: const [
                           Flexible(
                             child: Text(
-                              'Serabi',
+                              'Soto Ayam',
                               overflow: TextOverflow.ellipsis,
                               // maxLines: 1,
                             ),
@@ -70,9 +70,9 @@ class OrderDetailScreen extends StatelessWidget {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
-                                'Jawa Barat',
+                                'Jakarta',
                               ),
                               Text(
                                 '100 kkal',
@@ -94,46 +94,46 @@ class OrderDetailScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             endIndent: 20,
             indent: 20,
             thickness: 1,
             color: Colors.blue,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Orders Details',
                   textAlign: TextAlign.start,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text('Order Number'),
                     Text('67890'),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text('Type'),
                     Text('Dine In'),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text('Table Number'),
                     Text('4'),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Row(
