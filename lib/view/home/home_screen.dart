@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(74),
+            preferredSize: const Size.fromHeight(72),
             child: Stack(
               children: [
                 Column(
@@ -69,11 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: ColorTheme.primaryBlue,
                       ),
                       width: double.infinity,
-                      height: 70,
+                      height: 78,
                     ),
                     Container(
                       width: double.infinity,
-                      height: 60,
+                      height: 50,
                       color: Colors.transparent,
                     ),
                   ],
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: 22,
                   right: 22,
                   child: Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: ColorTheme.light1,
                       borderRadius: BorderRadius.circular(15),
@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           pinned: true,
           forceElevated: true,
-          expandedHeight: 300,
+          expandedHeight: 295,
           flexibleSpace: FlexibleSpaceBar(
             background: SizedBox(
               width: double.infinity,
