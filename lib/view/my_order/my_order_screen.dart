@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../component/card_my_order.dart';
 import 'dummy.dart';
 import 'orders_details.dart';
@@ -12,6 +13,7 @@ class MyOrderScreen extends StatefulWidget {
 }
 
 class _MyOrderScreenState extends State<MyOrderScreen> {
+  int _currentTabIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
             children: [
               Container(
                 color: Color(0xFF0669BD),
-                child: const TabBar(
+                child: TabBar(
                   indicatorColor: Colors.white,
                   unselectedLabelColor: Colors.grey,
                   labelColor: Colors.white,
@@ -36,28 +38,48 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                     Tab(
                       child: Text(
                         'Ordered',
-                        style: TextStyle(
-                          color: Colors.white,
+                        style: GoogleFonts.poppins(
+                          color: _currentTabIndex == 0
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.6),
+                          fontWeight: _currentTabIndex == 0
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),
                     Tab(
                       child: Text(
                         'Processed',
-                        style: TextStyle(
-                          color: Colors.white,
+                        style: GoogleFonts.poppins(
+                          color: _currentTabIndex == 1
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.6),
+                          fontWeight: _currentTabIndex == 1
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),
                     Tab(
                       child: Text(
                         'Finished',
-                        style: TextStyle(
-                          color: Colors.white,
+                        style: GoogleFonts.poppins(
+                          color: _currentTabIndex == 2
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.6),
+                          fontWeight: _currentTabIndex == 2
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),
                   ],
+                  onTap: (index) {
+                    setState(() {
+                      _currentTabIndex = index;
+                    });
+                  },
                 ),
               ),
               Expanded(
