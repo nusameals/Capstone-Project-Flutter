@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/reservation/reservationnow.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailReservation extends StatefulWidget {
   final String imageUrl;
+  final String title;
 
-  const DetailReservation({required this.imageUrl});
+  DetailReservation({required this.imageUrl, required this.title});
 
   @override
   _DetailReservationState createState() => _DetailReservationState();
@@ -23,18 +25,60 @@ class _DetailReservationState extends State<DetailReservation> {
                 child: Image.network(widget.imageUrl),
               ),
               Positioned(
-                top: 16,
-                left: 16,
-                child: IconButton(
-                  onPressed: () {
+                top: 24,
+                left: 25,
+                child: GestureDetector(
+                  onTap: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back),
+                  child: Container(
+                    width: 28,
+                    height: 28,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withOpacity(0.5)
+                    ),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          Text('data'),
+          SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                widget.title,
+                textAlign: TextAlign.left,
+                style: GoogleFonts.poppins(fontSize: 16,
+                fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('\u2022 10 seats',
+                  style: GoogleFonts.poppins(),),
+                  Text('\u2022 indoors',
+                    style: GoogleFonts.poppins(),),
+                  Text('\u2022 in the middle of the room',
+                    style: GoogleFonts.poppins(),),
+                ],
+              ),
+            ),
+          ),
           Spacer(),
           Divider(),
           Container(
@@ -47,7 +91,7 @@ class _DetailReservationState extends State<DetailReservation> {
 
                 );
               },
-              child: Text('Reservasi Now',style: TextStyle(color: Colors.white)),
+              child: Text('Reservasi Now',style: GoogleFonts.poppins(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 primary: Colors.blue,
               ),

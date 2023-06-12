@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nusameals/view/reservation/detail_mytable_screen.dart';
 import 'package:nusameals/view/reservation/detail_reservation_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class Seat {
@@ -33,14 +35,17 @@ class _ReservationPageState extends State<ReservationPage> {
     ),
     // Tambahkan entri Seat lainnya di sini
   ];
+  int _currentTabIndex = 0;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Color(0xFF0669BD),
-          title: Text('Reservation',style: TextStyle(color: Colors.white)),
+          title: Text('Reservation',
+              style: GoogleFonts.poppins(color: Colors.white)),
         ),
         body: Column(
           children: [
@@ -54,20 +59,27 @@ class _ReservationPageState extends State<ReservationPage> {
                   Tab(
                     child: Text(
                       'Table List',
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: GoogleFonts.poppins(
+                          color: _currentTabIndex == 0 ? Colors.white : Colors.white.withOpacity(0.6),
+                          fontWeight: _currentTabIndex == 0 ? FontWeight.bold : FontWeight.normal,
                       ),
                     ),
                   ),
                   Tab(
                     child: Text(
-                      'Table List',
-                      style: TextStyle(
-                        color: Colors.white,
+                      'My Table',
+                      style: GoogleFonts.poppins(
+                        color: _currentTabIndex == 1 ? Colors.white : Colors.white.withOpacity(0.6),
+                        fontWeight: _currentTabIndex == 1 ? FontWeight.bold : FontWeight.normal,
                       ),
                     ),
                   ),
                 ],
+                onTap: (index){
+                  setState(() {
+                    _currentTabIndex = index;
+                  });
+                },
               ),
             ),
             Expanded(
@@ -84,11 +96,75 @@ class _ReservationPageState extends State<ReservationPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DetailReservation(imageUrl: seats[index].imageUrl),
+                                builder: (context) => DetailReservation(
+                                    imageUrl: seats[index].imageUrl,
+                                    title: seats[index].title),
                               ),
                             );
                           },
-                          child: Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1,
+                                )
+                            ),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                height: 100,
+                                width: 70,
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(14),bottomLeft: Radius.circular(14)),
+                                    child: Image.network(seats[index].imageUrl,
+                                      fit: BoxFit.cover,
+                                    )
+                                ),
+                              ),
+                              title: Row(
+                                children: [
+                                  Text(seats[index].title,
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
+                                ],
+                              ),
+                              subtitle: Text(seats[index].subtitle,
+                              style: GoogleFonts.poppins(),),
+                              trailing: Text(seats[index].status,
+                              style: GoogleFonts.poppins(),),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                    itemCount: seats.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailMyTable(
+                                    imageUrl: seats[index].imageUrl,
+                                    title: seats[index].title),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
+                              )
+                            ),
                             child: ListTile(
                               contentPadding: EdgeInsets.zero,
                               leading: ClipRRect(
@@ -98,24 +174,13 @@ class _ReservationPageState extends State<ReservationPage> {
                                   )
                               ),
                               title: Text(seats[index].title,
-                                style: TextStyle(fontWeight: FontWeight.bold),),
-                              subtitle: Text(seats[index].subtitle),
-                              trailing: Text(seats[index].status),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
+                              subtitle: Text(seats[index].subtitle,
+                                style: GoogleFonts.poppins(),),
+                              trailing: Text(seats[index].status,
+                                style: GoogleFonts.poppins(),),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                  ListView.builder(
-                    itemCount: seats.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: ListTile(
-                          leading: Image.network(seats[index].imageUrl),
-                          title: Text(seats[index].title),
-                          subtitle: Text(seats[index].subtitle),
-                          trailing: Text(seats[index].status),
                         ),
                       );
                     },

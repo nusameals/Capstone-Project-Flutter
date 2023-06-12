@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReservationNow extends StatefulWidget {
   const ReservationNow({Key? key}) : super(key: key);
@@ -8,21 +9,38 @@ class ReservationNow extends StatefulWidget {
 }
 
 class _ReservationNowState extends State<ReservationNow> {
-  TimeOfDay? selectedTime;
+  TimeOfDay? selectedStartTime;
+  TimeOfDay? selectedEndTime;
   DateTime? selectedDate;
 
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
+  TextEditingController startTimeController = TextEditingController();
+  TextEditingController endTimeController = TextEditingController();
+
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: selectedStartTime ?? TimeOfDay.now(),
+      useRootNavigator: false,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
 
-    if (pickedTime != null && pickedTime != selectedTime) {
+    if (picked != null && picked != controller.text) {
       setState(() {
-        selectedTime = pickedTime;
+        controller.text = picked.format(context);
+        if (controller == startTimeController) {
+          selectedStartTime = picked;
+        } else if (controller == endTimeController) {
+          selectedEndTime = picked;
+        }
       });
     }
   }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -63,7 +81,7 @@ class _ReservationNowState extends State<ReservationNow> {
                   const SizedBox(width: 10),
                   Text(
                     'Please fill in the following form',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
@@ -103,9 +121,9 @@ class _ReservationNowState extends State<ReservationNow> {
                 ),
                 readOnly: true,
                 controller: TextEditingController(
-                  text: selectedDate != null
-                      ? DateFormat('yyyy-MM-dd').format(selectedDate!)
-                      :'',
+                  // text: selectedDate != null
+                  //     ? DateFormat('yyyy-MM-dd').format(selectedDate!)
+                  //     :'',
                 ),
               ),
               const SizedBox(height: 15),
@@ -114,7 +132,7 @@ class _ReservationNowState extends State<ReservationNow> {
                   Expanded(
                     child: TextFormField(
                       onTap: (){
-                        _selectTime(context);
+                        _selectTime(context, startTimeController);
                       },
                       decoration: InputDecoration(
                         labelText: 'Start',
@@ -126,7 +144,7 @@ class _ReservationNowState extends State<ReservationNow> {
                   Expanded(
                     child: TextFormField(
                       onTap: (){
-                        _selectTime(context);
+                        _selectTime(context, endTimeController);
                       },
                       decoration: InputDecoration(
                         labelText: 'End',
@@ -165,7 +183,8 @@ class _ReservationNowState extends State<ReservationNow> {
                   onPressed: () {
                     // Aksi saat tombol Submit ditekan
                   },
-                  child: Text('Submit'),
+                  child: Text('Submit',
+                  style: GoogleFonts.poppins()),
                 ),
               ),
             ],
