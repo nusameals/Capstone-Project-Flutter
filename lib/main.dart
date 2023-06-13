@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/main_screen.dart';
 import 'package:provider/provider.dart';
+import 'view/cart/cart_screen.dart';
+import 'view/home/home_screen.dart';
 import 'view/menu/search_screen.dart';
+import 'view/scan/scan_screen.dart';
 import 'view_model/cart_view_model.dart';
 import 'view_model/menu_view_model.dart';
 
@@ -28,7 +31,10 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const MainScreen(),
+          '/home': (context) => const HomeScreen(),
           '/search': (context) => const SearchScreen(),
+          '/scan': (context) => const ScanScreen(),
+          '/cart': (context) => const CartScreen(),
         },
       ),
     );
