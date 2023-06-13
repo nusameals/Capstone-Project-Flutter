@@ -7,7 +7,6 @@ import '../../view_model/cart_view_model.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 import '../home/home_screen.dart';
-import '../menu/dummy.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
