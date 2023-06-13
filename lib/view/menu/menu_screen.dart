@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/scan/scan_screen.dart';
+import 'package:provider/provider.dart';
 import '../../themes/constant.dart';
+import '../../view_model/menu_view_model.dart';
 import '../component/card_product.dart';
-import 'dummy.dart';
 
 class MenuScreen extends StatefulWidget {
   final TabController tabController;
@@ -17,8 +18,24 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  int index = 0;
+  void _handleTabSelection() {
+    setState(() {
+      index = widget.tabController.index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<MenuViewModel>(context, listen: false).getCategories();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final modelMenu = Provider.of<MenuViewModel>(context);
+    int index = widget.tabController.index;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -35,7 +52,9 @@ class _MenuScreenState extends State<MenuScreen> {
                     child: SizedBox(
                       width: double.infinity,
                       child: GridView.builder(
-                        itemCount: dataMenu.length,
+                        itemCount: modelMenu.listMenu
+                            .where((menu) => menu.idCategory == '1')
+                            .length,
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
                         gridDelegate:
@@ -44,15 +63,18 @@ class _MenuScreenState extends State<MenuScreen> {
                                 crossAxisSpacing: 12,
                                 mainAxisSpacing: 10),
                         itemBuilder: (context, index) {
-                          final item = dataMenu[index];
+                          final filteredMenu = modelMenu.listMenu
+                              .where((menu) => menu.idCategory == '1')
+                              .toList();
+                          final menu = filteredMenu[index];
                           return GestureDetector(
                             onTap: () {},
                             child: CardProduct(
-                                imageProduct: item['imageProduct'],
-                                nameProduct: item['nameProduct'],
-                                lokasi: item['lokasi'],
-                                price: item['price'],
-                                kalori: item['kalori']),
+                                imageProduct: menu.images,
+                                nameProduct: menu.name,
+                                city: menu.city,
+                                price: menu.price,
+                                kalori: menu.calorie),
                           );
                         },
                       ),
@@ -63,7 +85,9 @@ class _MenuScreenState extends State<MenuScreen> {
                     child: SizedBox(
                       width: double.infinity,
                       child: GridView.builder(
-                        itemCount: dataLowCalories.length,
+                        itemCount: modelMenu.listMenu
+                            .where((menu) => menu.idCategory == '2')
+                            .length,
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
                         gridDelegate:
@@ -72,15 +96,18 @@ class _MenuScreenState extends State<MenuScreen> {
                                 crossAxisSpacing: 12,
                                 mainAxisSpacing: 10),
                         itemBuilder: (context, index) {
-                          final item = dataLowCalories[index];
+                          final filteredMenu = modelMenu.listMenu
+                              .where((menu) => menu.idCategory == '2')
+                              .toList();
+                          final menu = filteredMenu[index];
                           return GestureDetector(
                             onTap: () {},
                             child: CardProduct(
-                                imageProduct: item['imageProduct'],
-                                nameProduct: item['nameProduct'],
-                                lokasi: item['lokasi'],
-                                price: item['price'],
-                                kalori: item['kalori']),
+                                imageProduct: menu.images,
+                                nameProduct: menu.name,
+                                city: menu.city,
+                                price: menu.price,
+                                kalori: menu.calorie),
                           );
                         },
                       ),
@@ -91,7 +118,9 @@ class _MenuScreenState extends State<MenuScreen> {
                     child: SizedBox(
                       width: double.infinity,
                       child: GridView.builder(
-                        itemCount: dataSavingPackages.length,
+                        itemCount: modelMenu.listMenu
+                            .where((menu) => menu.idCategory == '3')
+                            .length,
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
                         gridDelegate:
@@ -100,15 +129,18 @@ class _MenuScreenState extends State<MenuScreen> {
                                 crossAxisSpacing: 12,
                                 mainAxisSpacing: 10),
                         itemBuilder: (context, index) {
-                          final item = dataSavingPackages[index];
+                          final filteredMenu = modelMenu.listMenu
+                              .where((menu) => menu.idCategory == '3')
+                              .toList();
+                          final menu = filteredMenu[index];
                           return GestureDetector(
                             onTap: () {},
                             child: CardProduct(
-                                imageProduct: item['imageProduct'],
-                                nameProduct: item['nameProduct'],
-                                lokasi: item['lokasi'],
-                                price: item['price'],
-                                kalori: item['kalori']),
+                                imageProduct: menu.images,
+                                nameProduct: menu.name,
+                                city: menu.city,
+                                price: menu.price,
+                                kalori: menu.calorie),
                           );
                         },
                       ),

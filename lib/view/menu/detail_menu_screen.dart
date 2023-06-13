@@ -3,11 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
 import 'package:nusameals/view/cart/cart_screen.dart';
 import 'package:nusameals/view/cart/order_screen.dart';
-
+import 'package:provider/provider.dart';
+import '../../model/menu_model.dart';
+import '../../view_model/menu_view_model.dart';
 import '../component/costum_snackbar.dart';
 
 class DetailMenuScreen extends StatefulWidget {
-  const DetailMenuScreen({super.key});
+  final MenuModel menuModel;
+  DetailMenuScreen(this.menuModel);
 
   @override
   State<DetailMenuScreen> createState() => _DetailMenuScreenState();
@@ -16,23 +19,32 @@ class DetailMenuScreen extends StatefulWidget {
 class _DetailMenuScreenState extends State<DetailMenuScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<MenuViewModel>(context, listen: false).getProduct();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final arguments = ModalRoute.of(context)!.settings.arguments;
-    final item = arguments != null ? arguments as Map<String, dynamic> : null;
-    if (item == null) {
-      return const Scaffold(
-        body: Center(
-          child: Text('Data tidak tersedia'),
-        ),
-      );
-    }
+    final modelMenu = Provider.of<MenuViewModel>(context);
+
+    // final arguments = ModalRoute.of(context)!.settings.arguments;
+    // final item = arguments != null ? arguments as Map<String, dynamic> : null;
+    // if (item == null) {
+    //   return const Scaffold(
+    //     body: Center(
+    //       child: Text('Data tidak tersedia'),
+    //     ),
+    //   );
+    // }
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset(
-              item['imageProduct'],
+            Image.network(
+              widget.menuModel.images,
               width: MediaQuery.of(context).size.width,
               height: 320,
               fit: BoxFit.cover,
@@ -78,7 +90,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item['nameProduct'],
+                              widget.menuModel.name,
                               style: ThemeText.bodyT18,
                             ),
                             const SizedBox(
@@ -88,20 +100,21 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      item['lokasi'],
+                                      widget.menuModel.city,
                                       style: ThemeText.bodyR14,
                                     ),
                                     Text(
-                                      item['kalori'],
+                                      '${widget.menuModel.calorie} kkal',
                                       style: ThemeText.bodyR14,
                                     ),
                                   ],
                                 ),
                                 Text(
                                   priceFormat.format(int.parse(
-                                    item['price'],
+                                    widget.menuModel.price,
                                   )),
                                   style: ThemeText.bodyB20,
                                 ),
@@ -122,7 +135,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                               height: 5,
                             ),
                             Text(
-                              'Soto ayam berasal dari daerah DKI Jakarta dan juga merupakan salah satu makanan nusantara populer.',
+                              widget.menuModel.description,
                               style: ThemeText.bodyR14,
                             ),
                             const SizedBox(
@@ -140,7 +153,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                               height: 5,
                             ),
                             Text(
-                              'Daging ayam, bawang merah, bawang putih, kemiri, kunyit, jahe dan minyak zaitun.',
+                              widget.menuModel.ingredients,
                               style: ThemeText.bodyR14,
                             ),
                           ],
@@ -169,7 +182,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                                     builder: (context) => CartScreen()));
                             CustomSnackbar.showSnackbar(
                               context,
-                              '"${item['nameProduct']}" put in basket.',
+                              '"${widget.menuModel.name}" put in basket.',
                               actionText: 'Close',
                               onPressed: () {
                                 Navigator.pop(context);

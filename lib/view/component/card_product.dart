@@ -6,14 +6,14 @@ import '../../themes/constant.dart';
 class CardProduct extends StatelessWidget {
   final String imageProduct;
   final String nameProduct;
-  final String lokasi;
+  final String city;
   final String price;
   final String kalori;
   const CardProduct({
     Key? key,
     required this.imageProduct,
     required this.nameProduct,
-    required this.lokasi,
+    required this.city,
     required this.price,
     required this.kalori,
   }) : super(key: key);
@@ -46,7 +46,7 @@ class CardProduct extends StatelessWidget {
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
               ),
-              child: Image.asset(
+              child: Image.network(
                 imageProduct,
                 height: 95,
                 width: double.infinity,
@@ -71,7 +71,7 @@ class CardProduct extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                lokasi,
+                city,
                 style: ThemeText.bodyR12Dark5,
               ),
             ),
@@ -90,7 +90,7 @@ class CardProduct extends StatelessWidget {
                       style: ThemeText.bodyB14,
                     ),
                     Text(
-                      kalori,
+                      '$kalori kkal',
                       style: ThemeText.bodyR12Dark5,
                     )
                   ]),

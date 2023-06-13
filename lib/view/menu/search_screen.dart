@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../themes/constant.dart';
+import '../../view_model/menu_view_model.dart';
 import '../component/card_product.dart';
 import 'detail_menu_screen.dart';
 import 'dummy.dart';
@@ -22,23 +24,25 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    filteredDataMenu = dataMenu;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   filteredDataMenu = dataMenu;
+  // }
 
-  void search(String query) {
-    setState(() {
-      filteredDataMenu = dataMenu
-          .where((item) =>
-              item['nameProduct']!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
+  // void search(String query) {
+  //   setState(() {
+  //     filteredDataMenu = dataMenu
+  //         .where((item) =>
+  //             item['nameProduct']!.toLowerCase().contains(query.toLowerCase()))
+  //         .toList();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final modelCategory = Provider.of<MenuViewModel>(context);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ColorTheme.light1,
@@ -57,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
           title: TextField(
             controller: _searchController,
             onChanged: (query) {
-              search(query);
+              modelCategory.search(query);
             },
             decoration: InputDecoration(
               hintText: "Search",
@@ -80,11 +84,12 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               onPressed: () {
                 _searchController.clear();
+                modelCategory.clearSearch();
               },
             ),
           ],
         ),
-        body: _searchController.text.isEmpty || filteredDataMenu.length == 0
+        body: modelCategory.listSearch.isEmpty
             ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +113,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   child: GridView.builder(
-                    itemCount: filteredDataMenu.length,
+                    itemCount: modelCategory.listSearch.length,
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     gridDelegate:
@@ -118,23 +123,22 @@ class _SearchScreenState extends State<SearchScreen> {
                       mainAxisSpacing: 10,
                     ),
                     itemBuilder: (context, index) {
-                      final item = filteredDataMenu[index];
+                      final item = modelCategory.listSearch[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailMenuScreen(),
-                              settings: RouteSettings(arguments: item),
+                              builder: (context) => DetailMenuScreen(item),
                             ),
                           );
                         },
                         child: CardProduct(
-                          imageProduct: item['imageProduct']!,
-                          nameProduct: item['nameProduct']!,
-                          lokasi: item['lokasi']!,
-                          price: item['price']!,
-                          kalori: item['kalori']!,
+                          imageProduct: item.images,
+                          nameProduct: item.name,
+                          city: item.city,
+                          price: item.price,
+                          kalori: item.calorie,
                         ),
                       );
                     },

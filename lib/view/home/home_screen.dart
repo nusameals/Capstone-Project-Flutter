@@ -2,10 +2,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/scan/scan_screen.dart';
+import 'package:provider/provider.dart';
 import '../../themes/constant.dart';
+import '../../view_model/menu_view_model.dart';
 import '../component/card_product.dart';
 import '../menu/detail_menu_screen.dart';
-import '../menu/dummy.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function? onPressedLowCalories;
@@ -27,6 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
     'carousel.png',
     'carousel2.png',
   ];
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<MenuViewModel>(context, listen: false).getProduct();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
           autoPlay: true,
           enlargeCenterPage: true,
         ));
+    final modelMenu = Provider.of<MenuViewModel>(context);
+
     return Scaffold(
         body: CustomScrollView(
       slivers: [
@@ -215,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: GridView.builder(
-                    itemCount: dataMenu.length,
+                    itemCount: modelMenu.listMenu.length,
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     gridDelegate:
@@ -224,23 +232,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisSpacing: 12,
                             mainAxisSpacing: 10),
                     itemBuilder: (context, index) {
-                      final item = dataMenu[index];
+                      final item = modelMenu.listMenu[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailMenuScreen(),
-                              settings: RouteSettings(arguments: item),
+                              builder: (context) => DetailMenuScreen(item),
                             ),
                           );
                         },
                         child: CardProduct(
-                            imageProduct: item['imageProduct'],
-                            nameProduct: item['nameProduct'],
-                            lokasi: item['lokasi'],
-                            price: item['price'],
-                            kalori: item['kalori']),
+                            imageProduct: item.images,
+                            nameProduct: item.name,
+                            city: item.city,
+                            price: item.price,
+                            kalori: item.calorie),
                       );
                     },
                   ),
