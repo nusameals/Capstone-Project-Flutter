@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
+import 'package:provider/provider.dart';
+import '../../view_model/cart_view_model.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 import '../home/home_screen.dart';
@@ -23,32 +25,48 @@ class _CartScreenState extends State<CartScreen> {
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 
-  void incrementQuantity(int index) {
-    setState(() {
-      dataMenuInCart[index]['quantity']++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<CartViewModel>(context, listen: false).getCart();
   }
 
-  void decrementQuantity(int index) {
-    setState(() {
-      if (dataMenuInCart[index]['quantity'] > 0) {
-        dataMenuInCart[index]['quantity']--;
-      }
-    });
-  }
+  // void incrementQuantity(int index) {
+  //   setState(() {
+  //     dataMenuInCart[index]['quantity']++;
+  //   });
+  // }
 
-  int getTotalPrice() {
-    int totalPrice = 0;
-    for (var item in dataMenuInCart) {
-      int price = int.parse(item['price']);
-      int quantity = item['quantity'];
-      totalPrice += price * quantity;
-    }
-    return totalPrice;
-  }
+  // void decrementQuantity(int index) {
+  //   setState(() {
+  //     if (dataMenuInCart[index]['quantity'] > 0) {
+  //       dataMenuInCart[index]['quantity']--;
+  //     }
+  //   });
+  // }
+
+  // int getTotalPrice() {
+  //   int totalPrice = 0;
+  //   for (var item in dataMenuInCart) {
+  //     int price = int.parse(item['price']);
+  //     int quantity = item['quantity'];
+  //     totalPrice += price * quantity;
+  //   }
+  //   return totalPrice;
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final modelCart = Provider.of<CartViewModel>(context);
+    int getTotalPrice() {
+      int totalPrice = 0;
+      for (var item in modelCart.listMenuCart) {
+        int itemTotal = int.parse(item.price) * int.parse(item.qty);
+        totalPrice += itemTotal;
+      }
+      return totalPrice;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorTheme.light1,
@@ -79,9 +97,9 @@ class _CartScreenState extends State<CartScreen> {
               ListView.builder(
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: dataMenuInCart.length,
+                itemCount: modelCart.listMenuCart.length,
                 itemBuilder: (context, index) {
-                  final item = dataMenuInCart[index];
+                  final item = modelCart.listMenuCart[index];
                   return Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -97,8 +115,8 @@ class _CartScreenState extends State<CartScreen> {
                             ClipRRect(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
-                              child: Image.asset(
-                                item['imageProduct'],
+                              child: Image.network(
+                                item.images,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.fitHeight,
@@ -115,7 +133,7 @@ class _CartScreenState extends State<CartScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        item['nameProduct'],
+                                        item.name,
                                         style: ThemeText.subHeadingB18,
                                       ),
                                       InkWell(
@@ -164,7 +182,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                     .symmetric(
                                                                 horizontal: 16),
                                                         child: Text(
-                                                          'Do you want to remove "${item['nameProduct']}" ?',
+                                                          'Do you want to remove "${item.name}" ?',
                                                           style:
                                                               ThemeText.bodyR18,
                                                         ),
@@ -189,12 +207,6 @@ class _CartScreenState extends State<CartScreen> {
                                                                 backgroundColor:
                                                                     ColorTheme
                                                                         .light1,
-                                                                // padding:
-                                                                //     const EdgeInsets
-                                                                //         .symmetric(
-                                                                //   horizontal: 75,
-                                                                //   vertical: 8,
-                                                                // ),
                                                                 shape:
                                                                     RoundedRectangleBorder(
                                                                   borderRadius:
@@ -274,11 +286,11 @@ class _CartScreenState extends State<CartScreen> {
                                       Column(
                                         children: [
                                           Text(
-                                            item['lokasi'],
+                                            item.city,
                                             style: ThemeText.bodyR14Dark4,
                                           ),
                                           Text(
-                                            item['kalori'],
+                                            item.calorie,
                                             style: ThemeText.bodyB14Dark4,
                                           ),
                                         ],
@@ -286,7 +298,7 @@ class _CartScreenState extends State<CartScreen> {
                                       Text(
                                         priceFormat.format(
                                           int.parse(
-                                            item['price'],
+                                            item.price,
                                           ),
                                         ),
                                         style: ThemeText.bodyB20,
@@ -310,7 +322,14 @@ class _CartScreenState extends State<CartScreen> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    decrementQuantity(index);
+                                    setState(() {
+                                      int currentQuantity = int.parse(
+                                          modelCart.listMenuCart[index].qty);
+                                      if (currentQuantity > 0) {
+                                        modelCart.listMenuCart[index].qty =
+                                            (currentQuantity - 1).toString();
+                                      }
+                                    });
                                   },
                                   child: Container(
                                     decoration: const BoxDecoration(
@@ -339,7 +358,7 @@ class _CartScreenState extends State<CartScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: Text(
-                                    item['quantity'].toString(),
+                                    modelCart.listMenuCart[index].qty,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 16,
@@ -349,7 +368,12 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    incrementQuantity(index);
+                                    setState(() {
+                                      int currentQuantity = int.parse(
+                                          modelCart.listMenuCart[index].qty);
+                                      modelCart.listMenuCart[index].qty =
+                                          (currentQuantity + 1).toString();
+                                    });
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
@@ -562,10 +586,10 @@ class _CartScreenState extends State<CartScreen> {
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: dataMenuInCart.length,
+                      itemCount: modelCart.listMenuCart.length,
                       itemBuilder: (context, index) {
-                        final item = dataMenuInCart[index];
-                        if (item['quantity'] >= 0) {
+                        final item = modelCart.listMenuCart[index];
+                        if (item.qty.isNotEmpty) {
                           return SizedBox(
                             width: double.infinity,
                             height: 30,
@@ -575,13 +599,13 @@ class _CartScreenState extends State<CartScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    '• ${item['nameProduct']} x ${item['quantity']}',
+                                    '• ${item.name} x ${item.qty}',
                                     style: ThemeText.bodyR14,
                                   ),
                                 ),
                                 Text(
-                                  priceFormat.format(int.parse(item['price']) *
-                                      item['quantity']),
+                                  priceFormat.format(int.parse(item.price) *
+                                      int.parse(item.qty)),
                                   style: ThemeText.bodyR14,
                                 ),
                               ],
@@ -823,7 +847,8 @@ class _CartScreenState extends State<CartScreen> {
                                               style: ThemeText.bodyB16,
                                             ),
                                             Text(
-                                              'Rp55.000',
+                                              priceFormat
+                                                  .format(getTotalPrice()),
                                               style: ThemeText.bodyB16,
                                             )
                                           ],
