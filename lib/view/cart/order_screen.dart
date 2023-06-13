@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+  final MenuModel menuModel;
+  const OrderScreen(this.menuModel, {super.key});
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -21,19 +23,6 @@ class _OrderScreenState extends State<OrderScreen> {
   int quantity = 1;
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
-  void decreaseQuantity() {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-  }
-
-  void increaseQuantity() {
-    setState(() {
-      quantity++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +68,8 @@ class _OrderScreenState extends State<OrderScreen> {
                         ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
-                          // child: Image.network(
-                          //   widget.menuModel.images,
-                          //   width: 100,
-                          //   height: 100,
-                          //   fit: BoxFit.fitHeight,
-                          // ),
-                          child: Image.asset(
-                            'assets/images/gambar_soto.png',
+                          child: Image.network(
+                            widget.menuModel.images,
                             width: 100,
                             height: 100,
                             fit: BoxFit.fitHeight,
@@ -103,7 +86,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 children: [
                                   Flexible(
                                     child: Text(
-                                      'Soto',
+                                      widget.menuModel.name,
                                       style: ThemeText.subHeadingB18,
                                       overflow: TextOverflow.ellipsis,
                                       // maxLines: 1,
@@ -123,11 +106,11 @@ class _OrderScreenState extends State<OrderScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Jakarta',
+                                        widget.menuModel.city,
                                         style: ThemeText.bodyR14Dark4,
                                       ),
                                       Text(
-                                        '200 kkal',
+                                        '${widget.menuModel.calorie} kkal',
                                         style: ThemeText.bodyB14Dark4,
                                       ),
                                     ],
@@ -135,7 +118,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   Text(
                                     priceFormat.format(
                                       int.parse(
-                                        '10000',
+                                        widget.menuModel.price,
                                       ),
                                     ),
                                     style: ThemeText.bodyB20,
@@ -159,7 +142,11 @@ class _OrderScreenState extends State<OrderScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                decreaseQuantity();
+                                if (quantity > 1) {
+                                  setState(() {
+                                    quantity--;
+                                  });
+                                }
                               },
                               child: Container(
                                 decoration: const BoxDecoration(
@@ -197,7 +184,9 @@ class _OrderScreenState extends State<OrderScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                increaseQuantity();
+                                setState(() {
+                                  quantity++;
+                                });
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
@@ -421,7 +410,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                 ),
                               ),
                               Text(
-                                priceFormat.format(int.parse('10000')),
+                                priceFormat
+                                    .format(int.parse(widget.menuModel.price)),
                                 style: ThemeText.bodyR14,
                               ),
                             ],
@@ -454,7 +444,8 @@ class _OrderScreenState extends State<OrderScreen> {
                           style: ThemeText.bodyB16,
                         ),
                         Text(
-                          priceFormat.format(int.parse('10000') * quantity),
+                          priceFormat.format(
+                              int.parse(widget.menuModel.price) * quantity),
                           style: ThemeText.bodyB16,
                         ),
                       ],
@@ -493,7 +484,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         return StatefulBuilder(builder:
                             (BuildContext context, StateSetter setState) {
                           return Container(
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -503,7 +494,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        icon: Icon(Icons.arrow_back)),
+                                        icon: const Icon(Icons.arrow_back)),
                                     Text(
                                       'Payment Method',
                                       style: ThemeText.subHeadingR20,
@@ -536,7 +527,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     },
                                   ),
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 0),
+                                      const EdgeInsets.symmetric(horizontal: 0),
                                 ),
                                 ListTile(
                                   title: Row(
@@ -564,7 +555,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     },
                                   ),
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 0),
+                                      const EdgeInsets.symmetric(horizontal: 0),
                                 ),
                                 ListTile(
                                   title: Row(
@@ -592,7 +583,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     },
                                   ),
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 0),
+                                      const EdgeInsets.symmetric(horizontal: 0),
                                 ),
                                 ListTile(
                                   title: Row(
@@ -620,7 +611,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     },
                                   ),
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 0),
+                                      const EdgeInsets.symmetric(horizontal: 0),
                                 ),
                                 ListTile(
                                   title: Row(
@@ -648,9 +639,9 @@ class _OrderScreenState extends State<OrderScreen> {
                                     },
                                   ),
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 0),
+                                      const EdgeInsets.symmetric(horizontal: 0),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 const Divider(
                                   thickness: 2,
                                   indent: 10,
@@ -672,7 +663,9 @@ class _OrderScreenState extends State<OrderScreen> {
                                             style: ThemeText.bodyB16,
                                           ),
                                           Text(
-                                            'Rp55.000',
+                                            priceFormat.format(int.parse(
+                                                    widget.menuModel.price) *
+                                                quantity),
                                             style: ThemeText.bodyB16,
                                           )
                                         ],

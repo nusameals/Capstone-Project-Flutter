@@ -20,11 +20,6 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   int index = 0;
-  void _handleTabSelection() {
-    setState(() {
-      index = widget.tabController.index;
-    });
-  }
 
   @override
   void initState() {
@@ -35,7 +30,6 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     final modelMenu = Provider.of<MenuViewModel>(context);
-    int index = widget.tabController.index;
 
     return Scaffold(
       body: SafeArea(

@@ -5,7 +5,6 @@ import '../../themes/constant.dart';
 import '../../view_model/menu_view_model.dart';
 import '../component/card_product.dart';
 import 'detail_menu_screen.dart';
-import 'dummy.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

@@ -87,7 +87,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(result),

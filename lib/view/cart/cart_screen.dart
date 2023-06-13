@@ -31,30 +31,6 @@ class _CartScreenState extends State<CartScreen> {
     Provider.of<CartViewModel>(context, listen: false).getCart();
   }
 
-  // void incrementQuantity(int index) {
-  //   setState(() {
-  //     dataMenuInCart[index]['quantity']++;
-  //   });
-  // }
-
-  // void decrementQuantity(int index) {
-  //   setState(() {
-  //     if (dataMenuInCart[index]['quantity'] > 0) {
-  //       dataMenuInCart[index]['quantity']--;
-  //     }
-  //   });
-  // }
-
-  // int getTotalPrice() {
-  //   int totalPrice = 0;
-  //   for (var item in dataMenuInCart) {
-  //     int price = int.parse(item['price']);
-  //     int quantity = item['quantity'];
-  //     totalPrice += price * quantity;
-  //   }
-  //   return totalPrice;
-  // }
-
   @override
   Widget build(BuildContext context) {
     final modelCart = Provider.of<CartViewModel>(context);
@@ -233,7 +209,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                 ElevatedButton(
                                                               onPressed: () {
                                                                 setState(() {
-                                                                  dataMenuInCart
+                                                                  modelCart
+                                                                      .listMenuCart
                                                                       .removeAt(
                                                                           index);
                                                                 });
@@ -284,6 +261,8 @@ class _CartScreenState extends State<CartScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             item.city,
@@ -859,6 +838,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 _selectedPaymentMethod;
                                             // final selectedPaymentMethod =
                                             //     _controller.text;
+                                            Navigator.pop(context);
                                             CustomSnackbar.showSnackbar(
                                               context,
                                               'Thanks for order, please wait...',
