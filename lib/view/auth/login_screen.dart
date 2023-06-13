@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .showSnackBar(
                                                     SnackBar(
                                                       content: Text(
-                                                          'Username dan Password can\'t be empty!!',
+                                                          'Username dan Password cannot be empty!!',
                                                           style: GoogleFonts
                                                               .poppins(
                                                                   fontSize: 14,

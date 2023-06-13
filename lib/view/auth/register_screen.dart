@@ -194,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         labelText: 'Confirm Password',
                                         errorText: isRetypePasswordValid
                                             ? null
-                                            : 'This field is required',
+                                            : 'Make sure the password entered is correct',
                                         labelStyle: GoogleFonts.poppins(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400),
@@ -218,7 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           setState(() {
                                             isRetypePasswordValid = false;
                                           });
-                                          return 'This field is required';
+                                          return 'Make sure the password entered is correct';
                                         }
                                         setState(() {
                                           isRetypePasswordValid = true;
