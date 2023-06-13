@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       // ignore: body_might_complete_normally_nullable
                                       validator: (username) {
                                         if (username!.isEmpty) {
-                                          return 'username cannot be empty';
+                                          return 'Username cannot be empty';
                                         } else if (RegExp(r'^[a-z][A-Za-z]*$')
                                             .hasMatch(username)) {
                                           return 'username must start with capital letter';
@@ -144,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       validator: (email) {
                                         if (email!.isEmpty) {
-                                          return "email cannot be empty";
+                                          return "Email cannot be empty";
                                         } else if (!RegExp(
                                                 "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                             .hasMatch(email)) {
@@ -180,6 +180,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       validator: (password) {
                                         if (password!.isEmpty) {
                                           return 'Please a Enter Password';
+                                        } else if (password.length < 6) {
+                                          return 'Enter a password with length at least 6';
                                         }
                                         return null;
                                       },
@@ -192,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         labelText: 'Confirm Password',
                                         errorText: isRetypePasswordValid
                                             ? null
-                                            : 'Field ini harus diisi.',
+                                            : 'This field is required',
                                         labelStyle: GoogleFonts.poppins(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400),
@@ -216,7 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           setState(() {
                                             isRetypePasswordValid = false;
                                           });
-                                          return 'Field ini harus diisi.';
+                                          return 'This field is required';
                                         }
                                         setState(() {
                                           isRetypePasswordValid = true;
