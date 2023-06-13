@@ -23,15 +23,15 @@ class _ReservationPageState extends State<ReservationPage> {
   final List<Seat> seats = [
     Seat(
       title: 'Table 1',
-      status: 'Available',
+      status: 'Not Available',
       subtitle: 'indoors - 10 seats',
-      imageUrl: 'https://plus.unsplash.com/premium_photo-1671013032391-e6cff46babe5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+      imageUrl: 'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg',
     ),
     Seat(
       title: 'Table 2',
-      status: 'Not Available',
+      status: 'Available',
       subtitle: 'indoors - 8 seats',
-      imageUrl: 'https://plus.unsplash.com/premium_photo-1671013032391-e6cff46babe5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+      imageUrl: 'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg',
     ),
     // Tambahkan entri Seat lainnya di sini
   ];
