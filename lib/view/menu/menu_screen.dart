@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../themes/constant.dart';
 import '../../view_model/menu_view_model.dart';
 import '../component/card_product.dart';
+import 'detail_menu_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   final TabController tabController;
@@ -68,7 +69,13 @@ class _MenuScreenState extends State<MenuScreen> {
                               .toList();
                           final menu = filteredMenu[index];
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          (DetailMenuScreen(menu))));
+                            },
                             child: CardProduct(
                                 imageProduct: menu.images,
                                 nameProduct: menu.name,
@@ -101,7 +108,13 @@ class _MenuScreenState extends State<MenuScreen> {
                               .toList();
                           final menu = filteredMenu[index];
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          (DetailMenuScreen(menu))));
+                            },
                             child: CardProduct(
                                 imageProduct: menu.images,
                                 nameProduct: menu.name,
@@ -134,7 +147,13 @@ class _MenuScreenState extends State<MenuScreen> {
                               .toList();
                           final menu = filteredMenu[index];
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          (DetailMenuScreen(menu))));
+                            },
                             child: CardProduct(
                                 imageProduct: menu.images,
                                 nameProduct: menu.name,
