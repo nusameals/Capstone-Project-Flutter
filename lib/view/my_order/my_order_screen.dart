@@ -120,7 +120,13 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                             itemCount: processedList.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const OrderDetailScreen()));
+                                },
                                 child: CardMyOrder(
                                     id: processedList[index].id,
                                     dateTime: processedList[index].dateTime,
