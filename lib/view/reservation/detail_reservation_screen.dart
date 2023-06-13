@@ -16,6 +16,7 @@ class _DetailReservationState extends State<DetailReservation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: [
           Stack(
@@ -81,21 +82,33 @@ class _DetailReservationState extends State<DetailReservation> {
           ),
           Spacer(),
           Divider(),
-          Container(
-            width: 370,
-            child: ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) => const ReservationNow(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 370,
+              child: ElevatedButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                      context: context,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20)
+                        )
+                    ),
+                      builder: (context) => const ReservationNow(),
 
-                );
-              },
-              child: Text('Reservasi Now',style: GoogleFonts.poppins(color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
+                  );
+                },
+                child: Text('Reservasi Now',style: GoogleFonts.poppins(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF0669BD),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+
               ),
-
             ),
           ),
         ],

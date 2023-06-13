@@ -46,6 +46,7 @@ class _ReservationPageState extends State<ReservationPage> {
           backgroundColor: Color(0xFF0669BD),
           title: Text('Reservation',
               style: GoogleFonts.poppins(color: Colors.white)),
+          elevation: 0,
         ),
         body: Column(
           children: [
@@ -86,99 +87,184 @@ class _ReservationPageState extends State<ReservationPage> {
               child: TabBarView(
                 children: [
                   ListView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     itemCount: seats.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 8),
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailReservation(
-                                    imageUrl: seats[index].imageUrl,
-                                    title: seats[index].title),
+                                  imageUrl: seats[index].imageUrl,
+                                  title: seats[index].title,
+                                ),
                               ),
                             );
                           },
                           child: Container(
+                            height: 80,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1,
-                                )
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
                             ),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                height: 100,
-                                width: 70,
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(14),bottomLeft: Radius.circular(14)),
-                                    child: Image.network(seats[index].imageUrl,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 100,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(14),
+                                      bottomLeft: Radius.circular(14),
+                                    ),
+                                    image: DecorationImage(
+                                      image: NetworkImage(seats[index].imageUrl),
                                       fit: BoxFit.cover,
-                                    )
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              title: Row(
-                                children: [
-                                  Text(seats[index].title,
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
-                                ],
-                              ),
-                              subtitle: Text(seats[index].subtitle,
-                              style: GoogleFonts.poppins(),),
-                              trailing: Text(seats[index].status,
-                              style: GoogleFonts.poppins(),),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          seats[index].title,
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 2,),
+                                        Text(
+                                          seats[index].subtitle,
+                                          style: GoogleFonts.poppins(fontSize: 13),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          seats[index].status,
+                                          style: GoogleFonts.poppins(
+                                            color: seats[index].status == 'Available' ? Colors.black : Colors.red, // Ubah warna teks berdasarkan status
+
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                              ],
                             ),
                           ),
                         ),
                       );
                     },
                   ),
+
                   ListView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     itemCount: seats.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 8),
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailMyTable(
-                                    imageUrl: seats[index].imageUrl,
-                                    title: seats[index].title),
+                                  imageUrl: seats[index].imageUrl,
+                                  title: seats[index].title,
+                                ),
                               ),
                             );
                           },
                           child: Container(
+                            height: 80,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(15),
                               color: Colors.white,
                               border: Border.all(
                                 color: Colors.grey,
                                 width: 1,
-                              )
-                            ),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: ClipRRect(
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(14),bottomLeft: Radius.circular(14)),
-                                  child: Image.network(seats[index].imageUrl,
-                                    fit: BoxFit.cover,
-                                  )
                               ),
-                              title: Text(seats[index].title,
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),),
-                              subtitle: Text(seats[index].subtitle,
-                                style: GoogleFonts.poppins(),),
-                              trailing: Text(seats[index].status,
-                                style: GoogleFonts.poppins(),),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 100,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(14),
+                                      bottomLeft: Radius.circular(14),
+                                    ),
+                                    image: DecorationImage(
+                                      image: NetworkImage(seats[index].imageUrl),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          seats[index].title,
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 2,),
+                                        Text(
+                                          seats[index].subtitle,
+                                          style: GoogleFonts.poppins(fontSize: 13),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('17/08/2023',
+                                            style: GoogleFonts.poppins(),),
+                                            Text('20:00-21:00',
+                                                style: GoogleFonts.poppins())
+                                          ],
+                                        )
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                              ],
                             ),
                           ),
                         ),

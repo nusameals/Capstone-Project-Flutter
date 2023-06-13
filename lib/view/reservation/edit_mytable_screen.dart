@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-
-class ReservationNow extends StatefulWidget {
-  const ReservationNow({Key? key}) : super(key: key);
+class EditMyTable extends StatefulWidget {
+  String name;
+   String phone;
+   String date;
+  String start;
+  String end;
+   String agenda;
+   String people;
+   EditMyTable({Key? key, required this.name, required this.phone, required this.date, required this.start,required this.end, required this.agenda, required this.people, }) : super(key: key);
 
   @override
-  State<ReservationNow> createState() => _ReservationNowState();
+
+  State<EditMyTable> createState() => _EditMyTableState();
 }
 
-class _ReservationNowState extends State<ReservationNow> {
+class _EditMyTableState extends State<EditMyTable> {
   TimeOfDay? selectedStartTime;
   TimeOfDay? selectedEndTime;
   DateTime? selectedDate;
@@ -20,10 +27,10 @@ class _ReservationNowState extends State<ReservationNow> {
   TextEditingController dateController = TextEditingController();
 
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       builder: (BuildContext context, Widget? child) {
@@ -37,10 +44,10 @@ class _ReservationNowState extends State<ReservationNow> {
       },
     );
 
-    if (pickedDate != null && pickedDate != selectedDate) {
+    if (pickedDate != null) {
       setState(() {
         selectedDate = pickedDate;
-        dateController.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
+        controller.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
       });
     }
   }
@@ -110,8 +117,13 @@ class _ReservationNowState extends State<ReservationNow> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Nama',
-
                     ),
+                    initialValue: widget.name,
+                    onChanged: (value) {
+                      setState(() {
+                        widget.name = value;
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -119,8 +131,13 @@ class _ReservationNowState extends State<ReservationNow> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Phone',
-
                     ),
+                    initialValue: widget.phone,
+                    onChanged: (value) {
+                      setState(() {
+                        widget.phone = value;
+                      });
+                    },
                   ),
                 ),
               ],
@@ -128,14 +145,18 @@ class _ReservationNowState extends State<ReservationNow> {
             const SizedBox(height: 15),
             TextFormField(
               onTap: (){
-                _selectDate(context);
+                _selectDate(context, dateController);
               },
               decoration: InputDecoration(
-                labelText: 'date',
-                suffixIcon: Icon(Icons.calendar_month)
+                  labelText: 'date',
+                  suffixIcon: Icon(Icons.calendar_month)
               ),
-              readOnly: true,
-              controller: dateController,
+             controller: TextEditingController(text: widget.date),
+              onChanged: (value) {
+                setState(() {
+                  widget.date = value;
+                });
+              },
             ),
             const SizedBox(height: 15),
             Row(
@@ -146,11 +167,15 @@ class _ReservationNowState extends State<ReservationNow> {
                       _selectTime(context, startTimeController);
                     },
                     decoration: InputDecoration(
-                      labelText: 'Start',
+                        labelText: 'Start',
                         suffixIcon: Icon(Icons.access_time)
                     ),
-                    controller: startTimeController,
-                    readOnly: true,
+                    controller: TextEditingController(text: widget.start),
+                    onChanged: (value) {
+                      setState(() {
+                        widget.start = value;
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -160,11 +185,15 @@ class _ReservationNowState extends State<ReservationNow> {
                       _selectTime(context, endTimeController);
                     },
                     decoration: InputDecoration(
-                      labelText: 'End',
+                        labelText: 'End',
                         suffixIcon: Icon(Icons.access_time)
                     ),
-                    controller: endTimeController,
-                    readOnly: true,
+                    controller: TextEditingController(text: widget.end),
+                    onChanged: (value) {
+                      setState(() {
+                        widget.end = value;
+                      });
+                    },
                   ),
                 ),
               ],
@@ -176,8 +205,13 @@ class _ReservationNowState extends State<ReservationNow> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Agenda',
-
                     ),
+                    initialValue: widget.agenda,
+                    onChanged: (value) {
+                      setState(() {
+                        widget.agenda = value;
+                      });
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -185,13 +219,17 @@ class _ReservationNowState extends State<ReservationNow> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Number of peoples',
-
                     ),
+                    initialValue: widget.people,
+                    onChanged: (value) {
+                      setState(() {
+                        widget.people = value;
+                      });
+                    },
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10,),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -199,13 +237,10 @@ class _ReservationNowState extends State<ReservationNow> {
                   // Aksi saat tombol Submit ditekan
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF0669BD),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),// Ubah warna latar belakang menjadi biru
+                  primary: Color(0xFF0669BD), // Ubah warna latar belakang menjadi biru
                 ),
                 child: Text('Submit',
-                style: GoogleFonts.poppins(color: Colors.white)),
+                    style: GoogleFonts.poppins(color: Colors.white)),
               ),
             ),
           ],
