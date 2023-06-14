@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/menu/menu_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../themes/constant.dart';
 import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
@@ -19,6 +20,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   int index = 0;
   late TabController _tabController;
+  late SharedPreferences loginData;
+  // ignore: non_constant_identifier_names
+  String Username = '';
+
+  void initial() async {
+    loginData = await SharedPreferences.getInstance();
+    setState(() {
+      Username = loginData.getString('username').toString();
+    });
+  }
 
   final List<Tab> menuTabs = <Tab>[
     Tab(
@@ -77,6 +88,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(length: menuTabs.length, vsync: this);
+    initial();
   }
 
   onTapItem(int index) {
@@ -125,11 +137,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 ? Colors.white
                 : ColorTheme.primaryBlue,
         elevation: 0,
+        automaticallyImplyLeading: false,
         leading: _selectedIndex == 0
             ? Padding(
                 padding: const EdgeInsets.only(left: 15),
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
                     icon: const Icon(
                       Icons.account_circle_outlined,
                       size: 30,
@@ -138,7 +153,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             : null,
         title: _selectedIndex == 0
             ? Text(
-                'Name',
+                Username,
                 style: ThemeText.subHeadingB18Light,
               )
             : _selectedIndex == 1
@@ -151,7 +166,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
-                      margin: const EdgeInsets.only(left: 5),
+                      // margin: const EdgeInsets.only(left: 5),
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),

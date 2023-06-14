@@ -49,8 +49,6 @@ class MyApp extends StatelessWidget {
           '/change': (context) => const ChangePassword(),
           '/profile': (context) => const ProfilScreen(),
           '/updateProfile': (context) => const UpdateProfilScreen(),
-          '/main': (context) => const MainScreen(),
-          '/home': (context) => const HomeScreen(),
           '/search': (context) => const SearchScreen(),
           '/scan': (context) => const ScanScreen(),
           '/cart': (context) => const CartScreen(),

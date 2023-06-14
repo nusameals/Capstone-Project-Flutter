@@ -40,7 +40,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            // Navigator.pop(context);
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),

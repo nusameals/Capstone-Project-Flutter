@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/user_view_model.dart';
+import '../main_screen.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -227,9 +228,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     );
                                                   }
                                                   // ignore: use_build_context_synchronously
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                          context, '/profile');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MainScreen()));
                                                 } catch (error) {
                                                   // ignore: use_build_context_synchronously
                                                   ScaffoldMessenger.of(context)

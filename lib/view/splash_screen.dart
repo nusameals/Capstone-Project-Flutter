@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nusameals/view/main_screen.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,11 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
         if (isLoggedIn) {
           // Pengguna sudah yg login, navigasikan ke halaman profil
           // ignore: use_build_context_synchronously
-          Navigator.pushNamed(context, '/profile');
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
         } else {
           // Pengguna belum login atau register, navigasikan ke halaman login
           // ignore: use_build_context_synchronously
-          Navigator.pushNamed(context, '/login');
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
         }
       },
     );
