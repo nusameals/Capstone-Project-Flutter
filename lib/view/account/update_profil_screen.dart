@@ -21,38 +21,41 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        child: SizedBox(
-          height: 460,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                  Text(
-                    'Update Profile',
-                    style: GoogleFonts.poppins(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
-                  )
-                ],
-              ),
-              const SizedBox(height: 20),
-              imageProfile(),
-              const SizedBox(height: 10),
-              editProfil(),
-              const SizedBox(height: 20),
-              bottomUpdates()
-            ],
+    return Theme(
+      data: Theme.of(context).copyWith(useMaterial3: false),
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: SizedBox(
+            height: 460,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back),
+                    ),
+                    Text(
+                      'Update Profile',
+                      style: GoogleFonts.poppins(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 20),
+                imageProfile(),
+                const SizedBox(height: 10),
+                editProfil(),
+                const SizedBox(height: 20),
+                bottomUpdates()
+              ],
+            ),
           ),
         ),
       ),
