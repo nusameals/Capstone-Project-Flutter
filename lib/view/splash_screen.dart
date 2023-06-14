@@ -28,8 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         } else {
           // Pengguna belum login atau register, navigasikan ke halaman login
           // ignore: use_build_context_synchronously
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MainScreen()));
+          Navigator.pushNamed(context, '/login');
         }
       },
     );

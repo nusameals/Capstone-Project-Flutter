@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Nusameals',
+        theme: ThemeData(useMaterial3: true),
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
