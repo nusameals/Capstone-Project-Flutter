@@ -77,138 +77,141 @@ class _ReservationNowState extends State<ReservationNow> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.arrow_back),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  'Please fill in the following form',
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
+    return Theme(
+      data: Theme.of(context).copyWith(useMaterial3: true),
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Nama',
-
+                  const SizedBox(width: 10),
+                  Text(
+                    'Please fill in the following form',
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Phone',
-
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            TextFormField(
-              onTap: (){
-                _selectDate(context);
-              },
-              decoration: InputDecoration(
-                labelText: 'date',
-                suffixIcon: Icon(Icons.calendar_month)
+                ],
               ),
-              readOnly: true,
-              controller: dateController,
-            ),
-            const SizedBox(height: 15),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    onTap: () {
-                      _selectTime(context, startTimeController);
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Start',
-                        suffixIcon: Icon(Icons.access_time)
-                    ),
-                    controller: startTimeController,
-                    readOnly: true,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextFormField(
-                    onTap: () {
-                      _selectTime(context, endTimeController);
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'End',
-                        suffixIcon: Icon(Icons.access_time)
-                    ),
-                    controller: endTimeController,
-                    readOnly: true,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Agenda',
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Nama',
 
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Number of peoples',
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Phone',
 
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10,),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Aksi saat tombol Submit ditekan
+                ],
+              ),
+              const SizedBox(height: 15),
+              TextFormField(
+                onTap: (){
+                  _selectDate(context);
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF0669BD),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),// Ubah warna latar belakang menjadi biru
+                decoration: InputDecoration(
+                  labelText: 'date',
+                  suffixIcon: Icon(Icons.calendar_month)
                 ),
-                child: Text('Submit',
-                style: GoogleFonts.poppins(color: Colors.white)),
+                readOnly: true,
+                controller: dateController,
               ),
-            ),
-          ],
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      onTap: () {
+                        _selectTime(context, startTimeController);
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Start',
+                          suffixIcon: Icon(Icons.access_time)
+                      ),
+                      controller: startTimeController,
+                      readOnly: true,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TextFormField(
+                      onTap: () {
+                        _selectTime(context, endTimeController);
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'End',
+                          suffixIcon: Icon(Icons.access_time)
+                      ),
+                      controller: endTimeController,
+                      readOnly: true,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Agenda',
+
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Number of peoples',
+
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Aksi saat tombol Submit ditekan
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF0669BD),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),// Ubah warna latar belakang menjadi biru
+                  ),
+                  child: Text('Submit',
+                  style: GoogleFonts.poppins(color: Colors.white)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
