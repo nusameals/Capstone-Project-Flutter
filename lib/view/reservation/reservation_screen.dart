@@ -94,16 +94,19 @@ class _ReservationPageState extends State<ReservationPage> {
                         padding: EdgeInsets.only(bottom: 8),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailReservation(
-                                  imageUrl: seats[index].imageUrl,
-                                  title: seats[index].title,
+                            if (seats[index].status != 'Not Available') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailReservation(
+                                    imageUrl: seats[index].imageUrl,
+                                    title: seats[index].title,
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            }
                           },
+
                           child: Container(
                             height: 80,
                             decoration: BoxDecoration(

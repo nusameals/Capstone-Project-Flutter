@@ -48,8 +48,20 @@ class _EditMyTableState extends State<EditMyTable> {
       setState(() {
         selectedDate = pickedDate;
         controller.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
+        widget.date = controller.text;
+
       });
     }
+  }
+  @override
+  void initState() {
+    super.initState();
+    selectedStartTime = TimeOfDay(hour: int.parse(widget.start.split(':')[0]), minute: int.parse(widget.start.split(':')[1]));
+    selectedEndTime = TimeOfDay(hour: int.parse(widget.end.split(':')[0]), minute: int.parse(widget.end.split(':')[1]));
+    selectedDate = DateFormat('dd/MM/yyyy').parse(widget.date);
+    startTimeController.text = widget.start;
+    endTimeController.text = widget.end;
+    dateController.text = widget.date;
   }
 
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
@@ -95,7 +107,7 @@ class _EditMyTableState extends State<EditMyTable> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Aksi saat tombol kembali ditekan
+                    Navigator.pop(context);
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
@@ -151,7 +163,7 @@ class _EditMyTableState extends State<EditMyTable> {
                   labelText: 'date',
                   suffixIcon: Icon(Icons.calendar_month)
               ),
-             controller: TextEditingController(text: widget.date),
+             controller: dateController,
               onChanged: (value) {
                 setState(() {
                   widget.date = value;
@@ -170,7 +182,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         labelText: 'Start',
                         suffixIcon: Icon(Icons.access_time)
                     ),
-                    controller: TextEditingController(text: widget.start),
+                    controller: startTimeController,
                     onChanged: (value) {
                       setState(() {
                         widget.start = value;
@@ -188,7 +200,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         labelText: 'End',
                         suffixIcon: Icon(Icons.access_time)
                     ),
-                    controller: TextEditingController(text: widget.end),
+                    controller: endTimeController,
                     onChanged: (value) {
                       setState(() {
                         widget.end = value;

@@ -88,7 +88,7 @@ class _ReservationNowState extends State<ReservationNow> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Aksi saat tombol kembali ditekan
+                    Navigator.pop(context);
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
