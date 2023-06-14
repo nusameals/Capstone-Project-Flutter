@@ -6,8 +6,15 @@ import 'package:nusameals/view/auth/forgot_password_screen.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'package:nusameals/view/splash_screen.dart';
-import 'package:provider/provider.dart';
 import 'view_model/user_view_model.dart';
+import 'package:nusameals/view/main_screen.dart';
+import 'package:provider/provider.dart';
+import 'view/cart/cart_screen.dart';
+import 'view/home/home_screen.dart';
+import 'view/menu/search_screen.dart';
+import 'view/scan/scan_screen.dart';
+import 'view_model/cart_view_model.dart';
+import 'view_model/menu_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +27,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserViewModel()),
+        ChangeNotifierProvider(
+          create: (context) => UserViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MenuViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartViewModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -34,6 +49,11 @@ class MyApp extends StatelessWidget {
           '/change': (context) => const ChangePassword(),
           '/profile': (context) => const ProfilScreen(),
           '/updateProfile': (context) => const UpdateProfilScreen(),
+          '/main': (context) => const MainScreen(),
+          '/home': (context) => const HomeScreen(),
+          '/search': (context) => const SearchScreen(),
+          '/scan': (context) => const ScanScreen(),
+          '/cart': (context) => const CartScreen(),
         },
       ),
     );
