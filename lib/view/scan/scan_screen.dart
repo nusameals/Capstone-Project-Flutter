@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/component/button_primary.dart';
+import 'package:nusameals/view/component/costum_snackbar.dart';
+import 'package:nusameals/view/scan/result_scan.dart';
+import 'package:provider/provider.dart';
+import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
+import '../../view_model/menu_view_model.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -11,22 +17,36 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-  String qrCodeResult = '';
-  String result = '';
-  Future scanbarcode() async {
-    result = await FlutterBarcodeScanner.scanBarcode(
-      "#ff6666",
-      "Cancel",
-      true,
-      ScanMode.QR,
-    );
-    setState(() {
-      qrCodeResult = result;
-    });
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<MenuViewModel>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
+    final modelMenu = Provider.of<MenuViewModel>(context);
+    Future<void> scanbarcode() async {
+      String idMenu = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666",
+        "Cancel",
+        true,
+        ScanMode.QR,
+      );
+      MenuModel? scannedMenu = modelMenu.findMenuById(idMenu);
+      if (scannedMenu != null) {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultScanScreen(scannedMenu),
+          ),
+        );
+      } else {
+        CustomSnackbar.showSnackbar(context, 'Menu not found');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorTheme.primaryBlue,
@@ -90,7 +110,6 @@ class _ScanScreenState extends State<ScanScreen> {
               const SizedBox(
                 height: 5,
               ),
-              Text(result),
             ],
           ),
         ),

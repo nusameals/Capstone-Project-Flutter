@@ -44,4 +44,13 @@ class MenuViewModel with ChangeNotifier {
     _listSearch.clear();
     notifyListeners();
   }
+
+  MenuModel? findMenuById(String idMenu) {
+    for (MenuModel menu in _listMenu) {
+      if (menu.idMenu == idMenu) {
+        return menu;
+      }
+    }
+    return null;
+  }
 }
