@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
 import 'package:nusameals/view/cart/cart_screen.dart';
 import 'package:nusameals/view/cart/order_screen.dart';
+import 'package:nusameals/view_model/cart_view_model.dart';
+import 'package:provider/provider.dart';
 import '../../model/menu_model.dart';
 import '../component/costum_snackbar.dart';
 
@@ -156,19 +158,14 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            //logic add to cart
+                            final cartViewModel = Provider.of<CartViewModel>(
+                                context,
+                                listen: false);
+                            cartViewModel.addToCart(widget.menuModel, context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const CartScreen()));
-                            CustomSnackbar.showSnackbar(
-                              context,
-                              '"${widget.menuModel.name}" put in basket.',
-                              actionText: 'Close',
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorTheme.light1,

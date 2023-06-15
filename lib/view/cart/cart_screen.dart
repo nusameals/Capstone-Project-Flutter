@@ -42,6 +42,45 @@ class _CartScreenState extends State<CartScreen> {
       return totalPrice;
     }
 
+    if (modelCart.listMenuCart.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: ColorTheme.light1,
+          elevation: 1,
+          leading: IconButton(
+            padding: const EdgeInsets.only(left: 20),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: ColorTheme.dark1,
+              size: 20,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text(
+            'Cart',
+            style: ThemeText.subHeadingR20,
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.remove_shopping_cart_outlined,
+                color: ColorTheme.dark5,
+                size: 24,
+              ),
+              Text(
+                "No menu available in the cart",
+                style: ThemeText.bodyR14Dark4,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Theme(
       data: Theme.of(context).copyWith(useMaterial3: false),
       child: Scaffold(
@@ -109,9 +148,12 @@ class _CartScreenState extends State<CartScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          item.name,
-                                          style: ThemeText.subHeadingB18,
+                                        Flexible(
+                                          child: Text(
+                                            item.name,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: ThemeText.subHeadingB18,
+                                          ),
                                         ),
                                         InkWell(
                                           onTap: () {
