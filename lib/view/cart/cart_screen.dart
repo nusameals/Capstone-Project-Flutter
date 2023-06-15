@@ -312,7 +312,7 @@ class _CartScreenState extends State<CartScreen> {
                                               style: ThemeText.bodyR14Dark4,
                                             ),
                                             Text(
-                                              item.calorie,
+                                              '${item.calorie} kkal',
                                               style: ThemeText.bodyB14Dark4,
                                             ),
                                           ],
