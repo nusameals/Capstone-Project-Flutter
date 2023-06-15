@@ -130,10 +130,15 @@ class _ReservationNowState extends State<ReservationNow> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Nama',
+                        labelStyle: TextStyle(
+                          color: Colors.black.withOpacity(0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                        ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue), // Mengubah warna aksen menjadi biru
                         ),
-                        labelStyle: TextStyle(color: Colors.blue),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        ),
                       ),
                       cursorColor: Colors.blue,
                     ),
@@ -143,10 +148,15 @@ class _ReservationNowState extends State<ReservationNow> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Phone',
+                        labelStyle: TextStyle(
+                          color: Colors.black.withOpacity(0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                        ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue), // Mengubah warna aksen menjadi biru
                         ),
-                        labelStyle: TextStyle(color: Colors.blue),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        ),
                       ),
                       cursorColor: Colors.blue,
                     ),
@@ -160,7 +170,16 @@ class _ReservationNowState extends State<ReservationNow> {
                 },
                 decoration: InputDecoration(
                   labelText: 'date',
-                  suffixIcon: Icon(Icons.calendar_month)
+                  suffixIcon: Icon(Icons.calendar_month),
+                  labelStyle: TextStyle(
+                    color: Colors.black.withOpacity(0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue), // Mengubah warna aksen menjadi biru
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                  ),
                 ),
                 readOnly: true,
                 controller: dateController,
@@ -175,7 +194,16 @@ class _ReservationNowState extends State<ReservationNow> {
                       },
                       decoration: InputDecoration(
                         labelText: 'Start',
-                          suffixIcon: Icon(Icons.access_time)
+                          suffixIcon: Icon(Icons.access_time),
+                        labelStyle: TextStyle(
+                          color: Colors.black.withOpacity(0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue), // Mengubah warna aksen menjadi biru
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        ),
                       ),
                       controller: startTimeController,
                       readOnly: true,
@@ -204,10 +232,15 @@ class _ReservationNowState extends State<ReservationNow> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Agenda',
+                        labelStyle: TextStyle(
+                          color: Colors.black.withOpacity(0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                        ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue), // Mengubah warna aksen menjadi biru
                         ),
-                        labelStyle: TextStyle(color: Colors.blue),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        ),
                       ),
                       cursorColor: Colors.blue,
                     ),
@@ -217,10 +250,15 @@ class _ReservationNowState extends State<ReservationNow> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         labelText: 'Number of peoples',
+                        labelStyle: TextStyle(
+                          color: Colors.black.withOpacity(0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                        ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.blue), // Mengubah warna aksen menjadi biru
                         ),
-                        labelStyle: TextStyle(color: Colors.blue),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        ),
                       ),
                       cursorColor: Colors.blue,
                     ),
