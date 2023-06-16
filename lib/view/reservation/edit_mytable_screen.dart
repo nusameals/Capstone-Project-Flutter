@@ -53,6 +53,8 @@ class _EditMyTableState extends State<EditMyTable> {
       });
     }
   }
+
+
   @override
   void initState() {
     super.initState();
@@ -69,9 +71,27 @@ class _EditMyTableState extends State<EditMyTable> {
       context: context,
       initialTime: TimeOfDay.now(),
       builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: Colors.blue, // Mengubah warna utama menjadi biru
+              secondary: Colors.blue, // Mengubah warna aksen menjadi biru
+            ),
+            scaffoldBackgroundColor: Colors.white, // Mengubah warna latar belakang dialog menjadi putih
+            textTheme: Theme.of(context).textTheme.copyWith(
+              bodyText1: TextStyle(color: Colors.black),
+              // Mengubah warna teks menjadi hitam
+            ),
+            timePickerTheme: TimePickerThemeData(
+              hourMinuteTextColor: Colors.black, // Mengubah warna aksen jam digital menjadi biru
+              dayPeriodTextColor: Colors.black, // Mengubah warna aksen AM/PM menjadi biru
+              dayPeriodTextStyle: TextStyle(color: Colors.black), // Mengubah warna aksen AM/PM menjadi biru
+            ),
+          ),
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          ),
         );
       },
     );
