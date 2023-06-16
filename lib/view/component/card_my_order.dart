@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import '../../themes/constant.dart';
+
 class CardMyOrder extends StatelessWidget {
   final String id;
   final String dateTime;
@@ -55,7 +57,9 @@ class CardMyOrder extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Text(price),
+            child: Text(
+              price,
+            ),
           ),
         ],
       ),

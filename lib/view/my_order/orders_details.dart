@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../themes/constant.dart';
+
 class OrderDetailScreen extends StatelessWidget {
   const OrderDetailScreen({super.key});
 
@@ -23,8 +25,9 @@ class OrderDetailScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Orders Detail',
+          style: ThemeText.subHeadingR20,
         ),
       ),
       body: ListView(
@@ -52,11 +55,12 @@ class OrderDetailScreen extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
+                        children: [
                           Flexible(
                             child: Text(
                               'Soto Ayam',
                               overflow: TextOverflow.ellipsis,
+                              style: ThemeText.subHeadingB18,
                               // maxLines: 1,
                             ),
                           ),
@@ -70,12 +74,14 @@ class OrderDetailScreen extends StatelessWidget {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Jakarta',
+                                style: ThemeText.bodyR14Dark4,
                               ),
                               Text(
                                 '100 kkal',
+                                style: ThemeText.bodyB14Dark4,
                               ),
                             ],
                           ),
@@ -85,6 +91,7 @@ class OrderDetailScreen extends StatelessWidget {
                                 '10000',
                               ),
                             ),
+                            style: ThemeText.bodyB20,
                           ),
                         ],
                       )
@@ -108,9 +115,10 @@ class OrderDetailScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Orders Details',
                   textAlign: TextAlign.start,
+                  style: ThemeText.subHeadingR20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

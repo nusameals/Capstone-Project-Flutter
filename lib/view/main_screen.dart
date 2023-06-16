@@ -7,6 +7,7 @@ import '../themes/constant.dart';
 import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
 import 'home/notification_screen.dart';
+import 'my_order/my_order_screen.dart';
 import 'reservation/reservation_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -123,7 +124,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         },
       ),
       MenuScreen(tabController: _tabController),
-      const HomeScreen(), //  MyOrderScreen()
+      const MyOrderScreen(),
       const ReservationPage(),
     ];
     return Theme(

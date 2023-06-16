@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../themes/constant.dart';
 import '../component/card_my_order.dart';
 import 'dummy.dart';
 import 'orders_details.dart';
@@ -18,8 +19,13 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0669BD),
-        title: Text('My Orders', style: TextStyle(color: Colors.white)),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: ColorTheme.primaryBlue,
+        title: Text(
+          'My Orders',
+          style: ThemeText.subHeadingR20W,
+        ),
       ),
       body: SafeArea(
         child: DefaultTabController(
@@ -93,7 +99,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                               return Container(
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 10,
-                                  vertical: 6,
+                                  vertical: 10,
                                 ),
                                 child: GestureDetector(
                                   onTap: () {
@@ -115,23 +121,27 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                     processedList.isEmpty
                         ? _listIsEmpty()
                         : ListView.builder(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 16),
                             itemCount: processedList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const OrderDetailScreen()));
-                                },
-                                child: CardMyOrder(
-                                    id: processedList[index].id,
-                                    dateTime: processedList[index].dateTime,
-                                    price: processedList[index].price,
-                                    imageUrl: processedList[index].imageUrl),
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 10,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const OrderDetailScreen()));
+                                  },
+                                  child: CardMyOrder(
+                                      id: processedList[index].id,
+                                      dateTime: processedList[index].dateTime,
+                                      price: processedList[index].price,
+                                      imageUrl: processedList[index].imageUrl),
+                                ),
                               );
                             },
                           ),
