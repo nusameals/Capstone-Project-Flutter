@@ -13,7 +13,6 @@ class UserAPI {
     required String email_or_username,
     required String password,
   }) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final url = Uri.parse('$baseUrl/login');
 
@@ -30,9 +29,11 @@ class UserAPI {
         debugPrint(id);
         debugPrint(username);
         debugPrint(token);
-        prefs.setString('id', responData['id'].toString());
-        prefs.setString('username', responData['username']);
-        prefs.setString('token', responData['token']);
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('id', responData['id'].toString());
+        await prefs.setString('username', responData['username']);
+        await prefs.setString('token', responData['token']);
         return responData;
       } else {
         throw Exception('user or email not found');
@@ -52,7 +53,6 @@ class UserAPI {
     required String retype_password,
   }) async {
     // ignore: unused_local_variable
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final url = Uri.parse('$baseUrl/register');
 
@@ -64,6 +64,8 @@ class UserAPI {
       });
 
       if (response.statusCode == 200) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('email', email);
         String message = response.body;
         // ignore: avoid_print
         print(message);
