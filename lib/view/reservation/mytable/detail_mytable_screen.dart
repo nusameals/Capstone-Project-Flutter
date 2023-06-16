@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nusameals/view/reservation/edit_mytable_screen.dart';
+import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
 
 class Table {
   final String name;

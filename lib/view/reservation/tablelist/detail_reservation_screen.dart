@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/reservation/reservationnow.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nusameals/view/reservation/tablelist/reservationnow.dart';
 
 class DetailReservation extends StatefulWidget {
   final String imageUrl;

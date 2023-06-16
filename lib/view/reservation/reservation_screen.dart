@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/reservation/detail_mytable_screen.dart';
-import 'package:nusameals/view/reservation/detail_reservation_screen.dart';
+import 'package:nusameals/view/reservation/mytable/detail_mytable_screen.dart';
+import 'package:nusameals/view/reservation/tablelist/detail_reservation_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
