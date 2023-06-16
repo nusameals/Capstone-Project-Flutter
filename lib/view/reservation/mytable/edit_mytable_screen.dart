@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../themes/constant.dart';
+
 class EditMyTable extends StatefulWidget {
   String name;
-   String phone;
-   String date;
+  String phone;
+  String date;
   String start;
   String end;
-   String agenda;
-   String people;
-   EditMyTable({Key? key, required this.name, required this.phone, required this.date, required this.start,required this.end, required this.agenda, required this.people, }) : super(key: key);
+  String agenda;
+  String people;
+  EditMyTable({
+    Key? key,
+    required this.name,
+    required this.phone,
+    required this.date,
+    required this.start,
+    required this.end,
+    required this.agenda,
+    required this.people,
+  }) : super(key: key);
 
   @override
-
   State<EditMyTable> createState() => _EditMyTableState();
 }
 
@@ -26,8 +36,8 @@ class _EditMyTableState extends State<EditMyTable> {
   TextEditingController endTimeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
-
-  Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
+  Future<void> _selectDate(
+      BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate ?? DateTime.now(),
@@ -49,24 +59,27 @@ class _EditMyTableState extends State<EditMyTable> {
         selectedDate = pickedDate;
         controller.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
         widget.date = controller.text;
-
       });
     }
   }
 
-
   @override
   void initState() {
     super.initState();
-    selectedStartTime = TimeOfDay(hour: int.parse(widget.start.split(':')[0]), minute: int.parse(widget.start.split(':')[1]));
-    selectedEndTime = TimeOfDay(hour: int.parse(widget.end.split(':')[0]), minute: int.parse(widget.end.split(':')[1]));
+    selectedStartTime = TimeOfDay(
+        hour: int.parse(widget.start.split(':')[0]),
+        minute: int.parse(widget.start.split(':')[1]));
+    selectedEndTime = TimeOfDay(
+        hour: int.parse(widget.end.split(':')[0]),
+        minute: int.parse(widget.end.split(':')[1]));
     selectedDate = DateFormat('dd/MM/yyyy').parse(widget.date);
     startTimeController.text = widget.start;
     endTimeController.text = widget.end;
     dateController.text = widget.date;
   }
 
-  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+  Future<void> _selectTime(
+      BuildContext context, TextEditingController controller) async {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -74,18 +87,23 @@ class _EditMyTableState extends State<EditMyTable> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: Colors.blue, // Mengubah warna utama menjadi biru
-              secondary: Colors.blue, // Mengubah warna aksen menjadi biru
-            ),
-            scaffoldBackgroundColor: Colors.white, // Mengubah warna latar belakang dialog menjadi putih
+                  primary: Colors.blue, // Mengubah warna utama menjadi biru
+                  secondary: Colors.blue, // Mengubah warna aksen menjadi biru
+                ),
+            scaffoldBackgroundColor: Colors
+                .white, // Mengubah warna latar belakang dialog menjadi putih
             textTheme: Theme.of(context).textTheme.copyWith(
-              bodyText1: TextStyle(color: Colors.black),
-              // Mengubah warna teks menjadi hitam
-            ),
+                  bodyText1: TextStyle(color: Colors.black),
+                  // Mengubah warna teks menjadi hitam
+                ),
             timePickerTheme: TimePickerThemeData(
-              hourMinuteTextColor: Colors.black, // Mengubah warna aksen jam digital menjadi biru
-              dayPeriodTextColor: Colors.black, // Mengubah warna aksen AM/PM menjadi biru
-              dayPeriodTextStyle: TextStyle(color: Colors.black), // Mengubah warna aksen AM/PM menjadi biru
+              hourMinuteTextColor:
+                  Colors.black, // Mengubah warna aksen jam digital menjadi biru
+              dayPeriodTextColor:
+                  Colors.black, // Mengubah warna aksen AM/PM menjadi biru
+              dayPeriodTextStyle: TextStyle(
+                  color:
+                      Colors.black), // Mengubah warna aksen AM/PM menjadi biru
             ),
           ),
           child: MediaQuery(
@@ -176,14 +194,12 @@ class _EditMyTableState extends State<EditMyTable> {
             ),
             const SizedBox(height: 15),
             TextFormField(
-              onTap: (){
+              onTap: () {
                 _selectDate(context, dateController);
               },
               decoration: InputDecoration(
-                  labelText: 'date',
-                  suffixIcon: Icon(Icons.calendar_month)
-              ),
-             controller: dateController,
+                  labelText: 'date', suffixIcon: Icon(Icons.calendar_month)),
+              controller: dateController,
               onChanged: (value) {
                 setState(() {
                   widget.date = value;
@@ -200,8 +216,7 @@ class _EditMyTableState extends State<EditMyTable> {
                     },
                     decoration: InputDecoration(
                         labelText: 'Start',
-                        suffixIcon: Icon(Icons.access_time)
-                    ),
+                        suffixIcon: Icon(Icons.access_time)),
                     controller: startTimeController,
                     onChanged: (value) {
                       setState(() {
@@ -216,10 +231,8 @@ class _EditMyTableState extends State<EditMyTable> {
                     onTap: () {
                       _selectTime(context, endTimeController);
                     },
-                    decoration: InputDecoration(
-                        labelText: 'End',
-                        suffixIcon: Icon(Icons.access_time)
-                    ),
+                    decoration: const InputDecoration(
+                        labelText: 'End', suffixIcon: Icon(Icons.access_time)),
                     controller: endTimeController,
                     onChanged: (value) {
                       setState(() {
@@ -235,7 +248,7 @@ class _EditMyTableState extends State<EditMyTable> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Agenda',
                     ),
                     initialValue: widget.agenda,
@@ -249,7 +262,7 @@ class _EditMyTableState extends State<EditMyTable> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Number of peoples',
                     ),
                     initialValue: widget.people,
@@ -266,10 +279,10 @@ class _EditMyTableState extends State<EditMyTable> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Aksi saat tombol Submit ditekan
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF0669BD), // Ubah warna latar belakang menjadi biru
+                  primary: ColorTheme.primaryBlue,
                 ),
                 child: Text('Submit',
                     style: GoogleFonts.poppins(color: Colors.white)),

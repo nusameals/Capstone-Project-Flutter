@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/reservation/tablelist/reservationnow.dart';
 
+import '../../../themes/constant.dart';
+
 class DetailReservation extends StatefulWidget {
   final String imageUrl;
   final String title;
@@ -43,7 +45,7 @@ class _DetailReservationState extends State<DetailReservation> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black.withOpacity(0.5)),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                       ),
@@ -52,7 +54,7 @@ class _DetailReservationState extends State<DetailReservation> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -65,7 +67,7 @@ class _DetailReservationState extends State<DetailReservation> {
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -89,31 +91,31 @@ class _DetailReservationState extends State<DetailReservation> {
                 ),
               ),
             ),
-            Spacer(),
-            Divider(),
+            const Spacer(),
+            const Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: SizedBox(
                 width: 370,
                 child: ElevatedButton(
                   onPressed: () {
                     showModalBottomSheet(
                       isScrollControlled: true,
                       context: context,
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
                       builder: (context) => const ReservationNow(),
                     );
                   },
-                  child: Text('Reservasi Now',
-                      style: GoogleFonts.poppins(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF0669BD),
+                    primary: ColorTheme.primaryBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
+                  child: Text('Reservasi Now',
+                      style: GoogleFonts.poppins(color: Colors.white)),
                 ),
               ),
             ),

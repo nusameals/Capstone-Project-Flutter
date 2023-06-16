@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../themes/constant.dart';
+
 class ReservationNow extends StatefulWidget {
   const ReservationNow({Key? key}) : super(key: key);
 
@@ -43,23 +45,17 @@ class _ReservationNowState extends State<ReservationNow> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-                  primary: Colors.blue, // Mengubah warna utama menjadi biru
-                  secondary: Colors.blue, // Mengubah warna aksen menjadi biru
+                  primary: ColorTheme.primaryBlue80,
+                  secondary: Colors.blue,
                 ),
-            scaffoldBackgroundColor: Colors
-                .white, // Mengubah warna latar belakang dialog menjadi putih
+            scaffoldBackgroundColor: Colors.white,
             textTheme: Theme.of(context).textTheme.copyWith(
-                  bodyText1: TextStyle(color: Colors.black),
-                  // Mengubah warna teks menjadi hitam
+                  bodyText1: const TextStyle(color: ColorTheme.dark1),
                 ),
             timePickerTheme: TimePickerThemeData(
-              hourMinuteTextColor:
-                  Colors.black, // Mengubah warna aksen jam digital menjadi biru
-              dayPeriodTextColor:
-                  Colors.black, // Mengubah warna aksen AM/PM menjadi biru
-              dayPeriodTextStyle: TextStyle(
-                  color:
-                      Colors.black), // Mengubah warna aksen AM/PM menjadi biru
+              hourMinuteTextColor: ColorTheme.dark1,
+              dayPeriodTextColor: ColorTheme.dark1,
+              dayPeriodTextStyle: TextStyle(color: ColorTheme.dark1),
             ),
           ),
           child: MediaQuery(
@@ -95,7 +91,7 @@ class _ReservationNowState extends State<ReservationNow> {
       child: Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -126,18 +122,13 @@ class _ReservationNowState extends State<ReservationNow> {
                       decoration: InputDecoration(
                         labelText: 'Nama',
                         labelStyle: TextStyle(
-                          color: Colors.black.withOpacity(
-                              0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                          color: Colors.black.withOpacity(0.7),
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .blue), // Mengubah warna aksen menjadi biru
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
                       ),
                       cursorColor: Colors.blue,
@@ -149,18 +140,13 @@ class _ReservationNowState extends State<ReservationNow> {
                       decoration: InputDecoration(
                         labelText: 'Phone',
                         labelStyle: TextStyle(
-                          color: Colors.black.withOpacity(
-                              0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                          color: Colors.black.withOpacity(0.7),
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .blue), // Mengubah warna aksen menjadi biru
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
                       ),
                       cursorColor: Colors.blue,
@@ -175,20 +161,15 @@ class _ReservationNowState extends State<ReservationNow> {
                 },
                 decoration: InputDecoration(
                   labelText: 'date',
-                  suffixIcon: Icon(Icons.calendar_month),
+                  suffixIcon: const Icon(Icons.calendar_month),
                   labelStyle: TextStyle(
-                    color: Colors.black.withOpacity(
-                        0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                    color: Colors.black.withOpacity(0.7),
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color:
-                            Colors.blue), // Mengubah warna aksen menjadi biru
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
                   ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors
-                            .grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                  enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
                 readOnly: true,
@@ -204,20 +185,15 @@ class _ReservationNowState extends State<ReservationNow> {
                       },
                       decoration: InputDecoration(
                         labelText: 'Start',
-                        suffixIcon: Icon(Icons.access_time),
+                        suffixIcon: const Icon(Icons.access_time),
                         labelStyle: TextStyle(
-                          color: Colors.black.withOpacity(
-                              0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                          color: Colors.black.withOpacity(0.7),
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .blue), // Mengubah warna aksen menjadi biru
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
                       ),
                       controller: startTimeController,
@@ -230,7 +206,7 @@ class _ReservationNowState extends State<ReservationNow> {
                       onTap: () {
                         _selectTime(context, endTimeController);
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           labelText: 'End',
                           suffixIcon: Icon(Icons.access_time)),
                       controller: endTimeController,
@@ -247,18 +223,13 @@ class _ReservationNowState extends State<ReservationNow> {
                       decoration: InputDecoration(
                         labelText: 'Agenda',
                         labelStyle: TextStyle(
-                          color: Colors.black.withOpacity(
-                              0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                          color: Colors.black.withOpacity(0.7),
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .blue), // Mengubah warna aksen menjadi biru
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
                       ),
                       cursorColor: Colors.blue,
@@ -270,18 +241,13 @@ class _ReservationNowState extends State<ReservationNow> {
                       decoration: InputDecoration(
                         labelText: 'Number of peoples',
                         labelStyle: TextStyle(
-                          color: Colors.black.withOpacity(
-                              0.7), // Mengubah warna label teks menjadi abu-abu saat tidak aktif
+                          color: Colors.black.withOpacity(0.7),
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .blue), // Mengubah warna aksen menjadi biru
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors
-                                  .grey), // Mengubah warna tepi menjadi abu-abu saat tidak aktif
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
                         ),
                       ),
                       cursorColor: Colors.blue,
@@ -289,7 +255,7 @@ class _ReservationNowState extends State<ReservationNow> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               SizedBox(
@@ -299,7 +265,7 @@ class _ReservationNowState extends State<ReservationNow> {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF0669BD),
+                    primary: ColorTheme.primaryBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ), // Ubah warna latar belakang menjadi biru

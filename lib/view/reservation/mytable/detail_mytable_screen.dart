@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
 
+import '../../../themes/constant.dart';
+
 class Table {
   final String name;
   final String phone;
@@ -75,9 +77,9 @@ class _DetailMyTableState extends State<DetailMyTable> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black.withOpacity(0.5)),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
-                        color: Colors.white,
+                        color: ColorTheme.light1,
                       ),
                     ),
                   ),
@@ -97,7 +99,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -129,13 +131,13 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         GestureDetector(
                           onTap: () {
                             showModalBottomSheet(
                               isScrollControlled: true,
                               context: context,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(20))),
                               builder: (context) => EditMyTable(
@@ -310,16 +312,13 @@ class Canceled extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: 150, // Adjust the width as per your requirement
+                  width: 150,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add your action for "Yes" button
-                      Navigator.pop(
-                          context); // Close the modal when the button is pressed
+                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors
-                          .white, // Replace with your desired button color
+                      primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(color: Colors.blue),
@@ -328,24 +327,20 @@ class Canceled extends StatelessWidget {
                     child: Text(
                       'No',
                       style: GoogleFonts.poppins(
-                        color:
-                            Colors.blue, // Replace with your desired text color
+                        color: Colors.blue,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  width: 150, // Adjust the width as per your requirement
+                  width: 150,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add your action for "No" button
-                      Navigator.pop(
-                          context); // Close the modal when the button is pressed
+                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:
-                          Colors.red, // Replace with your desired button color
+                      primary: ColorTheme.secondaryDanger,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -353,8 +348,7 @@ class Canceled extends StatelessWidget {
                     child: Text(
                       'Yes',
                       style: GoogleFonts.poppins(
-                        color: Colors
-                            .white, // Replace with your desired text color
+                        color: ColorTheme.light1,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
