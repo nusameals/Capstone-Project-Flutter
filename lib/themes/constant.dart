@@ -94,6 +94,11 @@ class ThemeText {
     fontSize: 14,
     color: ColorTheme.dark1,
   );
+  static TextStyle bodyB14B = GoogleFonts.poppins(
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: ColorTheme.primaryBlue,
+  );
   static TextStyle bodyB14Dark4 = GoogleFonts.poppins(
     fontWeight: FontWeight.w700,
     fontSize: 14,
@@ -118,6 +123,11 @@ class ThemeText {
   static TextStyle bodyR14B = GoogleFonts.poppins(
     fontWeight: FontWeight.w400,
     fontSize: 14,
+    color: ColorTheme.primaryBlue,
+  );
+  static TextStyle bodyR16B = GoogleFonts.poppins(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
     color: ColorTheme.primaryBlue,
   );
   static TextStyle bodyR14Dark4 = GoogleFonts.poppins(

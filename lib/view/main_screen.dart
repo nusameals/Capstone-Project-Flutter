@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../themes/constant.dart';
 import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
+import 'home/notification_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -206,7 +207,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         size: 30,
                       ),
                       onPressed: () {
-                        // Aksi ketika tombol notifikasi diklik
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Notifications()));
                       },
                     ),
                   )
