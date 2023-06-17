@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../themes/constant.dart';
 import '../../view_model/my_order_view_model.dart';
@@ -21,7 +23,9 @@ class _MyOrderScreenState extends State<MyOrderScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    Provider.of<MyOrderViewModel>(context, listen: false).fetchMyOrders();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<MyOrderViewModel>(context, listen: false).fetchMyOrders();
+    });
   }
 
   @override
@@ -48,6 +52,10 @@ class _MyOrderScreenState extends State<MyOrderScreen>
             Tab(text: 'Processed'),
             Tab(text: 'Finished'),
           ],
+          labelStyle:
+              GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 14),
+          unselectedLabelStyle:
+              GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 14),
         ),
       ),
       body: TabBarView(
@@ -68,7 +76,13 @@ class _MyOrderScreenState extends State<MyOrderScreen>
             .where((order) => order.orderStatus == 'Ordered')
             .toList();
 
-        if (orderedOrders.isEmpty) {
+        if (viewModel.isLoading) {
+          return const Center(
+            child: SpinKitCircle(
+              color: ColorTheme.primaryBlue,
+            ),
+          );
+        } else if (orderedOrders.isEmpty) {
           return _listIsEmpty();
         }
 
@@ -107,7 +121,13 @@ class _MyOrderScreenState extends State<MyOrderScreen>
             .where((order) => order.orderStatus == 'Processed')
             .toList();
 
-        if (processedOrders.isEmpty) {
+        if (viewModel.isLoading) {
+          return const Center(
+            child: SpinKitCircle(
+              color: ColorTheme.primaryBlue,
+            ),
+          );
+        } else if (processedOrders.isEmpty) {
           return _listIsEmpty();
         }
 
@@ -146,7 +166,13 @@ class _MyOrderScreenState extends State<MyOrderScreen>
             .where((order) => order.orderStatus == 'Finished')
             .toList();
 
-        if (finishedOrders.isEmpty) {
+        if (viewModel.isLoading) {
+          return const Center(
+            child: SpinKitCircle(
+              color: ColorTheme.primaryBlue,
+            ),
+          );
+        } else if (finishedOrders.isEmpty) {
           return _listIsEmpty();
         }
 
