@@ -73,9 +73,19 @@ class ThemeText {
     fontSize: 18,
     color: ColorTheme.dark1,
   );
+  static TextStyle bodyT14 = GoogleFonts.poppins(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    color: ColorTheme.dark1,
+  );
   static TextStyle bodyB145 = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
     fontSize: 14,
+    color: ColorTheme.dark1,
+  );
+  static TextStyle bodyB165 = GoogleFonts.poppins(
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
     color: ColorTheme.dark1,
   );
   static TextStyle bodyB145W = GoogleFonts.poppins(
