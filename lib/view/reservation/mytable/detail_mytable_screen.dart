@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nusameals/view/component/costum_snackbar.dart';
 import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
 
 import '../../../themes/constant.dart';
@@ -44,9 +45,16 @@ class _DetailMyTableState extends State<DetailMyTable> {
       agenda: 'Dinner',
       people: '10',
     )
-    // Tambahkan entri Seat lainnya di sini
   ];
   int index = 0;
+
+  void removeTable() {
+    setState(() {
+      tables.removeAt(index);
+    });
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -242,7 +250,8 @@ class _DetailMyTableState extends State<DetailMyTable> {
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
-                      builder: (context) => Canceled(),
+                      builder: (context) => Canceled( onConfirm: removeTable
+                      ),
                     );
                   },
                   child: Text('Canceled Reservation',
@@ -267,6 +276,8 @@ class _DetailMyTableState extends State<DetailMyTable> {
 }
 
 class Canceled extends StatelessWidget {
+  final VoidCallback onConfirm;
+  Canceled({required this.onConfirm});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -336,8 +347,10 @@ class Canceled extends StatelessWidget {
                 Container(
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
+                    onPressed: (){
+                      onConfirm();
+                      CustomSnackbar.showSnackbar(context,
+                          'Reservation has been canceled. please wait....');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ColorTheme.secondaryDanger,
