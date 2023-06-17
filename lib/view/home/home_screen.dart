@@ -229,51 +229,52 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: GridView.builder(
-                      itemCount: modelMenu.listMenu.length,
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 12,
-                              mainAxisSpacing: 10),
-                      itemBuilder: (context, index) {
-                        final item = modelMenu.listMenu[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
-                                  return DetailMenuScreen(item);
-                                },
-                                transitionsBuilder: ((context, animation,
-                                    secondaryAnimation, child) {
-                                  final tween = Tween(begin: 0.2, end: 1.0);
-                                  return FadeTransition(
-                                    opacity: animation.drive(tween),
-                                    child: child,
+                    child: isLoading
+                        ? const Center(
+                            child: SpinKitCircle(
+                              color: ColorTheme.primaryBlue,
+                            ),
+                          )
+                        : GridView.builder(
+                            itemCount: modelMenu.listMenu.length,
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 10),
+                            itemBuilder: (context, index) {
+                              final item = modelMenu.listMenu[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                          secondaryAnimation) {
+                                        return DetailMenuScreen(item);
+                                      },
+                                      transitionsBuilder: ((context, animation,
+                                          secondaryAnimation, child) {
+                                        final tween =
+                                            Tween(begin: 0.2, end: 1.0);
+                                        return FadeTransition(
+                                          opacity: animation.drive(tween),
+                                          child: child,
+                                        );
+                                      }),
+                                    ),
                                   );
-                                }),
-                              ),
-                            );
-                          },
-                          child: isLoading
-                              ? const Center(
-                                  child: SpinKitCircle(
-                                    color: ColorTheme.primaryBlue,
-                                  ),
-                                )
-                              : CardProduct(
-                                  imageProduct: item.images,
-                                  nameProduct: item.name,
-                                  city: item.city,
-                                  price: item.price,
-                                  kalori: item.calorie),
-                        );
-                      },
-                    ),
+                                },
+                                child: CardProduct(
+                                    imageProduct: item.images,
+                                    nameProduct: item.name,
+                                    city: item.city,
+                                    price: item.price,
+                                    kalori: item.calorie),
+                              );
+                            },
+                          ),
                   ),
                 ],
               ),

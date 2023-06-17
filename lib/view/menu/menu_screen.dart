@@ -50,168 +50,177 @@ class _MenuScreenState extends State<MenuScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(
                       width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: modelMenu.listMenu
-                            .where((menu) => menu.idCategory == '1')
-                            .length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 10),
-                        itemBuilder: (context, index) {
-                          final filteredMenu = modelMenu.listMenu
-                              .where((menu) => menu.idCategory == '1')
-                              .toList();
-                          final menu = filteredMenu[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    return DetailMenuScreen(menu);
-                                  },
-                                  transitionsBuilder: ((context, animation,
-                                      secondaryAnimation, child) {
-                                    final tween = Tween(begin: 0.2, end: 1.0);
-                                    return FadeTransition(
-                                      opacity: animation.drive(tween),
-                                      child: child,
+                      child: isLoading
+                          ? const Center(
+                              child: SpinKitCircle(
+                                color: ColorTheme.primaryBlue,
+                              ),
+                            )
+                          : GridView.builder(
+                              itemCount: modelMenu.listMenu
+                                  .where((menu) => menu.idCategory == '1')
+                                  .length,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 12,
+                                      mainAxisSpacing: 10),
+                              itemBuilder: (context, index) {
+                                final filteredMenu = modelMenu.listMenu
+                                    .where((menu) => menu.idCategory == '1')
+                                    .toList();
+                                final menu = filteredMenu[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                            secondaryAnimation) {
+                                          return DetailMenuScreen(menu);
+                                        },
+                                        transitionsBuilder: ((context,
+                                            animation,
+                                            secondaryAnimation,
+                                            child) {
+                                          final tween =
+                                              Tween(begin: 0.2, end: 1.0);
+                                          return FadeTransition(
+                                            opacity: animation.drive(tween),
+                                            child: child,
+                                          );
+                                        }),
+                                      ),
                                     );
-                                  }),
-                                ),
-                              );
-                            },
-                            child: isLoading
-                                ? const Center(
-                                    child: SpinKitCircle(
-                                      color: ColorTheme.primaryBlue,
-                                    ),
-                                  )
-                                : CardProduct(
-                                    imageProduct: menu.images,
-                                    nameProduct: menu.name,
-                                    city: menu.city,
-                                    price: menu.price,
-                                    kalori: menu.calorie),
-                          );
-                        },
-                      ),
+                                  },
+                                  child: CardProduct(
+                                      imageProduct: menu.images,
+                                      nameProduct: menu.name,
+                                      city: menu.city,
+                                      price: menu.price,
+                                      kalori: menu.calorie),
+                                );
+                              },
+                            ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(
                       width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: modelMenu.listMenu
-                            .where((menu) => menu.idCategory == '2')
-                            .length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 10),
-                        itemBuilder: (context, index) {
-                          final filteredMenu = modelMenu.listMenu
-                              .where((menu) => menu.idCategory == '2')
-                              .toList();
-                          final menu = filteredMenu[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    return DetailMenuScreen(menu);
-                                  },
-                                  transitionsBuilder: ((context, animation,
-                                      secondaryAnimation, child) {
-                                    final tween = Tween(begin: 0.2, end: 1.0);
-                                    return FadeTransition(
-                                      opacity: animation.drive(tween),
-                                      child: child,
+                      child: isLoading
+                          ? const Center(
+                              child: SpinKitCircle(
+                                color: ColorTheme.primaryBlue,
+                              ),
+                            )
+                          : GridView.builder(
+                              itemCount: modelMenu.listMenu
+                                  .where((menu) => menu.idCategory == '2')
+                                  .length,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 12,
+                                      mainAxisSpacing: 10),
+                              itemBuilder: (context, index) {
+                                final filteredMenu = modelMenu.listMenu
+                                    .where((menu) => menu.idCategory == '2')
+                                    .toList();
+                                final menu = filteredMenu[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                            secondaryAnimation) {
+                                          return DetailMenuScreen(menu);
+                                        },
+                                        transitionsBuilder: ((context,
+                                            animation,
+                                            secondaryAnimation,
+                                            child) {
+                                          final tween =
+                                              Tween(begin: 0.2, end: 1.0);
+                                          return FadeTransition(
+                                            opacity: animation.drive(tween),
+                                            child: child,
+                                          );
+                                        }),
+                                      ),
                                     );
-                                  }),
-                                ),
-                              );
-                            },
-                            child: isLoading
-                                ? const Center(
-                                    child: SpinKitCircle(
-                                      color: ColorTheme.primaryBlue,
-                                    ),
-                                  )
-                                : CardProduct(
-                                    imageProduct: menu.images,
-                                    nameProduct: menu.name,
-                                    city: menu.city,
-                                    price: menu.price,
-                                    kalori: menu.calorie),
-                          );
-                        },
-                      ),
+                                  },
+                                  child: CardProduct(
+                                      imageProduct: menu.images,
+                                      nameProduct: menu.name,
+                                      city: menu.city,
+                                      price: menu.price,
+                                      kalori: menu.calorie),
+                                );
+                              },
+                            ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(
                       width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: modelMenu.listMenu
-                            .where((menu) => menu.idCategory == '3')
-                            .length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 10),
-                        itemBuilder: (context, index) {
-                          final filteredMenu = modelMenu.listMenu
-                              .where((menu) => menu.idCategory == '3')
-                              .toList();
-                          final menu = filteredMenu[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    return DetailMenuScreen(menu);
-                                  },
-                                  transitionsBuilder: ((context, animation,
-                                      secondaryAnimation, child) {
-                                    final tween = Tween(begin: 0.2, end: 1.0);
-                                    return FadeTransition(
-                                      opacity: animation.drive(tween),
-                                      child: child,
+                      child: isLoading
+                          ? const Center(
+                              child: SpinKitCircle(
+                                color: ColorTheme.primaryBlue,
+                              ),
+                            )
+                          : GridView.builder(
+                              itemCount: modelMenu.listMenu
+                                  .where((menu) => menu.idCategory == '3')
+                                  .length,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 12,
+                                      mainAxisSpacing: 10),
+                              itemBuilder: (context, index) {
+                                final filteredMenu = modelMenu.listMenu
+                                    .where((menu) => menu.idCategory == '3')
+                                    .toList();
+                                final menu = filteredMenu[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                            secondaryAnimation) {
+                                          return DetailMenuScreen(menu);
+                                        },
+                                        transitionsBuilder: ((context,
+                                            animation,
+                                            secondaryAnimation,
+                                            child) {
+                                          final tween =
+                                              Tween(begin: 0.2, end: 1.0);
+                                          return FadeTransition(
+                                            opacity: animation.drive(tween),
+                                            child: child,
+                                          );
+                                        }),
+                                      ),
                                     );
-                                  }),
-                                ),
-                              );
-                            },
-                            child: isLoading
-                                ? const Center(
-                                    child: SpinKitCircle(
-                                      color: ColorTheme.primaryBlue,
-                                    ),
-                                  )
-                                : CardProduct(
-                                    imageProduct: menu.images,
-                                    nameProduct: menu.name,
-                                    city: menu.city,
-                                    price: menu.price,
-                                    kalori: menu.calorie),
-                          );
-                        },
-                      ),
+                                  },
+                                  child: CardProduct(
+                                      imageProduct: menu.images,
+                                      nameProduct: menu.name,
+                                      city: menu.city,
+                                      price: menu.price,
+                                      kalori: menu.calorie),
+                                );
+                              },
+                            ),
                     ),
                   ),
                 ],
