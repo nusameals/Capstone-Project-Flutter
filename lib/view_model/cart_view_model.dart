@@ -7,14 +7,20 @@ import '../view/component/costum_snackbar.dart';
 class CartViewModel with ChangeNotifier {
   List<CartModel> _listMenuCart = [];
   List<CartModel> get listMenuCart => _listMenuCart;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   Future<List<CartModel>> getCart() async {
+    _isLoading = true;
+    notifyListeners();
     try {
       List<CartModel> cartData = await CartAPI().getCartData();
       _listMenuCart.addAll(cartData);
-      notifyListeners();
     } catch (e) {
       rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
     return _listMenuCart;
   }

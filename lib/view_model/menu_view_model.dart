@@ -11,24 +11,36 @@ class MenuViewModel with ChangeNotifier {
 
   List<MenuModel> _listSearch = [];
   List<MenuModel> get listSearch => _listSearch;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   Future<List<MenuCategory>> getCategories() async {
+    _isLoading = true;
+    notifyListeners();
+    await Future.delayed(const Duration(seconds: 1));
     try {
       _categories = await MenuAPI().getCategories();
       getProduct();
-      notifyListeners();
     } catch (e) {
       rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
     return _categories;
   }
 
   Future<List<MenuModel>> getProduct() async {
+    _isLoading = true;
+    notifyListeners();
+    await Future.delayed(const Duration(seconds: 1));
     try {
       _listMenu = await MenuAPI().getProduct();
-      notifyListeners();
     } catch (e) {
       rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
     return _listMenu;
   }

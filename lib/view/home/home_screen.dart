@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nusameals/view/scan/scan_screen.dart';
 import 'package:provider/provider.dart';
 import '../../themes/constant.dart';
@@ -31,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<MenuViewModel>(context, listen: false).getProduct();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<MenuViewModel>(context, listen: false).getProduct();
+    });
   }
 
   @override
@@ -55,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           enlargeCenterPage: true,
         ));
     final modelMenu = Provider.of<MenuViewModel>(context);
+    final bool isLoading = modelMenu.isLoading;
 
     return Theme(
       data: Theme.of(context).copyWith(useMaterial3: false),
@@ -238,19 +242,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         final item = modelMenu.listMenu[index];
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailMenuScreen(item),
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return DetailMenuScreen(item);
+                                },
+                                transitionsBuilder: ((context, animation,
+                                    secondaryAnimation, child) {
+                                  final tween = Tween(begin: 0.2, end: 1.0);
+                                  return FadeTransition(
+                                    opacity: animation.drive(tween),
+                                    child: child,
+                                  );
+                                }),
                               ),
                             );
                           },
-                          child: CardProduct(
-                              imageProduct: item.images,
-                              nameProduct: item.name,
-                              city: item.city,
-                              price: item.price,
-                              kalori: item.calorie),
+                          child: isLoading
+                              ? const Center(
+                                  child: SpinKitCircle(
+                                    color: ColorTheme.primaryBlue,
+                                  ),
+                                )
+                              : CardProduct(
+                                  imageProduct: item.images,
+                                  nameProduct: item.name,
+                                  city: item.city,
+                                  price: item.price,
+                                  kalori: item.calorie),
                         );
                       },
                     ),
