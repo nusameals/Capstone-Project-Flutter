@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nusameals/view/reservation/mytable/detail_mytable_screen.dart';
 import 'package:nusameals/view/reservation/tablelist/detail_reservation_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -91,7 +92,9 @@ class _ReservationPageState extends State<ReservationPage> {
                     builder: (context, viewModel, child) {
                       if (viewModel.isLoading) {
                         return Center(
-                          child: CircularProgressIndicator(),
+                          child: SpinKitCircle(
+                            color: ColorTheme.primaryBlue,
+                          ),
                         );
                       } else if (viewModel.errorMessage.isNotEmpty) {
                         return Center(

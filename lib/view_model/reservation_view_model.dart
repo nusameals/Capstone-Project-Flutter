@@ -30,10 +30,5 @@ class ReservationViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-  Widget getLoadingIndicator() {
-    return SpinKitCircle(
-      color: Colors.blue,
-      size: 50.0,
-    );
-  }
+
 }
