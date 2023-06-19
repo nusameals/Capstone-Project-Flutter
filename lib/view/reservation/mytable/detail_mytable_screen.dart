@@ -250,8 +250,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
-                      builder: (context) => Canceled( onConfirm: removeTable
-                      ),
+                      builder: (context) => Canceled(onConfirm: removeTable),
                     );
                   },
                   child: Text('Canceled Reservation',
@@ -347,8 +346,9 @@ class Canceled extends StatelessWidget {
                 Container(
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: (){
-                      onConfirm();
+                    onPressed: () {
+                      // onConfirm();
+                      Navigator.pop(context);
                       CustomSnackbar.showSnackbar(context,
                           'Reservation has been canceled. please wait....');
                     },
