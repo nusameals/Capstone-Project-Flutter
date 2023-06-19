@@ -294,7 +294,6 @@ class _ReservationPageState extends State<ReservationPage> {
                           ),
                         ),
                       ),
-                      // Tambahkan item teks lainnya di sini
                     ],
                   )
 

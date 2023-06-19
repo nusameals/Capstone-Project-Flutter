@@ -43,15 +43,16 @@ class _EditMyTableState extends State<EditMyTable> {
       initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(primary: Colors.blue),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          ),
-          child: child!,
-        );
-      },
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: ColorTheme.primaryBlue80,
+                  secondary: Colors.blue,
+                ),
+              ),
+              child: child!);
+        }
     );
 
     if (pickedDate != null) {
@@ -87,23 +88,23 @@ class _EditMyTableState extends State<EditMyTable> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-                  primary: Colors.blue, // Mengubah warna utama menjadi biru
-                  secondary: Colors.blue, // Mengubah warna aksen menjadi biru
+                  primary: Colors.blue,
+                  secondary: Colors.blue,
                 ),
             scaffoldBackgroundColor: Colors
-                .white, // Mengubah warna latar belakang dialog menjadi putih
+                .white,
             textTheme: Theme.of(context).textTheme.copyWith(
                   bodyText1: TextStyle(color: Colors.black),
-                  // Mengubah warna teks menjadi hitam
+
                 ),
             timePickerTheme: TimePickerThemeData(
               hourMinuteTextColor:
-                  Colors.black, // Mengubah warna aksen jam digital menjadi biru
+                  Colors.black,
               dayPeriodTextColor:
-                  Colors.black, // Mengubah warna aksen AM/PM menjadi biru
+                  Colors.black,
               dayPeriodTextStyle: TextStyle(
                   color:
-                      Colors.black), // Mengubah warna aksen AM/PM menjadi biru
+                      Colors.black),
             ),
           ),
           child: MediaQuery(

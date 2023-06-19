@@ -26,6 +26,16 @@ class _ReservationNowState extends State<ReservationNow> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
+        builder: (BuildContext context, Widget? child) {
+        return Theme(
+            data: Theme.of(context).copyWith(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+              primary: ColorTheme.primaryBlue80,
+              secondary: Colors.blue,
+            ),
+            ),
+            child: child!);
+        }
     );
 
     if (pickedDate != null && pickedDate != selectedDate) {
@@ -268,7 +278,7 @@ class _ReservationNowState extends State<ReservationNow> {
                     primary: ColorTheme.primaryBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
-                    ), // Ubah warna latar belakang menjadi biru
+                    ),
                   ),
                   child: Text('Submit',
                       style: GoogleFonts.poppins(color: Colors.white)),
