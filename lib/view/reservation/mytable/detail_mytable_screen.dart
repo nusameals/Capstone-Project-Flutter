@@ -250,7 +250,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
-                      builder: (context) => Canceled(onConfirm: removeTable),
+                      builder: (context) => Canceled(),
                     );
                   },
                   child: Text('Canceled Reservation',
@@ -275,8 +275,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
 }
 
 class Canceled extends StatelessWidget {
-  final VoidCallback onConfirm;
-  Canceled({required this.onConfirm});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -347,10 +346,9 @@ class Canceled extends StatelessWidget {
                   width: 150,
                   child: ElevatedButton(
                     onPressed: () {
-                      // onConfirm();
                       Navigator.pop(context);
-                      CustomSnackbar.showSnackbar(context,
-                          'Reservation has been canceled. please wait....');
+                      CustomSnackbar.showSnackbar(context, 'Reservation has been canceled. Please wait....'
+                      ,actionText: '');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ColorTheme.secondaryDanger,
@@ -366,6 +364,7 @@ class Canceled extends StatelessWidget {
                       ),
                     ),
                   ),
+
                 ),
               ],
             ),

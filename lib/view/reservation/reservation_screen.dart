@@ -19,7 +19,7 @@ class ReservationPage extends StatefulWidget {
 
 class _ReservationPageState extends State<ReservationPage> {
 
-  int _currentTabIndex = 0;
+  int currentTabIndex = 0;
 
   @override
   void initState() {
@@ -55,10 +55,10 @@ class _ReservationPageState extends State<ReservationPage> {
                     child: Text(
                       'Table List',
                       style: GoogleFonts.poppins(
-                        color: _currentTabIndex == 0
+                        color: currentTabIndex == 0
                             ? Colors.white
                             : Colors.white.withOpacity(0.6),
-                        fontWeight: _currentTabIndex == 0
+                        fontWeight: currentTabIndex == 0
                             ? FontWeight.bold
                             : FontWeight.normal,
                       ),
@@ -68,10 +68,10 @@ class _ReservationPageState extends State<ReservationPage> {
                     child: Text(
                       'My Table',
                       style: GoogleFonts.poppins(
-                        color: _currentTabIndex == 1
+                        color: currentTabIndex == 1
                             ? Colors.white
                             : Colors.white.withOpacity(0.6),
-                        fontWeight: _currentTabIndex == 1
+                        fontWeight: currentTabIndex == 1
                             ? FontWeight.bold
                             : FontWeight.normal,
                       ),
@@ -80,7 +80,7 @@ class _ReservationPageState extends State<ReservationPage> {
                 ],
                 onTap: (index) {
                   setState(() {
-                    _currentTabIndex = index;
+                    currentTabIndex = index;
                   });
                 },
               ),
