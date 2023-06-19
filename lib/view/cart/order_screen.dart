@@ -120,7 +120,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     Text(
                                       priceFormat.format(
                                         int.parse(
-                                          widget.menuModel.price,
+                                          widget.menuModel.price.toString(),
                                         ),
                                       ),
                                       style: ThemeText.bodyB20,
@@ -413,8 +413,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                   ),
                                 ),
                                 Text(
-                                  priceFormat.format(
-                                      int.parse(widget.menuModel.price)),
+                                  priceFormat.format(int.parse(
+                                      widget.menuModel.price.toString())),
                                   style: ThemeText.bodyR14,
                                 ),
                               ],
@@ -448,7 +448,8 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                           Text(
                             priceFormat.format(
-                                int.parse(widget.menuModel.price) * quantity),
+                                int.parse(widget.menuModel.price.toString()) *
+                                    quantity),
                             style: ThemeText.bodyB16,
                           ),
                         ],
@@ -673,7 +674,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                             ),
                                             Text(
                                               priceFormat.format(int.parse(
-                                                      widget.menuModel.price) *
+                                                      widget.menuModel.price
+                                                          .toString()) *
                                                   quantity),
                                               style: ThemeText.bodyB16,
                                             )

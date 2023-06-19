@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     imageProduct: item.images,
                                     nameProduct: item.name,
                                     city: item.city,
-                                    price: item.price,
+                                    price: item.price.toString(),
                                     kalori: item.calorie),
                               );
                             },

@@ -1,43 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class MenuCategory {
-  String idCategory;
-  String name;
-  String createdAt;
-  String updateddAt;
-  List<MenuModel> menu;
-  MenuCategory({
-    required this.idCategory,
-    required this.name,
-    required this.createdAt,
-    required this.updateddAt,
-    required this.menu,
-  });
-  factory MenuCategory.fromJson(Map<String, dynamic> dataMenu) {
-    var list = dataMenu['menu'] as List;
-    List<MenuModel> listProduct =
-        list.map((e) => MenuModel.fromJson(e)).toList();
-    return MenuCategory(
-        idCategory: dataMenu['id_category'],
-        name: dataMenu['name'],
-        createdAt: dataMenu['created_at'],
-        updateddAt: dataMenu['updated_at'],
-        menu: listProduct);
-  }
-}
-
 class MenuModel {
-  String idMenu;
-  String idCategory;
+  int idMenu;
+  int idCategory;
   String name;
-  String price;
+  int price;
   String createdAt;
   String updateddAt;
-  String category;
+  String? deletedAt;
   String calorie;
   String city;
   String description;
   String ingredients;
   String images;
+  CategoryModel category;
 
   MenuModel({
     required this.idMenu,
@@ -46,28 +20,50 @@ class MenuModel {
     required this.price,
     required this.createdAt,
     required this.updateddAt,
-    required this.category,
+    this.deletedAt,
     required this.calorie,
     required this.city,
     required this.description,
     required this.ingredients,
     required this.images,
+    required this.category,
   });
 
   factory MenuModel.fromJson(Map<String, dynamic> dataMenu) {
     return MenuModel(
-      idMenu: dataMenu['id_menu'],
-      idCategory: dataMenu['id_category'],
+      idMenu: dataMenu['ID'],
+      idCategory: dataMenu['category_id'],
       name: dataMenu['name'],
       price: dataMenu['price'],
-      createdAt: dataMenu['created_at'],
-      updateddAt: dataMenu['updated_at'],
-      category: dataMenu['category'],
-      calorie: dataMenu['calorie'],
+      createdAt: dataMenu['CreatedAt'],
+      updateddAt: dataMenu['UpdatedAt'],
+      deletedAt: dataMenu['DeletedAt'],
+      calorie: dataMenu['calories'],
       city: dataMenu['city'],
       description: dataMenu['description'],
-      ingredients: dataMenu['ingredients'],
+      ingredients: dataMenu['ingredient'],
       images: dataMenu['images'],
+      category: CategoryModel.fromJson(dataMenu['Category']),
+    );
+  }
+}
+
+class CategoryModel {
+  int idCategory;
+  String name;
+  dynamic menus;
+
+  CategoryModel({
+    required this.idCategory,
+    required this.name,
+    this.menus,
+  });
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(
+      idCategory: json['id'],
+      name: json['name'],
+      menus: json['menus'],
     );
   }
 }

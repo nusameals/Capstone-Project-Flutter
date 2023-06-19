@@ -46,7 +46,7 @@ class CartViewModel with ChangeNotifier {
         city: menu.city,
         calorie: menu.calorie,
         images: menu.images,
-        price: menu.price,
+        price: menu.price.toString(),
         qty: '1',
         cart: '',
         numberTable: '',

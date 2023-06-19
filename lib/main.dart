@@ -16,8 +16,6 @@ import 'view/scan/scan_screen.dart';
 import 'view_model/cart_view_model.dart';
 import 'view_model/menu_view_model.dart';
 
-import 'view/my_order/my_order_screen.dart';
-
 void main() {
   runApp(const MyApp());
 }
