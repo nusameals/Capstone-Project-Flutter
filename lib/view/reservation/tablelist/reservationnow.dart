@@ -19,6 +19,10 @@ class _ReservationNowState extends State<ReservationNow> {
   TextEditingController startTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController agendaController = TextEditingController();
+  TextEditingController numberOfPeopleController = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -142,6 +146,7 @@ class _ReservationNowState extends State<ReservationNow> {
                         ),
                       ),
                       cursorColor: Colors.blue,
+                      controller: nameController,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -160,6 +165,7 @@ class _ReservationNowState extends State<ReservationNow> {
                         ),
                       ),
                       cursorColor: Colors.blue,
+                      controller: phoneController,
                     ),
                   ),
                 ],
@@ -243,6 +249,7 @@ class _ReservationNowState extends State<ReservationNow> {
                         ),
                       ),
                       cursorColor: Colors.blue,
+                      controller: agendaController,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -261,6 +268,7 @@ class _ReservationNowState extends State<ReservationNow> {
                         ),
                       ),
                       cursorColor: Colors.blue,
+                      controller: numberOfPeopleController,
                     ),
                   ),
                 ],
@@ -272,7 +280,35 @@ class _ReservationNowState extends State<ReservationNow> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    final String name = nameController.text;
+                    final String phone = phoneController.text;
+                    DateTime? date;
+                    try {
+                      date = DateFormat('dd/MM/yyyy').parse(dateController.text);
+                    } catch (e) {
+                      print('Invalid date format: ${dateController.text}');
+                    }
+                    final String startTime = startTimeController.text;
+                    final String endTime = endTimeController.text;
+                    final String agenda = agendaController.text;
+                    final String numofpeop = numberOfPeopleController.text;
+                    if (date != null) {
+                      // final addReservation newReservation = addReservation(
+                      //   name: name,
+                      //   phone: phone,
+                      //   date: date,
+                      //   startTime: startTime,
+                      //   endTime: endTime,
+                      //   agenda: agenda,
+                      //   numofpeop: numofpeop,
+                      // );
+                      // provider
+
+                      Navigator.pop(context);
+                    } else {
+                      // Handle invalid date format error
+                      // Show an error message or perform any necessary actions
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     primary: ColorTheme.primaryBlue,

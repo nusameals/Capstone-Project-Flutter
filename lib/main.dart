@@ -6,6 +6,7 @@ import 'package:nusameals/view/auth/forgot_password_screen.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'package:nusameals/view/splash_screen.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
 import 'package:nusameals/view_model/reservation_view_model.dart';
 import 'view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ReservationViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => myTableViewModel(),
         ),
       ],
       child: MaterialApp(

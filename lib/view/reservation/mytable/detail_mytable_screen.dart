@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/component/costum_snackbar.dart';
 import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../themes/constant.dart';
-
 class Table {
   final String name;
   final String phone;
@@ -16,12 +18,12 @@ class Table {
 
   Table(
       {required this.name,
-      required this.phone,
-      required this.date,
-      required this.start,
-      required this.end,
-      required this.agenda,
-      required this.people});
+        required this.phone,
+        required this.date,
+        required this.start,
+        required this.end,
+        required this.agenda,
+        required this.people});
 }
 
 class DetailMyTable extends StatefulWidget {

@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nusameals/view/reservation/mytable/detail_mytable_screen.dart';
 import 'package:nusameals/view/reservation/tablelist/detail_reservation_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
 import 'package:nusameals/view_model/reservation_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class _ReservationPageState extends State<ReservationPage> {
     super.initState();
     // Fetch reservations when the view is loaded
     Provider.of<ReservationViewModel>(context, listen: false).fetchReservations();
+    Provider.of<myTableViewModel>(context, listen: false).fetchTables();
   }
 
 
