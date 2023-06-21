@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserAPI {
-  final String baseUrl = 'http://testing.hopto.org';
+import 'api_constants.dart';
 
+class UserAPI {
   // ignore: non_constant_identifier_names
   Future loginUser({
     // ignore: non_constant_identifier_names
@@ -15,7 +15,7 @@ class UserAPI {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      final url = Uri.parse('$baseUrl/login');
+      final url = Uri.parse('${ApiConstants.baseUrl}/login');
 
       final response = await http.post(url, body: {
         'email_or_username': email_or_username,
@@ -54,7 +54,7 @@ class UserAPI {
     // ignore: unused_local_variable
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      final url = Uri.parse('$baseUrl/register');
+      final url = Uri.parse('${ApiConstants.baseUrl}/register');
 
       final response = await http.post(url, body: {
         'username': username,

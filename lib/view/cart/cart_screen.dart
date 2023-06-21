@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
+import 'package:nusameals/view/main_screen.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/cart_view_model.dart';
 import '../component/button_primary.dart';
@@ -37,14 +38,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final modelCart = Provider.of<CartViewModel>(context);
     final bool isLoading = modelCart.isLoading;
-    int getTotalPrice() {
-      int totalPrice = 0;
-      for (var item in modelCart.listMenuCart) {
-        int itemTotal = int.parse(item.price) * int.parse(item.qty);
-        totalPrice += itemTotal;
-      }
-      return totalPrice;
-    }
+    int totalPrice = modelCart.getTotalPrice();
 
     if (modelCart.listMenuCart.isEmpty) {
       return Scaffold(
@@ -478,6 +472,7 @@ class _CartScreenState extends State<CartScreen> {
                                     dineInSelected = true;
                                     takeAwaySelected = false;
                                   });
+                                  modelCart.setTakeAwaySelected(false);
                                 },
                                 child: Container(
                                   height: 35,
@@ -528,6 +523,7 @@ class _CartScreenState extends State<CartScreen> {
                                     dineInSelected = false;
                                     takeAwaySelected = true;
                                   });
+                                  modelCart.setTakeAwaySelected(true);
                                 },
                                 child: Container(
                                   height: 35,
@@ -596,6 +592,7 @@ class _CartScreenState extends State<CartScreen> {
                                         setState(() {
                                           selectedNumber = newValue!;
                                         });
+                                        modelCart.setSelectedNumber(newValue!);
                                       }
                                     : null,
                                 underline: Container(),
@@ -682,7 +679,7 @@ class _CartScreenState extends State<CartScreen> {
                                   style: ThemeText.bodyB16,
                                 ),
                                 Text(
-                                  priceFormat.format(getTotalPrice()),
+                                  priceFormat.format(totalPrice),
                                   style: ThemeText.bodyB16,
                                 ),
                               ],
@@ -923,32 +920,23 @@ class _CartScreenState extends State<CartScreen> {
                                                       style: ThemeText.bodyB16,
                                                     ),
                                                     Text(
-                                                      priceFormat.format(
-                                                          getTotalPrice()),
+                                                      priceFormat
+                                                          .format(totalPrice),
                                                       style: ThemeText.bodyB16,
                                                     )
                                                   ],
                                                 ),
                                                 ElevatedButton(
                                                   onPressed: () {
-                                                    _controller.text =
-                                                        _selectedPaymentMethod;
-                                                    // final selectedPaymentMethod =
-                                                    //     _controller.text;
-                                                    Navigator.pop(context);
-                                                    CustomSnackbar.showSnackbar(
-                                                      context,
-                                                      'Thanks for order, please wait...',
-                                                      actionText: 'Order more',
-                                                      onPressed: () {
-                                                        Navigator.push(
+                                                    Provider.of<CartViewModel>(
                                                             context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        const HomeScreen()));
-                                                      },
-                                                    );
+                                                            listen: false)
+                                                        .checkout(context);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const MainScreen()));
                                                   },
                                                   style:
                                                       ElevatedButton.styleFrom(

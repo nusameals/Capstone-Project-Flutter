@@ -48,8 +48,8 @@ class _MenuScreenState extends State<MenuScreen> {
                 controller: widget.tabController,
                 children: <Widget>[
                   _buildMenuList(menuList, 5),
-                  _buildMenuList(menuList, 8),
-                  _buildMenuList(menuList, 7),
+                  _buildMenuList(menuList, 4),
+                  _buildMenuList(menuList, 3),
                 ],
               ),
             ),
