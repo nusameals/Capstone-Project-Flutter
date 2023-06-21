@@ -48,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Container(
                   color: const Color(0xff0669BD),
-                  height: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  height: MediaQuery.of(context).size.height - 40,
+                  padding: const EdgeInsets.only(top: 40),
                   child: Column(
                     children: [
                       Image.asset('assets/images/nusameals.png', height: 100),
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-                            height: MediaQuery.of(context).size.height,
+                            height: MediaQuery.of(context).size.height - 40,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -94,13 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                             labelText: 'Username',
+                                            focusColor: Colors.blue,
                                             labelStyle: GoogleFonts.poppins(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400)),
                                         // ignore: body_might_complete_normally_nullable
                                         // validator: (username) {
                                         //   if (username!.isEmpty) {
-                                        //     return 'Username masih kosong';
+                                        //     return 'Username can not be empty';
                                         //   }
                                         //   return null;
                                         // },
@@ -115,24 +116,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400),
                                           suffixIcon: IconButton(
-                                            onPressed: showHide,
-                                            icon: _secureText
-                                                ? const Icon(
-                                                    Icons.visibility_outlined,
-                                                    size: 20,
-                                                    color: Colors.black,
-                                                  )
-                                                : const Icon(
-                                                    Icons.visibility_off,
-                                                    size: 20,
-                                                    color: Colors.black,
-                                                  ),
-                                          ),
+                                              onPressed: showHide,
+                                              icon: _secureText
+                                                  ? const Icon(
+                                                      Icons.visibility_outlined,
+                                                      size: 20,
+                                                      color: Colors.black,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.visibility_off,
+                                                      size: 20,
+                                                      color: Colors.black,
+                                                    )),
                                         ),
                                         // ignore: body_might_complete_normally_nullable
                                         // validator: (password) {
                                         //   if (password!.isEmpty) {
-                                        //     return 'Password masiih kosong';
+                                        //     return 'Password can not be empty';
                                         //   }
                                         //   return null;
                                         // },
@@ -191,6 +191,32 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   );
                                                   return;
                                                 }
+                                                if (email !=
+                                                        'username do not match' ||
+                                                    password !=
+                                                        'password do not match') {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Invalid username or password!',
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                          const Color(
+                                                              0xffCDE1F2),
+                                                      behavior: SnackBarBehavior
+                                                          .floating,
+                                                    ),
+                                                  );
+                                                  return;
+                                                }
                                                 try {
                                                   // ignore: unused_local_variable
                                                   final responData =
@@ -232,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              MainScreen()));
+                                                              const MainScreen()));
                                                 } catch (error) {
                                                   // ignore: use_build_context_synchronously
                                                   ScaffoldMessenger.of(context)

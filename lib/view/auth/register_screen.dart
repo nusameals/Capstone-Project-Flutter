@@ -73,8 +73,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Container(
                   color: const Color(0xff0669BD),
-                  height: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  height: MediaQuery.of(context).size.height - 40,
+                  padding: const EdgeInsets.only(top: 20),
                   child: Column(children: [
                     Image.asset('assets/images/nusameals.png', height: 100),
                     const SizedBox(height: 30),
@@ -86,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(35, 25, 35, 25),
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height - 40,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(

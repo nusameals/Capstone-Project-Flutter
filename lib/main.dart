@@ -6,6 +6,7 @@ import 'package:nusameals/view/auth/forgot_password_screen.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
 import 'package:nusameals/view/splash_screen.dart';
+import 'package:nusameals/view_model/update_profile.dart';
 import 'view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'view/cart/cart_screen.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UpdateProfile(),
         ),
         ChangeNotifierProvider(
           create: (context) => MenuViewModel(),
