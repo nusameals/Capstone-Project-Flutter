@@ -2,9 +2,9 @@
     package="com.example.nusameals">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="nusameals"
+        android:label="Nusameals"
         android:name="androidx.multidex.MultiDexApplication"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
