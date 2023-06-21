@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
-
-import 'view/my_order/my_order_screen.dart';
+import 'package:nusameals/view/account/profil_screen.dart';
+import 'package:nusameals/view/account/update_profil_screen.dart';
+import 'package:nusameals/view/auth/change_password_screen.dart';
+import 'package:nusameals/view/auth/forgot_password_screen.dart';
+import 'package:nusameals/view/auth/login_screen.dart';
+import 'package:nusameals/view/auth/register_screen.dart';
+import 'package:nusameals/view/main_screen.dart';
+import 'package:nusameals/view/splash_screen.dart';
+import 'package:nusameals/view_model/my_order_view_model.dart';
+import 'view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
+import 'view/cart/cart_screen.dart';
+import 'view/menu/search_screen.dart';
+import 'view/scan/scan_screen.dart';
+import 'view_model/cart_view_model.dart';
+import 'view_model/menu_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,16 +23,41 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Nusameals',
-      theme: ThemeData(
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MenuViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MyOrderViewModel(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Nusameals',
+        theme: ThemeData(useMaterial3: true),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/forgot': (context) => const ForgotPasswordScreen(),
+          '/change': (context) => const ChangePassword(),
+          '/profile': (context) => const ProfilScreen(),
+          '/updateProfile': (context) => const UpdateProfilScreen(),
+          '/search': (context) => const SearchScreen(),
+          '/scan': (context) => const ScanScreen(),
+          '/cart': (context) => const CartScreen(),
+        },
       ),
-      home: MyOrderScreen(),
     );
   }
 }

@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../themes/constant.dart';
 
 class CardMyOrder extends StatelessWidget {
   final String id;
@@ -16,7 +19,11 @@ class CardMyOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final priceFormat =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
+
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -47,15 +54,26 @@ class CardMyOrder extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(id),
-                  Text(dateTime),
+                  Text(
+                    id,
+                    style: ThemeText.bodyB165,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(dateTime, style: ThemeText.bodyR12),
                 ],
               ),
             ],
           ),
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Text(price),
+            child: Text(
+              priceFormat.format(
+                int.parse(price),
+              ),
+              style: ThemeText.bodyB165,
+            ),
           ),
         ],
       ),
