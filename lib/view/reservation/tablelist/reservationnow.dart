@@ -306,8 +306,7 @@ class _ReservationNowState extends State<ReservationNow> {
 
                       Navigator.pop(context);
                     } else {
-                      // Handle invalid date format error
-                      // Show an error message or perform any necessary actions
+
                     }
                   },
                   style: ElevatedButton.styleFrom(
