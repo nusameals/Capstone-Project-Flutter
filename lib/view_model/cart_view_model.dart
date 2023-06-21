@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/api/cart_api.dart';
 import '../model/cart_model.dart';
@@ -12,7 +15,7 @@ class CartViewModel with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  double _totalPrice = 0.0;
+  int _totalPrice = 0;
   int _quantity = 0;
   String _selectedPaymentMethod = '';
   bool _isTakeAway = false;
@@ -49,7 +52,7 @@ class CartViewModel with ChangeNotifier {
       CartModel cartItem = CartModel(
         idCart: '',
         idCustomer: '',
-        idMenu: '',
+        idMenu: menu.idMenu.toString(),
         name: menu.name,
         city: menu.city,
         calorie: menu.calorie,
@@ -91,23 +94,23 @@ class CartViewModel with ChangeNotifier {
   }
 
   int getTotalPrice() {
-    int totalPrice = 0;
     for (var item in _listMenuCart) {
       int itemTotal = int.parse(item.price) * int.parse(item.qty);
-      totalPrice += itemTotal;
+      _totalPrice += itemTotal;
     }
-    return totalPrice;
+    return _totalPrice;
   }
 
   Future<void> checkout(BuildContext context) async {
     final int timestamp = DateTime.now().millisecondsSinceEpoch;
     final String idOrder = timestamp.toString();
-
+    DateTime now = DateTime.now();
+    // String formattedDateTime = DateFormat('HH:mm/yyyy').format(now);
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('idOrder', idOrder);
-      await prefs.setString('dateTimeOrder', DateTime.now.toString());
-      await prefs.setDouble('totalPrice', _totalPrice);
+      await prefs.setString('dateTimeOrder', now.toString());
+      await prefs.setDouble('totalPrice', _totalPrice.toDouble());
       await prefs.setInt('quantity', _quantity);
       await prefs.setString('selectedPaymentMethod', _selectedPaymentMethod);
       await prefs.setBool('isTakeAway', _isTakeAway);
@@ -120,11 +123,9 @@ class CartViewModel with ChangeNotifier {
         await prefs.setBool('isDineIn', false);
         await prefs.remove('tableNumber');
       }
-      print(idOrder);
-
-      // final List<String> cartData =
-      //     listMenuCart.map((item) => item.toJson()).toList().cast<String>();
-      // await prefs.setStringList('cartData', cartData);
+      List<String> cartData =
+          _listMenuCart.map((item) => json.encode(item.toJson())).toList();
+      await prefs.setStringList('cartData', cartData);
     } catch (e) {
       print('Error saving order data: $e');
       return;

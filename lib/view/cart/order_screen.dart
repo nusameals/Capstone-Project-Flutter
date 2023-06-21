@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
+import '../../view_model/cart_view_model.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 
@@ -26,6 +28,8 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final modelCart = Provider.of<CartViewModel>(context);
+
     return Theme(
       data: Theme.of(context).copyWith(useMaterial3: false),
       child: Scaffold(
@@ -238,6 +242,7 @@ class _OrderScreenState extends State<OrderScreen> {
                               dineInSelected = true;
                               takeAwaySelected = false;
                             });
+                            modelCart.setTakeAwaySelected(false);
                           },
                           child: Container(
                             height: 33,
@@ -288,6 +293,7 @@ class _OrderScreenState extends State<OrderScreen> {
                               dineInSelected = false;
                               takeAwaySelected = true;
                             });
+                            modelCart.setTakeAwaySelected(true);
                           },
                           child: Container(
                             height: 33,
@@ -356,6 +362,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   setState(() {
                                     selectedNumber = newValue!;
                                   });
+                                  modelCart.setSelectedNumber(newValue!);
                                 }
                               : null,
                           underline: Container(),
@@ -530,6 +537,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                           _selectedPaymentMethod =
                                               value as String;
                                         });
+                                        modelCart.setSelectedPaymentMethod(
+                                            _selectedPaymentMethod);
                                       },
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -559,6 +568,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                           _selectedPaymentMethod =
                                               value as String;
                                         });
+                                        modelCart.setSelectedPaymentMethod(
+                                            _selectedPaymentMethod);
                                       },
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -588,6 +599,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                           _selectedPaymentMethod =
                                               value as String;
                                         });
+                                        modelCart.setSelectedPaymentMethod(
+                                            _selectedPaymentMethod);
                                       },
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -617,6 +630,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                           _selectedPaymentMethod =
                                               value as String;
                                         });
+                                        modelCart.setSelectedPaymentMethod(
+                                            _selectedPaymentMethod);
                                       },
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -646,6 +661,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                           _selectedPaymentMethod =
                                               value as String;
                                         });
+                                        modelCart.setSelectedPaymentMethod(
+                                            _selectedPaymentMethod);
                                       },
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -683,6 +700,9 @@ class _OrderScreenState extends State<OrderScreen> {
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
+                                            Provider.of<CartViewModel>(context,
+                                                    listen: false)
+                                                .checkout(context);
                                             _controller.text =
                                                 _selectedPaymentMethod;
                                             // final selectedPaymentMethod =

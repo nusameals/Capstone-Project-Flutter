@@ -38,8 +38,16 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final modelCart = Provider.of<CartViewModel>(context);
     final bool isLoading = modelCart.isLoading;
-    int totalPrice = modelCart.getTotalPrice();
+    int getTotalPrice() {
+      int totalPrice = 0;
+      for (var item in modelCart.listMenuCart) {
+        int itemTotal = int.parse(item.price) * int.parse(item.qty);
+        totalPrice += itemTotal;
+      }
+      return totalPrice;
+    }
 
+    // int totalPrice = modelCart.getTotalPrice();
     if (modelCart.listMenuCart.isEmpty) {
       return Scaffold(
         appBar: AppBar(
@@ -679,7 +687,7 @@ class _CartScreenState extends State<CartScreen> {
                                   style: ThemeText.bodyB16,
                                 ),
                                 Text(
-                                  priceFormat.format(totalPrice),
+                                  priceFormat.format(getTotalPrice()),
                                   style: ThemeText.bodyB16,
                                 ),
                               ],
@@ -920,8 +928,8 @@ class _CartScreenState extends State<CartScreen> {
                                                       style: ThemeText.bodyB16,
                                                     ),
                                                     Text(
-                                                      priceFormat
-                                                          .format(totalPrice),
+                                                      priceFormat.format(
+                                                          getTotalPrice()),
                                                       style: ThemeText.bodyB16,
                                                     )
                                                   ],
