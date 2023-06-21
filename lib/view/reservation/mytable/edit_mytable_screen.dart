@@ -43,15 +43,16 @@ class _EditMyTableState extends State<EditMyTable> {
       initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(primary: Colors.blue),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          ),
-          child: child!,
-        );
-      },
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: ColorTheme.primaryBlue80,
+                  secondary: Colors.blue,
+                ),
+              ),
+              child: child!);
+        }
     );
 
     if (pickedDate != null) {
@@ -87,23 +88,23 @@ class _EditMyTableState extends State<EditMyTable> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-                  primary: Colors.blue, // Mengubah warna utama menjadi biru
-                  secondary: Colors.blue, // Mengubah warna aksen menjadi biru
+                  primary: Colors.blue,
+                  secondary: Colors.blue,
                 ),
             scaffoldBackgroundColor: Colors
-                .white, // Mengubah warna latar belakang dialog menjadi putih
+                .white,
             textTheme: Theme.of(context).textTheme.copyWith(
                   bodyText1: TextStyle(color: Colors.black),
-                  // Mengubah warna teks menjadi hitam
+
                 ),
             timePickerTheme: TimePickerThemeData(
               hourMinuteTextColor:
-                  Colors.black, // Mengubah warna aksen jam digital menjadi biru
+                  Colors.black,
               dayPeriodTextColor:
-                  Colors.black, // Mengubah warna aksen AM/PM menjadi biru
+                  Colors.black,
               dayPeriodTextStyle: TextStyle(
                   color:
-                      Colors.black), // Mengubah warna aksen AM/PM menjadi biru
+                      Colors.black),
             ),
           ),
           child: MediaQuery(
@@ -167,6 +168,15 @@ class _EditMyTableState extends State<EditMyTable> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Nama',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.name,
                     onChanged: (value) {
@@ -174,6 +184,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.name = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -181,6 +192,15 @@ class _EditMyTableState extends State<EditMyTable> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Phone',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.phone,
                     onChanged: (value) {
@@ -188,6 +208,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.phone = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
               ],
@@ -198,13 +219,25 @@ class _EditMyTableState extends State<EditMyTable> {
                 _selectDate(context, dateController);
               },
               decoration: InputDecoration(
-                  labelText: 'date', suffixIcon: Icon(Icons.calendar_month)),
+                  labelText: 'date', suffixIcon: Icon(Icons.calendar_month,
+              ),
+                labelStyle: TextStyle(
+                  color: Colors.black.withOpacity(0.7),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+              ),
               controller: dateController,
               onChanged: (value) {
                 setState(() {
                   widget.date = value;
                 });
               },
+              cursorColor: Colors.blue,
             ),
             const SizedBox(height: 15),
             Row(
@@ -216,13 +249,24 @@ class _EditMyTableState extends State<EditMyTable> {
                     },
                     decoration: InputDecoration(
                         labelText: 'Start',
-                        suffixIcon: Icon(Icons.access_time)),
+                        suffixIcon: Icon(Icons.access_time),
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                     controller: startTimeController,
                     onChanged: (value) {
                       setState(() {
                         widget.start = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -231,14 +275,26 @@ class _EditMyTableState extends State<EditMyTable> {
                     onTap: () {
                       _selectTime(context, endTimeController);
                     },
-                    decoration: const InputDecoration(
-                        labelText: 'End', suffixIcon: Icon(Icons.access_time)),
+                    decoration:  InputDecoration(
+                        labelText: 'End',
+                      suffixIcon: Icon(Icons.access_time),
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                     controller: endTimeController,
                     onChanged: (value) {
                       setState(() {
                         widget.end = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
               ],
@@ -248,8 +304,17 @@ class _EditMyTableState extends State<EditMyTable> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    decoration:  InputDecoration(
                       labelText: 'Agenda',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.agenda,
                     onChanged: (value) {
@@ -257,13 +322,23 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.agenda = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Number of peoples',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.people,
                     onChanged: (value) {
@@ -271,6 +346,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.people = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
               ],

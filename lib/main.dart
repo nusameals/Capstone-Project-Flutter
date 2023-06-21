@@ -8,6 +8,8 @@ import 'package:nusameals/view/auth/register_screen.dart';
 import 'package:nusameals/view/main_screen.dart';
 import 'package:nusameals/view/splash_screen.dart';
 import 'package:nusameals/view_model/my_order_view_model.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
+import 'package:nusameals/view_model/reservation_view_model.dart';
 import 'view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'view/cart/cart_screen.dart';
@@ -39,11 +41,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => MyOrderViewModel(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ReservationViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => myTableViewModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Nusameals',
-        theme: ThemeData(useMaterial3: true),
+        theme: ThemeData(
+          useMaterial3: true,
+        ),
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
