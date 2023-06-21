@@ -27,7 +27,6 @@ class _ReservationPageState extends State<ReservationPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ReservationViewModel>(context, listen: false)
           .fetchReservations();
-      Provider.of<myTableViewModel>(context, listen: false).fetchTables();
     });
   }
 
