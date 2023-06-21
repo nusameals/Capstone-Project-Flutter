@@ -168,6 +168,15 @@ class _EditMyTableState extends State<EditMyTable> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Nama',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.name,
                     onChanged: (value) {
@@ -175,6 +184,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.name = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -182,6 +192,15 @@ class _EditMyTableState extends State<EditMyTable> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Phone',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.phone,
                     onChanged: (value) {
@@ -189,6 +208,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.phone = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
               ],
@@ -199,13 +219,25 @@ class _EditMyTableState extends State<EditMyTable> {
                 _selectDate(context, dateController);
               },
               decoration: InputDecoration(
-                  labelText: 'date', suffixIcon: Icon(Icons.calendar_month)),
+                  labelText: 'date', suffixIcon: Icon(Icons.calendar_month,
+              ),
+                labelStyle: TextStyle(
+                  color: Colors.black.withOpacity(0.7),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+              ),
               controller: dateController,
               onChanged: (value) {
                 setState(() {
                   widget.date = value;
                 });
               },
+              cursorColor: Colors.blue,
             ),
             const SizedBox(height: 15),
             Row(
@@ -217,13 +249,24 @@ class _EditMyTableState extends State<EditMyTable> {
                     },
                     decoration: InputDecoration(
                         labelText: 'Start',
-                        suffixIcon: Icon(Icons.access_time)),
+                        suffixIcon: Icon(Icons.access_time),
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                     controller: startTimeController,
                     onChanged: (value) {
                       setState(() {
                         widget.start = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -232,14 +275,26 @@ class _EditMyTableState extends State<EditMyTable> {
                     onTap: () {
                       _selectTime(context, endTimeController);
                     },
-                    decoration: const InputDecoration(
-                        labelText: 'End', suffixIcon: Icon(Icons.access_time)),
+                    decoration:  InputDecoration(
+                        labelText: 'End',
+                      suffixIcon: Icon(Icons.access_time),
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
                     controller: endTimeController,
                     onChanged: (value) {
                       setState(() {
                         widget.end = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
               ],
@@ -249,8 +304,17 @@ class _EditMyTableState extends State<EditMyTable> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    decoration:  InputDecoration(
                       labelText: 'Agenda',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.agenda,
                     onChanged: (value) {
@@ -258,13 +322,23 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.agenda = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Number of peoples',
+                      labelStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                     initialValue: widget.people,
                     onChanged: (value) {
@@ -272,6 +346,7 @@ class _EditMyTableState extends State<EditMyTable> {
                         widget.people = value;
                       });
                     },
+                    cursorColor: Colors.blue,
                   ),
                 ),
               ],

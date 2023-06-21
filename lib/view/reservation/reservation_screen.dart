@@ -140,7 +140,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        width: 100,
+                                        width: 80,
                                         height: 80,
                                         decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.only(
@@ -233,7 +233,7 @@ class _ReservationPageState extends State<ReservationPage> {
                             child: Row(
                               children: [
                                 Container(
-                                  width: 100,
+                                  width: 80,
                                   height: 80,
                                   decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.only(

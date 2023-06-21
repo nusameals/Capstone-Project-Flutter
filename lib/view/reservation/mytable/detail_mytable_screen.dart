@@ -186,9 +186,14 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    'Name\nNumber Phone\nDate\nStart-End\nAgenda\nNumber of people',
-                                    style: GoogleFonts.poppins(fontSize: 14)),
+                                Expanded(
+                                  child:
+                                  SingleChildScrollView(
+                                    child: Text(
+                                        'Name\nNumber Phone\nDate\nStart-End\nAgenda\nNumber of people',
+                                        style: GoogleFonts.poppins(fontSize: 14)),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -200,33 +205,59 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(tables[index].name,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].phone,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].date,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(
-                                    tables[index].start +
-                                        "-" +
-                                        tables[index].end,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].agenda,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].people,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
+                                Expanded( // Apply an Expanded widget here
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          tables[index].name,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].phone,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].date,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].start +
+                                              "-" +
+                                              tables[index].end,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].agenda,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].people,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
