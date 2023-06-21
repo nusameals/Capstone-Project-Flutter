@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class UpdateProfile with ChangeNotifier {
+class UpdateProfileViewModel with ChangeNotifier {
   String username = '';
   String email = '';
   String phone = '';
