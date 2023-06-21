@@ -115,7 +115,6 @@ class CartViewModel with ChangeNotifier {
       await prefs.setString('selectedPaymentMethod', _selectedPaymentMethod);
       await prefs.setBool('isTakeAway', _isTakeAway);
 
-      // Simpan nomor meja jika memilih dine in
       if (!_isTakeAway) {
         await prefs.setBool('isDineIn', true);
         await prefs.setInt('tableNumber', _tableNumber);

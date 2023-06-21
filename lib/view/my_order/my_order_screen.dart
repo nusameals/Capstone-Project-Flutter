@@ -103,7 +103,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>
                 );
               },
               child: CardMyOrder(
-                  id: order.idOrder,
+                  id: order.idOrder.toString(),
                   dateTime: order.orderDate,
                   price: order.totalPrice,
                   imageUrl: firstOrderDetail!.images),
@@ -148,7 +148,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>
                 );
               },
               child: CardMyOrder(
-                  id: order.idOrder,
+                  id: order.idOrder.toString(),
                   dateTime: order.orderDate,
                   price: order.totalPrice,
                   imageUrl: firstOrderDetail!.images),
@@ -193,7 +193,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>
                 );
               },
               child: CardMyOrder(
-                  id: order.idOrder,
+                  id: order.idOrder.toString(),
                   dateTime: order.orderDate,
                   price: order.totalPrice,
                   imageUrl: firstOrderDetail!.images),

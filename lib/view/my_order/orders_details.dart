@@ -156,7 +156,7 @@ class OrderDetailScreen extends StatelessWidget {
                       style: ThemeText.bodyR14,
                     ),
                     Text(
-                      order.idOrder,
+                      order.idOrder.toString(),
                       style: ThemeText.bodyT14,
                     ),
                   ],
