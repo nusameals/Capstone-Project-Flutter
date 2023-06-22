@@ -20,9 +20,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
-  bool dineInSelected = false;
-  bool takeAwaySelected = false;
-  int selectedNumber = 0;
+
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 
@@ -476,16 +474,12 @@ class _CartScreenState extends State<CartScreen> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    dineInSelected = true;
-                                    takeAwaySelected = false;
-                                  });
-                                  modelCart.setTakeAwaySelected(false);
+                                  modelCart.selectDineIn();
                                 },
                                 child: Container(
                                   height: 35,
                                   decoration: BoxDecoration(
-                                    color: dineInSelected
+                                    color: modelCart.dineInSelected
                                         ? ColorTheme.primaryBlue20
                                         : ColorTheme.light1,
                                     borderRadius: const BorderRadius.only(
@@ -496,7 +490,7 @@ class _CartScreenState extends State<CartScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      dineInSelected
+                                      modelCart.dineInSelected
                                           ? const Icon(
                                               Icons.check,
                                               color: ColorTheme.dark1,
@@ -507,7 +501,7 @@ class _CartScreenState extends State<CartScreen> {
                                       Text(
                                         'Dine in',
                                         style: GoogleFonts.poppins(
-                                          color: dineInSelected
+                                          color: modelCart.dineInSelected
                                               ? ColorTheme.dark1
                                               : ColorTheme.dark1,
                                           fontWeight: FontWeight.w500,
@@ -527,16 +521,12 @@ class _CartScreenState extends State<CartScreen> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    dineInSelected = false;
-                                    takeAwaySelected = true;
-                                  });
-                                  modelCart.setTakeAwaySelected(true);
+                                  modelCart.selectTakeAway();
                                 },
                                 child: Container(
                                   height: 35,
                                   decoration: BoxDecoration(
-                                    color: takeAwaySelected
+                                    color: modelCart.takeAwaySelected
                                         ? ColorTheme.primaryBlue20
                                         : ColorTheme.light1,
                                     borderRadius: const BorderRadius.only(
@@ -547,7 +537,7 @@ class _CartScreenState extends State<CartScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      takeAwaySelected
+                                      modelCart.takeAwaySelected
                                           ? const Icon(
                                               Icons.check,
                                               color: ColorTheme.dark1,
@@ -558,7 +548,7 @@ class _CartScreenState extends State<CartScreen> {
                                       Text(
                                         'Take away',
                                         style: GoogleFonts.poppins(
-                                          color: dineInSelected
+                                          color: modelCart.dineInSelected
                                               ? ColorTheme.dark1
                                               : ColorTheme.dark1,
                                           fontWeight: FontWeight.w500,
@@ -586,7 +576,7 @@ class _CartScreenState extends State<CartScreen> {
                               width: 55,
                               height: 30,
                               decoration: BoxDecoration(
-                                color: dineInSelected
+                                color: modelCart.dineInSelected
                                     ? ColorTheme.primaryBlue20
                                     : ColorTheme.light4,
                                 borderRadius: BorderRadius.circular(5),
@@ -594,12 +584,9 @@ class _CartScreenState extends State<CartScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 2),
                               child: DropdownButton<int>(
-                                value: selectedNumber,
-                                onChanged: dineInSelected
+                                value: modelCart.tableNumber,
+                                onChanged: modelCart.dineInSelected
                                     ? (int? newValue) {
-                                        setState(() {
-                                          selectedNumber = newValue!;
-                                        });
                                         modelCart.setSelectedNumber(newValue!);
                                       }
                                     : null,

@@ -15,11 +15,17 @@ class CartViewModel with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  int _totalPrice = 0;
-  int _quantity = 0;
   String _selectedPaymentMethod = '';
-  bool _isTakeAway = false;
+  bool _dineInSelected = true;
+  bool _takeAwaySelected = false;
+  int _totalPrice = 0;
+
   int _tableNumber = 0;
+  int _quantity = 1;
+  int get quantity => _quantity;
+  bool get dineInSelected => _dineInSelected;
+  bool get takeAwaySelected => _takeAwaySelected;
+  int get tableNumber => _tableNumber;
 
   Future<List<CartModel>> getCart() async {
     _isLoading = true;
@@ -75,12 +81,26 @@ class CartViewModel with ChangeNotifier {
     }
   }
 
-  void setTakeAwaySelected(bool value) {
-    _isTakeAway = value;
-    if (value) {
-      _tableNumber = 0;
-    }
+  void selectDineIn() {
+    _dineInSelected = true;
+    _takeAwaySelected = false;
     notifyListeners();
+  }
+
+  void selectTakeAway() {
+    _dineInSelected = false;
+    _takeAwaySelected = true;
+    notifyListeners();
+  }
+
+  String get selectedOption {
+    if (_dineInSelected) {
+      return 'dine in';
+    } else if (_takeAwaySelected) {
+      return 'take away';
+    } else {
+      return '';
+    }
   }
 
   void setSelectedNumber(int number) {
@@ -88,9 +108,25 @@ class CartViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void decreaseQuantity() {
+    if (_quantity > 1) {
+      _quantity--;
+      notifyListeners();
+    }
+  }
+
+  void increaseQuantity() {
+    _quantity++;
+    notifyListeners();
+  }
+
   void setSelectedPaymentMethod(String paymentMethod) {
     _selectedPaymentMethod = paymentMethod;
     notifyListeners();
+  }
+
+  int calculateTotal(int price) {
+    return _quantity * price;
   }
 
   int getTotalPrice() {
@@ -113,15 +149,7 @@ class CartViewModel with ChangeNotifier {
       await prefs.setDouble('totalPrice', _totalPrice.toDouble());
       await prefs.setInt('quantity', _quantity);
       await prefs.setString('selectedPaymentMethod', _selectedPaymentMethod);
-      await prefs.setBool('isTakeAway', _isTakeAway);
 
-      if (!_isTakeAway) {
-        await prefs.setBool('isDineIn', true);
-        await prefs.setInt('tableNumber', _tableNumber);
-      } else {
-        await prefs.setBool('isDineIn', false);
-        await prefs.remove('tableNumber');
-      }
       List<String> cartData =
           _listMenuCart.map((item) => json.encode(item.toJson())).toList();
       await prefs.setStringList('cartData', cartData);

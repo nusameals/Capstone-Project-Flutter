@@ -19,10 +19,6 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
-  bool dineInSelected = false;
-  bool takeAwaySelected = false;
-  int selectedNumber = 0;
-  int quantity = 1;
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 
@@ -148,11 +144,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  if (quantity > 1) {
-                                    setState(() {
-                                      quantity--;
-                                    });
-                                  }
+                                  modelCart.decreaseQuantity();
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(
@@ -181,7 +173,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 3),
                                 child: Text(
-                                  quantity.toString(),
+                                  modelCart.quantity.toString(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontSize: 16,
@@ -191,9 +183,7 @@ class _OrderScreenState extends State<OrderScreen> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  setState(() {
-                                    quantity++;
-                                  });
+                                  modelCart.increaseQuantity();
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -238,16 +228,12 @@ class _OrderScreenState extends State<OrderScreen> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            setState(() {
-                              dineInSelected = true;
-                              takeAwaySelected = false;
-                            });
-                            modelCart.setTakeAwaySelected(false);
+                            modelCart.selectDineIn();
                           },
                           child: Container(
                             height: 33,
                             decoration: BoxDecoration(
-                              color: dineInSelected
+                              color: modelCart.dineInSelected
                                   ? ColorTheme.primaryBlue20
                                   : ColorTheme.light1,
                               borderRadius: const BorderRadius.only(
@@ -258,7 +244,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                dineInSelected
+                                modelCart.dineInSelected
                                     ? const Icon(
                                         Icons.check,
                                         color: ColorTheme.dark1,
@@ -269,7 +255,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 Text(
                                   'Dine in',
                                   style: GoogleFonts.poppins(
-                                    color: dineInSelected
+                                    color: modelCart.dineInSelected
                                         ? ColorTheme.dark1
                                         : ColorTheme.dark1,
                                     fontWeight: FontWeight.w500,
@@ -289,16 +275,12 @@ class _OrderScreenState extends State<OrderScreen> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            setState(() {
-                              dineInSelected = false;
-                              takeAwaySelected = true;
-                            });
-                            modelCart.setTakeAwaySelected(true);
+                            modelCart.selectTakeAway();
                           },
                           child: Container(
                             height: 33,
                             decoration: BoxDecoration(
-                              color: takeAwaySelected
+                              color: modelCart.takeAwaySelected
                                   ? ColorTheme.primaryBlue20
                                   : ColorTheme.light1,
                               borderRadius: const BorderRadius.only(
@@ -309,7 +291,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                takeAwaySelected
+                                modelCart.takeAwaySelected
                                     ? const Icon(
                                         Icons.check,
                                         color: ColorTheme.dark1,
@@ -320,7 +302,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 Text(
                                   'Take away',
                                   style: GoogleFonts.poppins(
-                                    color: dineInSelected
+                                    color: modelCart.dineInSelected
                                         ? ColorTheme.dark1
                                         : ColorTheme.dark1,
                                     fontWeight: FontWeight.w500,
@@ -348,7 +330,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         width: 55,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: dineInSelected
+                          color: modelCart.dineInSelected
                               ? ColorTheme.primaryBlue20
                               : ColorTheme.light4,
                           borderRadius: BorderRadius.circular(5),
@@ -356,12 +338,9 @@ class _OrderScreenState extends State<OrderScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 2),
                         child: DropdownButton<int>(
-                          value: selectedNumber,
-                          onChanged: dineInSelected
+                          value: modelCart.tableNumber,
+                          onChanged: modelCart.dineInSelected
                               ? (int? newValue) {
-                                  setState(() {
-                                    selectedNumber = newValue!;
-                                  });
                                   modelCart.setSelectedNumber(newValue!);
                                 }
                               : null,
@@ -437,7 +416,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   ),
                                 ),
                                 Text(
-                                  quantity.toString(),
+                                  modelCart.quantity.toString(),
                                   style: ThemeText.bodyR14,
                                 ),
                               ],
@@ -456,7 +435,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           Text(
                             priceFormat.format(
                                 int.parse(widget.menuModel.price.toString()) *
-                                    quantity),
+                                    modelCart.quantity),
                             style: ThemeText.bodyB16,
                           ),
                         ],
@@ -693,7 +672,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                               priceFormat.format(int.parse(
                                                       widget.menuModel.price
                                                           .toString()) *
-                                                  quantity),
+                                                  modelCart.quantity),
                                               style: ThemeText.bodyB16,
                                             )
                                           ],
