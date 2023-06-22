@@ -1,10 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../model/order_model.dart';
 import '../../themes/constant.dart';
 
 class OrderDetailScreen extends StatelessWidget {
-  const OrderDetailScreen({super.key});
+  final MyOrder order;
+  const OrderDetailScreen({
+    Key? key,
+    required this.order,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,89 +32,111 @@ class OrderDetailScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          'Orders Detail',
+          'Order Detail',
           style: ThemeText.subHeadingR20,
         ),
       ),
       body: ListView(
         children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(20, 10, 20, 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1572656306390-40a9fc3899f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtYmFyJTIwc290b3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'Soto Ayam',
-                              overflow: TextOverflow.ellipsis,
-                              style: ThemeText.subHeadingB18,
-                              // maxLines: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Jakarta',
-                                style: ThemeText.bodyR14Dark4,
-                              ),
-                              Text(
-                                '100 kkal',
-                                style: ThemeText.bodyB14Dark4,
-                              ),
-                            ],
-                          ),
-                          Text(
-                            priceFormat.format(
-                              int.parse(
-                                '10000',
-                              ),
-                            ),
-                            style: ThemeText.bodyB20,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          const Divider(
-            endIndent: 20,
-            indent: 20,
-            thickness: 1,
-            color: Colors.blue,
-          ),
           const SizedBox(
             height: 10,
+          ),
+          ListView.builder(
+            physics: const ClampingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: order.orderDetail.length,
+            itemBuilder: (context, index) {
+              final orderDetail = order.orderDetail[index];
+              return Container(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          child: Image.network(
+                            orderDetail.images,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      orderDetail.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: ThemeText.subHeadingB18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        orderDetail.city,
+                                        style: ThemeText.bodyR14Dark4,
+                                      ),
+                                      Text(
+                                        '${orderDetail.calorie} kkal',
+                                        style: ThemeText.bodyB14Dark4,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    priceFormat.format(
+                                      int.parse(
+                                        orderDetail.price,
+                                      ),
+                                    ),
+                                    style: ThemeText.bodyB20,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: ColorTheme.primaryBlue60,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const SizedBox(
+            height: 8,
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -116,73 +144,108 @@ class OrderDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Orders Details',
+                  'Order Details',
                   textAlign: TextAlign.start,
-                  style: ThemeText.subHeadingR20,
+                  style: ThemeText.bodyB18,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text('Order Number'),
-                    Text('67890'),
+                  children: [
+                    Text(
+                      'Order Number',
+                      style: ThemeText.bodyR14,
+                    ),
+                    Text(
+                      order.idOrder.toString(),
+                      style: ThemeText.bodyT14,
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text('Type'),
-                    Text('Dine In'),
+                  children: [
+                    Text(
+                      'Type',
+                      style: ThemeText.bodyR14,
+                    ),
+                    Text(
+                      order.type,
+                      style: ThemeText.bodyT14,
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text('Table Number'),
-                    Text('4'),
+                  children: [
+                    Text(
+                      'Table Number',
+                      style: ThemeText.bodyR14,
+                    ),
+                    Text(
+                      order.tableNumber,
+                      style: ThemeText.bodyT14,
+                    ),
                   ],
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('• Soto Ayam x 3'),
-                    Text(
-                      priceFormat.format(
-                        int.parse(
-                          '75000',
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: order.orderDetail.length,
+                  itemBuilder: (context, index) {
+                    final orderDetail = order.orderDetail[index];
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "• ${orderDetail.name} x ${orderDetail.qty}",
+                          style: ThemeText.bodyR14,
                         ),
-                      ),
-                    ),
-                  ],
+                        Text(
+                          priceFormat.format(
+                            int.parse(
+                              orderDetail.price,
+                            ),
+                          ),
+                          style: ThemeText.bodyR14,
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Total',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: ThemeText.bodyB14,
                     ),
                     Text(
                       priceFormat.format(
-                        int.parse(
-                          '75000',
-                        ),
+                        int.parse(order.totalPrice),
                       ),
+                      style: ThemeText.bodyB14,
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Payment Method'),
-                    Text('Cash'),
+                    Text(
+                      'Payment Method',
+                      style: ThemeText.bodyR14,
+                    ),
+                    Text(
+                      order.paymentMethod,
+                      style: ThemeText.bodyT14,
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),

@@ -40,4 +40,19 @@ class CartModel {
       numberTable: json['number_table'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id_cart': idCart,
+      'id_customer': idCustomer,
+      'id_menu': idMenu,
+      'name': name,
+      'city': city,
+      'calorie': calorie,
+      'images': images,
+      'price': price,
+      'qty': qty,
+      'cart': cart,
+      'number_table': numberTable,
+    };
+  }
 }

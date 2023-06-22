@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nusameals/view/component/costum_snackbar.dart';
 import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
+import 'package:nusameals/view_model/mytable_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../themes/constant.dart';
 
@@ -44,9 +48,16 @@ class _DetailMyTableState extends State<DetailMyTable> {
       agenda: 'Dinner',
       people: '10',
     )
-    // Tambahkan entri Seat lainnya di sini
   ];
   int index = 0;
+
+  void removeTable() {
+    setState(() {
+      tables.removeAt(index);
+    });
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,9 +187,14 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    'Name\nNumber Phone\nDate\nStart-End\nAgenda\nNumber of people',
-                                    style: GoogleFonts.poppins(fontSize: 14)),
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    child: Text(
+                                        'Name\nNumber Phone\nDate\nStart-End\nAgenda\nNumber of people',
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14)),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -190,33 +206,61 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(tables[index].name,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].phone,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].date,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(
-                                    tables[index].start +
-                                        "-" +
-                                        tables[index].end,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].agenda,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
-                                Text(tables[index].people,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold)),
+                                Expanded(
+                                  // Apply an Expanded widget here
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          tables[index].name,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].phone,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].date,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].start +
+                                              "-" +
+                                              tables[index].end,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].agenda,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          tables[index].people,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -304,15 +348,15 @@ class Canceled extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Text(
                 'Do you want to cancel the reservation?',
-                style: GoogleFonts.poppins(fontSize: 15),
+                style: ThemeText.bodyR18,
               ),
             ),
             SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  width: 150,
+                Expanded(
+                  // width: 150,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -333,11 +377,17 @@ class Canceled extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: 150,
+                const SizedBox(
+                  width: 6,
+                ),
+                Expanded(
+                  // width: 150,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      CustomSnackbar.showSnackbar(context,
+                          'Reservation has been canceled. Please wait....',
+                          actionText: '');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ColorTheme.secondaryDanger,
