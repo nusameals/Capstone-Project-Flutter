@@ -7,8 +7,11 @@ import '../../../themes/constant.dart';
 class DetailReservation extends StatefulWidget {
   final String imageUrl;
   final String title;
+  final String position;
+  final String location ;
+  final String seats;
 
-  DetailReservation({required this.imageUrl, required this.title});
+  DetailReservation({required this.imageUrl, required this.title, required this.position, required this.location, required this.seats});
 
   @override
   _DetailReservationState createState() => _DetailReservationState();
@@ -76,15 +79,15 @@ class _DetailReservationState extends State<DetailReservation> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '\u2022 10 seats',
+                      '\u2022 ${widget.seats}',
                       style: GoogleFonts.poppins(),
                     ),
                     Text(
-                      '\u2022 indoors',
+                      '\u2022 ${widget.position}',
                       style: GoogleFonts.poppins(),
                     ),
                     Text(
-                      '\u2022 in the middle of the room',
+                      '\u2022 ${widget.location}',
                       style: GoogleFonts.poppins(),
                     ),
                   ],

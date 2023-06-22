@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nusameals/view/scan/scan_screen.dart';
 import 'package:provider/provider.dart';
+import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
 import '../../view_model/menu_view_model.dart';
 import '../component/card_product.dart';
@@ -24,12 +26,15 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<MenuViewModel>(context, listen: false).getCategories();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<MenuViewModel>(context, listen: false).getCategories();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final modelMenu = Provider.of<MenuViewModel>(context);
+    final List<MenuModel> menuList = modelMenu.listMenu;
 
     return Scaffold(
       body: SafeArea(
@@ -42,123 +47,9 @@ class _MenuScreenState extends State<MenuScreen> {
               child: TabBarView(
                 controller: widget.tabController,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: modelMenu.listMenu
-                            .where((menu) => menu.idCategory == '1')
-                            .length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 10),
-                        itemBuilder: (context, index) {
-                          final filteredMenu = modelMenu.listMenu
-                              .where((menu) => menu.idCategory == '1')
-                              .toList();
-                          final menu = filteredMenu[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          (DetailMenuScreen(menu))));
-                            },
-                            child: CardProduct(
-                                imageProduct: menu.images,
-                                nameProduct: menu.name,
-                                city: menu.city,
-                                price: menu.price,
-                                kalori: menu.calorie),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: modelMenu.listMenu
-                            .where((menu) => menu.idCategory == '2')
-                            .length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 10),
-                        itemBuilder: (context, index) {
-                          final filteredMenu = modelMenu.listMenu
-                              .where((menu) => menu.idCategory == '2')
-                              .toList();
-                          final menu = filteredMenu[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          (DetailMenuScreen(menu))));
-                            },
-                            child: CardProduct(
-                                imageProduct: menu.images,
-                                nameProduct: menu.name,
-                                city: menu.city,
-                                price: menu.price,
-                                kalori: menu.calorie),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: modelMenu.listMenu
-                            .where((menu) => menu.idCategory == '3')
-                            .length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 10),
-                        itemBuilder: (context, index) {
-                          final filteredMenu = modelMenu.listMenu
-                              .where((menu) => menu.idCategory == '3')
-                              .toList();
-                          final menu = filteredMenu[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          (DetailMenuScreen(menu))));
-                            },
-                            child: CardProduct(
-                                imageProduct: menu.images,
-                                nameProduct: menu.name,
-                                city: menu.city,
-                                price: menu.price,
-                                kalori: menu.calorie),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+                  _buildMenuList(menuList, 5),
+                  _buildMenuList(menuList, 4),
+                  _buildMenuList(menuList, 3),
                 ],
               ),
             ),
@@ -174,6 +65,65 @@ class _MenuScreenState extends State<MenuScreen> {
         child: const Icon(
           Icons.qr_code_scanner,
         ),
+      ),
+    );
+  }
+
+  Widget _buildMenuList(List<MenuModel> menuList, int categoryId) {
+    final modelMenu = Provider.of<MenuViewModel>(context);
+
+    final filteredList =
+        menuList.where((menu) => menu.idCategory == categoryId).toList();
+    final bool isLoading = modelMenu.isLoading;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SizedBox(
+        width: double.infinity,
+        child: isLoading
+            ? const Center(
+                child: SpinKitCircle(
+                  color: ColorTheme.primaryBlue,
+                ),
+              )
+            : GridView.builder(
+                itemCount: filteredList.length,
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 10),
+                itemBuilder: (context, index) {
+                  final menu = filteredList[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return DetailMenuScreen(menu);
+                          },
+                          transitionsBuilder:
+                              ((context, animation, secondaryAnimation, child) {
+                            final tween = Tween(begin: 0.2, end: 1.0);
+                            return FadeTransition(
+                              opacity: animation.drive(tween),
+                              child: child,
+                            );
+                          }),
+                        ),
+                      );
+                    },
+                    child: CardProduct(
+                        imageProduct: menu.images,
+                        nameProduct: menu.name,
+                        city: menu.city,
+                        price: menu.price.toString(),
+                        kalori: menu.calorie),
+                  );
+                },
+              ),
       ),
     );
   }

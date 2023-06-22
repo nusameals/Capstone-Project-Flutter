@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'api_contants.dart';
+import 'api_constants.dart';
 
 class UserAPI {
   Future loginUser({
@@ -11,7 +11,7 @@ class UserAPI {
     required String password,
   }) async {
     try {
-      final url = Uri.parse('${APIContants.baseUrl}/login');
+      final url = Uri.parse('${ApiConstants.baseUrl}/login');
 
       final response = await http.post(url, body: {
         'email_or_username': email_or_username,
@@ -51,7 +51,7 @@ class UserAPI {
   }) async {
     // ignore: unused_local_variable
     try {
-      final url = Uri.parse('${APIContants}baseUrl/register');
+      final url = Uri.parse('${ApiConstants}baseUrl/register');
 
       final response = await http.post(url, body: {
         'username': username,

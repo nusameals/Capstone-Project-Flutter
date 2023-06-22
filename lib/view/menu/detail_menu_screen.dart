@@ -97,7 +97,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                                 ),
                                 Text(
                                   priceFormat.format(int.parse(
-                                    widget.menuModel.price,
+                                    widget.menuModel.price.toString(),
                                   )),
                                   style: ThemeText.bodyB20,
                                 ),
