@@ -20,6 +20,30 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _secureText = true;
   bool validForm = false;
+  // Deklarasikan FocusNode di dalam State
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  Color _usernameLabelColor = Colors.black; // Warna label teks saat tidak aktif
+  Color _passwordLabelColor = Colors.black; // Warna label teks saat tidak aktif
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _usernameLabelColor =
+            _usernameFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _passwordLabelColor =
+            _passwordFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+  }
 
   showHide() {
     setState(() {
@@ -31,6 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
+    _usernameFocusNode.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -91,30 +117,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                       const SizedBox(height: 31),
                                       TextFormField(
                                         controller: _usernameController,
+                                        focusNode: _usernameFocusNode,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
-                                            labelText: 'Username',
-                                            focusColor: Colors.blue,
-                                            labelStyle: GoogleFonts.poppins(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400)),
-                                        // ignore: body_might_complete_normally_nullable
-                                        // validator: (username) {
-                                        //   if (username!.isEmpty) {
-                                        //     return 'Username can not be empty';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                          labelText: 'Username',
+                                          labelStyle: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: _usernameLabelColor),
+                                          focusedBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue),
+                                          ),
+                                        ),
+                                        cursorColor: Colors.blue,
                                       ),
                                       const SizedBox(height: 20),
                                       TextFormField(
                                         controller: _passwordController,
+                                        focusNode: _passwordFocusNode,
                                         obscureText: _secureText,
                                         decoration: InputDecoration(
                                           labelText: 'Password',
                                           labelStyle: GoogleFonts.poppins(
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w400),
+                                              fontWeight: FontWeight.w400,
+                                              color: _passwordLabelColor),
+                                          focusedBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue),
+                                          ),
                                           suffixIcon: IconButton(
                                               onPressed: showHide,
                                               icon: _secureText
@@ -129,13 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       color: Colors.black,
                                                     )),
                                         ),
-                                        // ignore: body_might_complete_normally_nullable
-                                        // validator: (password) {
-                                        //   if (password!.isEmpty) {
-                                        //     return 'Password can not be empty';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                        cursorColor: Colors.blue,
                                       ),
                                       const SizedBox(height: 30),
                                       bottomSheet(),
@@ -182,32 +210,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                           .w500,
                                                                   color: Colors
                                                                       .red)),
-                                                      backgroundColor:
-                                                          const Color(
-                                                              0xffCDE1F2),
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                    ),
-                                                  );
-                                                  return;
-                                                }
-                                                if (email !=
-                                                        'username do not match' ||
-                                                    password !=
-                                                        'password do not match') {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Invalid username or password!',
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.red,
-                                                        ),
-                                                      ),
                                                       backgroundColor:
                                                           const Color(
                                                               0xffCDE1F2),
