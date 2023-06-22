@@ -7,6 +7,7 @@ import 'package:nusameals/view_model/mytable_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../themes/constant.dart';
+
 class Table {
   final String name;
   final String phone;
@@ -18,12 +19,12 @@ class Table {
 
   Table(
       {required this.name,
-        required this.phone,
-        required this.date,
-        required this.start,
-        required this.end,
-        required this.agenda,
-        required this.people});
+      required this.phone,
+      required this.date,
+      required this.start,
+      required this.end,
+      required this.agenda,
+      required this.people});
 }
 
 class DetailMyTable extends StatefulWidget {
@@ -187,11 +188,11 @@ class _DetailMyTableState extends State<DetailMyTable> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  child:
-                                  SingleChildScrollView(
+                                  child: SingleChildScrollView(
                                     child: Text(
                                         'Name\nNumber Phone\nDate\nStart-End\nAgenda\nNumber of people',
-                                        style: GoogleFonts.poppins(fontSize: 14)),
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 14)),
                                   ),
                                 ),
                               ],
@@ -205,10 +206,12 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Expanded( // Apply an Expanded widget here
+                                Expanded(
+                                  // Apply an Expanded widget here
                                   child: SingleChildScrollView(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Text(
                                           tables[index].name,
@@ -308,7 +311,6 @@ class _DetailMyTableState extends State<DetailMyTable> {
 }
 
 class Canceled extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -346,15 +348,15 @@ class Canceled extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Text(
                 'Do you want to cancel the reservation?',
-                style: GoogleFonts.poppins(fontSize: 15),
+                style: ThemeText.bodyR18,
               ),
             ),
             SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  width: 150,
+                Expanded(
+                  // width: 150,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -375,13 +377,17 @@ class Canceled extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: 150,
+                const SizedBox(
+                  width: 6,
+                ),
+                Expanded(
+                  // width: 150,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      CustomSnackbar.showSnackbar(context, 'Reservation has been canceled. Please wait....'
-                      ,actionText: '');
+                      CustomSnackbar.showSnackbar(context,
+                          'Reservation has been canceled. Please wait....',
+                          actionText: '');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ColorTheme.secondaryDanger,
@@ -397,7 +403,6 @@ class Canceled extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 ),
               ],
             ),

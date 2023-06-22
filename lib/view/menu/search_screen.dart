@@ -23,21 +23,6 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   filteredDataMenu = dataMenu;
-  // }
-
-  // void search(String query) {
-  //   setState(() {
-  //     filteredDataMenu = dataMenu
-  //         .where((item) =>
-  //             item['nameProduct']!.toLowerCase().contains(query.toLowerCase()))
-  //         .toList();
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final modelCategory = Provider.of<MenuViewModel>(context);
@@ -136,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           imageProduct: item.images,
                           nameProduct: item.name,
                           city: item.city,
-                          price: item.price,
+                          price: item.price.toString(),
                           kalori: item.calorie,
                         ),
                       );

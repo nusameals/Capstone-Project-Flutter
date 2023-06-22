@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../themes/constant.dart';
 
-
-
 class ReservationPage extends StatefulWidget {
   const ReservationPage({Key? key}) : super(key: key);
 
@@ -19,17 +17,18 @@ class ReservationPage extends StatefulWidget {
 }
 
 class _ReservationPageState extends State<ReservationPage> {
-
   int currentTabIndex = 0;
 
   @override
   void initState() {
     super.initState();
     // Fetch reservations when the view is loaded
-    Provider.of<ReservationViewModel>(context, listen: false).fetchReservations();
-    Provider.of<myTableViewModel>(context, listen: false).fetchTables();
-  }
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ReservationViewModel>(context, listen: false)
+          .fetchReservations();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +103,8 @@ class _ReservationPageState extends State<ReservationPage> {
                         );
                       } else {
                         return ListView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
                           itemCount: viewModel.reservations.length,
                           itemBuilder: (BuildContext context, int index) {
                             var reservation = viewModel.reservations[index];
@@ -118,7 +118,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                       MaterialPageRoute(
                                         builder: (context) => DetailReservation(
                                           imageUrl: reservation.photos,
-                                          title: 'Table ${reservation.numberOfTable}',
+                                          title:
+                                              'Table ${reservation.numberOfTable}',
                                           position: reservation.position,
                                           location: reservation.location,
                                           seats: '${reservation.seat} seats',
@@ -148,7 +149,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                             bottomLeft: Radius.circular(14),
                                           ),
                                           image: DecorationImage(
-                                            image: NetworkImage(reservation.photos),
+                                            image: NetworkImage(
+                                                reservation.photos),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -157,8 +159,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 'Table ${reservation.numberOfTable}',
@@ -171,7 +175,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                               ),
                                               Text(
                                                 '${reservation.position} - ${reservation.seat} seats',
-                                                style: GoogleFonts.poppins(fontSize: 13),
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 13),
                                               ),
                                             ],
                                           ),
@@ -185,9 +190,11 @@ class _ReservationPageState extends State<ReservationPage> {
                                             child: Text(
                                               reservation.status,
                                               style: GoogleFonts.poppins(
-                                                color: reservation.status == 'Available'
+                                                color: reservation.status ==
+                                                        'Available'
                                                     ? ColorTheme.dark1
-                                                    : ColorTheme.secondaryDanger,
+                                                    : ColorTheme
+                                                        .secondaryDanger,
                                               ),
                                             ),
                                           ),
@@ -204,7 +211,8 @@ class _ReservationPageState extends State<ReservationPage> {
                     },
                   ),
                   ListView(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
@@ -214,7 +222,8 @@ class _ReservationPageState extends State<ReservationPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailMyTable(
-                                  imageUrl: 'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg',
+                                  imageUrl:
+                                      'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg',
                                   title: 'Table 1',
                                 ),
                               ),
@@ -241,7 +250,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                       bottomLeft: Radius.circular(14),
                                     ),
                                     image: DecorationImage(
-                                      image: NetworkImage('https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg'),
+                                      image: NetworkImage(
+                                          'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -250,8 +260,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'Table 1',
@@ -264,7 +276,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                         ),
                                         Text(
                                           'Indoors - 10 seats',
-                                          style: GoogleFonts.poppins(fontSize: 13),
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 13),
                                         ),
                                       ],
                                     ),
@@ -276,7 +289,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             '17/08/2023',
@@ -298,7 +312,6 @@ class _ReservationPageState extends State<ReservationPage> {
                       ),
                     ],
                   )
-
                 ],
               ),
             ),
