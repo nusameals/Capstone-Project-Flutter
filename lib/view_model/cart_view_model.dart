@@ -139,26 +139,6 @@ class CartViewModel with ChangeNotifier {
     return _totalPrice;
   }
 
-  Future<void> createOrder(
-      int userId, int menuId, String typeOrder, int quantity) async {
-    try {
-      final order = await OrderAPI().createOrder(
-        userId,
-        menuId,
-        typeOrder,
-        quantity,
-      );
-
-      print('Pesanan berhasil dibuat: ${order.id}');
-      // print(order.userId);
-      // print(order.menuId);
-      // print(order.typeOrder);
-      // print(quantity);
-    } catch (error) {
-      print('Gagal membuat pesanan: $error');
-    }
-  }
-
   Future<void> checkout(BuildContext context) async {
     final int timestamp = DateTime.now().millisecondsSinceEpoch;
     final String idOrder = timestamp.toString();

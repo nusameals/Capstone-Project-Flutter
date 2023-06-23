@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
 import '../../view_model/cart_view_model.dart';
+import '../../view_model/my_order_view_model.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 
@@ -26,6 +27,7 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     final modelCart = Provider.of<CartViewModel>(context);
+    final modelOrder = Provider.of<MyOrderViewModel>(context);
 
     return Theme(
       data: Theme.of(context).copyWith(useMaterial3: false),
@@ -475,7 +477,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           modelCart.dineInSelected ? 'dine in' : 'take away';
                       final quantity = modelCart.quantity;
                       // ignore: use_build_context_synchronously
-                      Provider.of<CartViewModel>(context, listen: false)
+                      Provider.of<MyOrderViewModel>(context, listen: false)
                           .createOrder(
                               int.parse(userId), menuId, typeOrder, quantity);
 
@@ -694,14 +696,28 @@ class _OrderScreenState extends State<OrderScreen> {
                                           ],
                                         ),
                                         ElevatedButton(
-                                          onPressed: () {
-                                            Provider.of<CartViewModel>(context,
+                                          onPressed: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            String userId =
+                                                prefs.getString('id') ?? '';
+                                            int totalAmount = int.parse(widget
+                                                    .menuModel.price
+                                                    .toString()) *
+                                                modelCart.quantity;
+                                            final orderId = modelOrder.orderId;
+                                            // ignore: use_build_context_synchronously
+                                            Provider.of<MyOrderViewModel>(
+                                                    context,
                                                     listen: false)
-                                                .checkout(context);
-                                            _controller.text =
-                                                _selectedPaymentMethod;
-                                            // final selectedPaymentMethod =
-                                            //     _controller.text;
+                                                .payments(
+                                                    orderId,
+                                                    int.parse(userId),
+                                                    totalAmount.toDouble(),
+                                                    _selectedPaymentMethod);
+
+                                            // ignore: use_build_context_synchronously
                                             CustomSnackbar.showSnackbar(
                                               context,
                                               'Thanks for order, please wait...',
