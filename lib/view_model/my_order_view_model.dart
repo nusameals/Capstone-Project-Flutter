@@ -22,10 +22,10 @@ class MyOrderViewModel extends ChangeNotifier {
       );
       orderId = order.id;
       debugPrint('Pesanan berhasil dibuat: ${order.id}');
-      print(order.userId);
-      print(order.menuId);
-      print(order.typeOrder);
-      print(quantity);
+      // print(order.userId);
+      // print(order.menuId);
+      // print(order.typeOrder);
+      // print(quantity);
     } catch (error) {
       print('Gagal membuat pesanan: $error');
     }
@@ -45,10 +45,10 @@ class MyOrderViewModel extends ChangeNotifier {
       );
       await PaymentAPI().createPayment(payment);
       print('Success Payment');
-      print(payment.orderId);
-      print(payment.userId);
-      print(payment.amount);
-      print(payment.method);
+      // print(payment.orderId);
+      // print(payment.userId);
+      // print(payment.amount);
+      // print(payment.method);
     } catch (error) {
       print('Failed Payment: $error');
     }
