@@ -27,6 +27,7 @@ class _ReservationPageState extends State<ReservationPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ReservationViewModel>(context, listen: false)
           .fetchReservations();
+      Provider.of<myTableViewModel>(context, listen: false).fetchTables();
     });
   }
 
@@ -211,107 +212,148 @@ class _ReservationPageState extends State<ReservationPage> {
                     },
                   ),
                   ListView(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailMyTable(
-                                  imageUrl:
-                                      'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg',
-                                  title: 'Table 1',
+                        child: Consumer<ReservationViewModel>(
+                          builder: (context, reservationViewModel, child) {
+                            if (reservationViewModel.isLoading) {
+                              return Center(
+                                child: SpinKitCircle(
+                                  color: ColorTheme.primaryBlue,
                                 ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: ColorTheme.light1,
-                              border: Border.all(
-                                color: ColorTheme.dark5,
-                                width: 1,
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 80,
+                              );
+                            } else if (reservationViewModel.errorMessage.isNotEmpty) {
+                              return Center(
+                                child: Text(reservationViewModel.errorMessage),
+                              );
+                            } else {
+                              var reservation = reservationViewModel.reservations[4];
+                              return GestureDetector(
+                                onTap: () {
+                                  if (reservation.status != 'Not Available') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          var tableViewModel = Provider.of<myTableViewModel>(context, listen: false);
+                                          var tableData = tableViewModel.tables[0];
+                                          return DetailMyTable(
+                                            imageUrl: reservation.photos,
+                                            title: 'Table ${reservation.numberOfTable}',
+                                            position: reservation.position,
+                                            location: reservation.location,
+                                            seats: '${reservation.seat} seats',
+                                            name: tableData.customerName,
+                                            phone: tableData.phoneNumber,
+                                            date: tableData.date,
+                                            timeIn: tableData.timeIn,
+                                            timeOut: tableData.timeOut,
+                                            agenda: tableData.agenda,
+                                            numofpeo: tableData.numberOfPeople,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Container(
                                   height: 80,
                                   decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(14),
-                                      bottomLeft: Radius.circular(14),
-                                    ),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          'https://img.okezone.com/content/2022/02/11/298/2545904/10-restoran-fine-dining-di-jakarta-pas-untuk-ajak-rekan-bisnis-0cI8wSysW4.jpg'),
-                                      fit: BoxFit.cover,
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: ColorTheme.light1,
+                                    border: Border.all(
+                                      color: ColorTheme.dark5,
+                                      width: 1,
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Table 1',
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.bold,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 80,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(14),
+                                            bottomLeft: Radius.circular(14),
+                                          ),
+                                          image: DecorationImage(
+                                            image: NetworkImage(reservation.photos),
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 2,
-                                        ),
-                                        Text(
-                                          'Indoors - 10 seats',
-                                          style:
-                                              GoogleFonts.poppins(fontSize: 13),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '17/08/2023',
-                                            style: GoogleFonts.poppins(),
-                                          ),
-                                          Text(
-                                            '20:00-21:00',
-                                            style: GoogleFonts.poppins(),
-                                          ),
-                                        ],
                                       ),
-                                    ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Table ${reservation.numberOfTable}',
+                                                style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 2,
+                                              ),
+                                              Text(
+                                                '${reservation.position} - ${reservation.seat} seats',
+                                                style: GoogleFonts.poppins(fontSize: 13),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Consumer<myTableViewModel>(
+                                          builder: (context, tableViewModel, child) {
+                                            if (tableViewModel.isLoading) {
+                                              return Center(
+                                                child: SpinKitCircle(
+                                                  color: ColorTheme.primaryBlue,
+                                                ),
+                                              );
+                                            } else {
+                                              var tableData = tableViewModel.tables[0];
+                                              return Align(
+                                                alignment: Alignment.centerRight,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(
+                                                        tableData.date,
+                                                        style: GoogleFonts.poppins(),
+                                                      ),
+                                                      Text(
+                                                        '${tableData.timeIn}-${tableData.timeOut}',
+                                                        style: GoogleFonts.poppins(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],
-                  )
+                  ),
+
+
                 ],
               ),
             ),
