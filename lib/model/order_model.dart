@@ -1,4 +1,56 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+class Order {
+  final int id;
+  final int userId;
+  final int menuId;
+  final int quantity;
+  final String typeOrder;
+  final int totalPrice;
+  final String orderStatus;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  Order({
+    required this.id,
+    required this.userId,
+    required this.menuId,
+    required this.quantity,
+    required this.typeOrder,
+    required this.totalPrice,
+    required this.orderStatus,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: json['id'],
+      userId: json['user_id'],
+      menuId: json['menu_id'],
+      quantity: json['quantity'],
+      typeOrder: json['type_order'],
+      totalPrice: json['total_price'],
+      orderStatus: json['order_status'],
+      createdAt: DateTime.parse(json['createdAt']),
+      updatedAt: DateTime.parse(json['updatedAt']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'user_id': userId,
+      'menu_id': menuId,
+      'quantity': quantity,
+      'type_order': typeOrder,
+      'total_price': totalPrice,
+      'order_status': orderStatus,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+    };
+  }
+}
+
 class MyOrder {
   String idOrder;
   String idCustomer;

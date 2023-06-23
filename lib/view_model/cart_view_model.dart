@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/api/cart_api.dart';
+import '../model/api/order_api.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
+import '../model/order_model.dart';
 import '../view/component/costum_snackbar.dart';
 import '../view/home/home_screen.dart';
 
@@ -135,6 +137,26 @@ class CartViewModel with ChangeNotifier {
       _totalPrice += itemTotal;
     }
     return _totalPrice;
+  }
+
+  Future<void> createOrder(
+      int userId, int menuId, String typeOrder, int quantity) async {
+    try {
+      final order = await OrderAPI().createOrder(
+        userId,
+        menuId,
+        typeOrder,
+        quantity,
+      );
+
+      print('Pesanan berhasil dibuat: ${order.id}');
+      // print(order.userId);
+      // print(order.menuId);
+      // print(order.typeOrder);
+      // print(quantity);
+    } catch (error) {
+      print('Gagal membuat pesanan: $error');
+    }
   }
 
   Future<void> checkout(BuildContext context) async {

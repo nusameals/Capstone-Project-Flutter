@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
 import '../../view_model/cart_view_model.dart';
@@ -463,7 +464,22 @@ class _OrderScreenState extends State<OrderScreen> {
                 child: Builder(builder: (context) {
                   return PrimaryButton(
                     text: "Make an order",
-                    onPressed: () {
+                    onPressed: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      String userId = prefs.getString('id') ?? '';
+                      final menuModel = widget.menuModel;
+                      final menuId = menuModel.idMenu;
+                      // final tableNumber = modelCart.tableNumber;
+                      final typeOrder =
+                          modelCart.dineInSelected ? 'dine in' : 'take away';
+                      final quantity = modelCart.quantity;
+                      // ignore: use_build_context_synchronously
+                      Provider.of<CartViewModel>(context, listen: false)
+                          .createOrder(
+                              int.parse(userId), menuId, typeOrder, quantity);
+
+                      // ignore: use_build_context_synchronously
                       showModalBottomSheet(
                         context: context,
                         shape: const RoundedRectangleBorder(
