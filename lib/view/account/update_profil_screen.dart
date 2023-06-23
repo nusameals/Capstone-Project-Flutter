@@ -3,8 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class UpdateProfilScreen extends StatefulWidget {
-  const UpdateProfilScreen({super.key});
+  String email;
+  String username;
+  String phoneNumber;
+  String profilePicturePath;
+
+  UpdateProfilScreen({
+    Key? key,
+    required this.username,
+    required this.email,
+    required this.phoneNumber,
+    required this.profilePicturePath,
+  }) : super(key: key);
 
   @override
   State<UpdateProfilScreen> createState() => _UpdateProfilScreenState();
@@ -12,12 +24,48 @@ class UpdateProfilScreen extends StatefulWidget {
 
 class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
   final formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+  late String _newUsername;
+  late String _newEmail;
+  late String _newPhoneNumber;
 
   late PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
+
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _phoneFocusNode = FocusNode();
+  Color _usernameLabelColor = Colors.black; // Warna label teks saat tidak aktif
+  Color _emailLabelColor = Colors.black;
+  Color _phoneLabelColor = Colors.black;
+
+  @override
+  void initState() {
+    super.initState();
+    _newUsername = widget.username;
+    _newEmail = widget.email;
+    _newPhoneNumber = widget.phoneNumber;
+    _usernameFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _usernameLabelColor =
+            _usernameFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _emailFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _emailLabelColor =
+            _emailFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _phoneFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _phoneLabelColor =
+            _phoneFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,30 +214,75 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     return Column(
       children: [
         TextFormField(
-          controller: _usernameController,
-          keyboardType: TextInputType.text,
+          initialValue: _newUsername,
+          focusNode: _usernameFocusNode,
           decoration: InputDecoration(
               labelText: 'Username',
               labelStyle: GoogleFonts.poppins(
-                  fontSize: 14, fontWeight: FontWeight.w400)),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: _usernameLabelColor),
+              focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue),
+              )),
+          cursorColor: Colors.blue,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a username';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            _newUsername = value!;
+          },
         ),
         const SizedBox(height: 20),
         TextFormField(
-          controller: _emailController,
-          keyboardType: TextInputType.text,
+          initialValue: _newEmail,
+          focusNode: _emailFocusNode,
           decoration: InputDecoration(
               labelText: 'Email',
               labelStyle: GoogleFonts.poppins(
-                  fontSize: 14, fontWeight: FontWeight.w400)),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: _emailLabelColor),
+              focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue),
+              )),
+          cursorColor: Colors.blue,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter an email';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            _newEmail = value!;
+          },
         ),
         const SizedBox(height: 20),
         TextFormField(
-          controller: _phoneNumberController,
-          keyboardType: TextInputType.number,
+          initialValue: _newPhoneNumber,
+          focusNode: _phoneFocusNode,
           decoration: InputDecoration(
               labelText: 'Phone',
               labelStyle: GoogleFonts.poppins(
-                  fontSize: 14, fontWeight: FontWeight.w400)),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: _phoneLabelColor),
+              focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue),
+              )),
+          cursorColor: Colors.blue,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a phone number';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            _newPhoneNumber = value!;
+          },
         ),
       ],
     );
@@ -206,24 +299,9 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
           ),
         ),
         onPressed: () async {
-          if (validateAndSave()) {
-            // ignore: prefer_const_declarations, unused_local_variable
-            final text = 'Proile has been updated';
-            // ignore: unuseds_local_variable
-            final snackBar = SnackBar(
-              content: Text(
-                text,
-                style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
-              ),
-              backgroundColor: const Color(0xffCDE1F2),
-              behavior: SnackBarBehavior.floating,
-            );
-
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            await Future.delayed(const Duration(seconds: 2));
+          if (formKey.currentState!.validate()) {
+            formKey.currentState!.save();
+            updateProfile();
           }
         },
         child: Text(
@@ -237,12 +315,37 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     );
   }
 
-  bool validateAndSave() {
-    final form = formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
+  void updateProfile() {
+    // Simulate update profile process
+    // You can replace this with your own implementation
+    setState(() {
+      widget.username = _newUsername;
+      widget.email = _newEmail;
+      widget.phoneNumber = _newPhoneNumber;
+      // ignore: unnecessary_null_comparison
+      if (_imageFile != null) {
+        widget.profilePicturePath = _imageFile.path;
+      }
+    });
+
+    // Show success message
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Success'),
+          content: const Text('Profile updated successfully.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

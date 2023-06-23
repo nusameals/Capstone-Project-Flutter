@@ -11,6 +11,11 @@ class ProfilScreen extends StatefulWidget {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
+  late String _username;
+  late String _email;
+  // ignore: unused_field
+  late String _profilePicturePath;
+  late String _phoneNumber;
   late SharedPreferences loginData;
   // ignore: non_constant_identifier_names
   String Username = '';
@@ -21,6 +26,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
   void initState() {
     super.initState();
     initial();
+    // _username = 'Triana Davis';
+    // _email = 'trianadavis@gmail.com';
+    // _profilePicturePath = 'assets/images/user1.jpg';
+    // _phoneNumber = '-';
   }
 
   void initial() async {
@@ -208,7 +217,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
               ),
             ),
             context: context,
-            builder: (context) => const UpdateProfilScreen(),
+            builder: (context) => UpdateProfilScreen(
+                username: '',
+                email: '',
+                phoneNumber: '',
+                profilePicturePath: ''),
           );
         },
         child: Text(
