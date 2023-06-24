@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/account/update_profil_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../themes/constant.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({super.key});
@@ -11,11 +11,6 @@ class ProfilScreen extends StatefulWidget {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
-  late String _username;
-  late String _email;
-  // ignore: unused_field
-  late String _profilePicturePath;
-  late String _phoneNumber;
   late SharedPreferences loginData;
   // ignore: non_constant_identifier_names
   String Username = '';
@@ -26,10 +21,6 @@ class _ProfilScreenState extends State<ProfilScreen> {
   void initState() {
     super.initState();
     initial();
-    // _username = 'Triana Davis';
-    // _email = 'trianadavis@gmail.com';
-    // _profilePicturePath = 'assets/images/user1.jpg';
-    // _phoneNumber = '-';
   }
 
   void initial() async {
@@ -55,11 +46,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
             },
             icon: const Icon(Icons.arrow_back, color: Colors.white),
           ),
-          title: Text('Profile',
-              style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400)),
+          title: Text(
+            'Profile',
+            style: ThemeText.subHeadingR20W,
+          ),
         ),
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -91,15 +81,12 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           const CircleAvatar(
                             radius: 35,
                             backgroundImage:
-                                AssetImage('assets/images/user1.jpg'),
+                                AssetImage("assets/images/male.png"),
                           ),
                           const SizedBox(width: 10, height: 21),
                           Text(
                             Username,
-                            style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700),
+                            style: ThemeText.subHeadingB20,
                           ),
                         ],
                       ),
@@ -133,19 +120,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
             children: [
               Text(
                 'Username',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               ),
               Text(
                 Username,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               )
             ],
           ),
@@ -155,19 +134,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
             children: [
               Text(
                 'Email',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               ),
               Text(
                 Email,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               )
             ],
           ),
@@ -177,19 +148,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
             children: [
               Text(
                 'Phone',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               ),
               Text(
                 '-',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               )
             ],
           ),
@@ -218,15 +181,15 @@ class _ProfilScreenState extends State<ProfilScreen> {
             ),
             context: context,
             builder: (context) => UpdateProfilScreen(
-                username: '',
-                email: '',
-                phoneNumber: '',
+                username: Username,
+                email: Email,
+                phoneNumber: '-',
                 profilePicturePath: ''),
           );
         },
         child: Text(
           'Update Profile',
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+          style: ThemeText.bodyB145W,
         ),
       ),
     );

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nusameals/view/account/profil_screen.dart';
+import '../../themes/constant.dart';
 
 // ignore: must_be_immutable
 class UpdateProfilScreen extends StatefulWidget {
@@ -89,10 +91,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
                     ),
                     Text(
                       'Update Profile',
-                      style: GoogleFonts.poppins(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
+                      style: ThemeText.subHeadingR20,
                     )
                   ],
                 ),
@@ -116,7 +115,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
         children: [
           const CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage("assets/images/user1.jpg")),
+              backgroundImage: AssetImage("assets/images/male.png")),
           Positioned(
             bottom: 0,
             right: 0,
@@ -170,6 +169,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
               IconButton(
                 onPressed: () {
                   takePhoto(ImageSource.camera);
+                  Navigator.pop(context);
                 },
                 icon: const Icon(Icons.camera),
               ),
@@ -183,6 +183,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
               IconButton(
                 onPressed: () {
                   takePhoto(ImageSource.gallery);
+                  Navigator.pop(context);
                 },
                 icon: const Icon(Icons.image),
               ),
@@ -252,7 +253,9 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
           cursorColor: Colors.blue,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter an email';
+              return 'isi Email';
+            } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+              return "Masukkan alamat email yang valid";
             }
             return null;
           },
@@ -276,7 +279,9 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
           cursorColor: Colors.blue,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter a phone number';
+              return 'isi nomor telpon';
+            } else if (value.length < 10 || value.length > 12) {
+              return 'nomor tidak valid';
             }
             return null;
           },
@@ -302,14 +307,12 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
           if (formKey.currentState!.validate()) {
             formKey.currentState!.save();
             updateProfile();
+            Navigator.pop(context);
           }
         },
         child: Text(
           'Updates',
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
+          style: ThemeText.bodyB145W,
         ),
       ),
     );
@@ -328,24 +331,24 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
       }
     });
 
-    // Show success message
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Success'),
-          content: const Text('Profile updated successfully.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
+    showSnackBar('Profile has been updated');
+  }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+      ),
     );
+  }
+
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
   }
 }

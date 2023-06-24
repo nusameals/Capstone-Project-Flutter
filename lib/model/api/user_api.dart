@@ -51,7 +51,7 @@ class UserAPI {
   }) async {
     // ignore: unused_local_variable
     try {
-      final url = Uri.parse('${ApiConstants}baseUrl/register');
+      final url = Uri.parse('${ApiConstants.baseUrl}/register');
 
       final response = await http.post(url, body: {
         'username': username,
