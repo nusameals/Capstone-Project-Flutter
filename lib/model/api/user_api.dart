@@ -49,9 +49,8 @@ class UserAPI {
     // ignore: non_constant_identifier_names
     required String retype_password,
   }) async {
-    // ignore: unused_local_variable
     try {
-      final url = Uri.parse('${ApiConstants}baseUrl/register');
+      final url = Uri.parse('${ApiConstants.baseUrl}/register');
 
       final response = await http.post(url, body: {
         'username': username,
