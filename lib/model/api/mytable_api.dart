@@ -6,7 +6,7 @@ import 'package:nusameals/model/mytable_model.dart';
 class myTableAPI {
   Future<List<myTable>> getmyTable() async {
     var categoryUrl = Uri.parse(
-        "https://648867d20e2469c038fda7c1.mockapi.io/nusameals/get_table");
+        "https://648867d20e2469c038fda7c1.mockapi.io/nusameals/get_reservation");
     final response = await http.get(categoryUrl);
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/component/costum_snackbar.dart';
 import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
-import 'package:nusameals/view_model/mytable_view_model.dart';
-import 'package:nusameals/view_model/mytable_view_model.dart';
-import 'package:provider/provider.dart';
+
 
 import '../../../themes/constant.dart';
 
@@ -30,9 +28,27 @@ class Table {
 class DetailMyTable extends StatefulWidget {
   final String imageUrl;
   final String title;
+  final String position;
+  final String location;
+  final String seats;
+  final String name;
+  final String phone;
+  final String date;
+  final String timeIn;
+  final String timeOut;
+  final String agenda;
+  final int numofpeo;
 
-  const DetailMyTable({required this.imageUrl, required this.title});
-
+  DetailMyTable({
+    required this.imageUrl,
+    required this.title,
+    required this.position,
+    required this.location,
+    required this.seats,
+    required this.date,
+    required this.timeIn,
+    required this.timeOut, required this.agenda, required this.name, required this.phone, required this.numofpeo,
+  });
   @override
   State<DetailMyTable> createState() => _DetailMyTableState();
 }
@@ -118,9 +134,9 @@ class _DetailMyTableState extends State<DetailMyTable> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('\u2022 10 seats', style: GoogleFonts.poppins()),
-                    Text('\u2022 indoors', style: GoogleFonts.poppins()),
-                    Text('\u2022 in the middle of the room',
+                    Text('\u2022 ${widget.seats}', style: GoogleFonts.poppins()),
+                    Text('\u2022 ${widget.position}', style: GoogleFonts.poppins()),
+                    Text('\u2022 ${widget.location}',
                         style: GoogleFonts.poppins()),
                     Divider(
                       color: Colors.blue,
@@ -152,13 +168,13 @@ class _DetailMyTableState extends State<DetailMyTable> {
                                   borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(20))),
                               builder: (context) => EditMyTable(
-                                name: tables[index].name,
-                                phone: tables[index].phone,
-                                date: tables[index].date,
-                                start: tables[index].start,
-                                end: tables[index].end,
-                                agenda: tables[index].agenda,
-                                people: tables[index].people,
+                                name: widget.name,
+                                phone: widget.phone,
+                                date: widget.date,
+                                start: widget.timeIn,
+                                end: widget.timeOut,
+                                agenda: widget.agenda,
+                                people: widget.numofpeo.toString(),
                               ),
                             );
                           },
@@ -214,44 +230,44 @@ class _DetailMyTableState extends State<DetailMyTable> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          tables[index].name,
+                                          widget.name,
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          tables[index].phone,
+                                          widget.phone,
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          tables[index].date,
+                                          widget.date,
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          tables[index].start +
+                                          widget.timeIn +
                                               "-" +
-                                              tables[index].end,
+                                              widget.timeOut,
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          tables[index].agenda,
+                                          widget.agenda,
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          tables[index].people,
+                                          widget.numofpeo.toString(),
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -378,7 +394,7 @@ class Canceled extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 6,
+                  width: 10,
                 ),
                 Expanded(
                   // width: 150,
