@@ -1,8 +1,11 @@
 // ignore_for_file: unused_field
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nusameals/view/account/profil_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../themes/constant.dart';
 
 // ignore: must_be_immutable
@@ -46,6 +49,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     _newUsername = widget.username;
     _newEmail = widget.email;
     _newPhoneNumber = widget.phoneNumber;
+    _imageFile = PickedFile('path/to/default/image.jpg');
     _usernameFocusNode.addListener(() {
       setState(() {
         // Mengubah warna label teks menjadi biru saat ditekan atau diklik
@@ -303,12 +307,8 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
             borderRadius: BorderRadius.circular(80),
           ),
         ),
-        onPressed: () async {
-          if (formKey.currentState!.validate()) {
-            formKey.currentState!.save();
-            updateProfile();
-            Navigator.pop(context);
-          }
+        onPressed: () {
+          updateProfile(context);
         },
         child: Text(
           'Updates',
@@ -318,9 +318,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     );
   }
 
-  void updateProfile() {
-    // Simulate update profile process
-    // You can replace this with your own implementation
+  void updateProfile(BuildContext context) async {
     setState(() {
       widget.username = _newUsername;
       widget.email = _newEmail;
@@ -330,25 +328,30 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
         widget.profilePicturePath = _imageFile.path;
       }
     });
-
-    showSnackBar('Profile has been updated');
-  }
-
-  void showSnackBar(String message) {
+    // Simpan perubahan ke Shared Preferences
+    await saveProfileChanges();
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 2),
+        content: Text(
+          'Profile has been updated',
+          style: ThemeText.bodyR14,
+        ),
+        // ignore: unnecessary_const
+        backgroundColor: const Color(0xffCDE1F2),
+        behavior: SnackBarBehavior.floating,
       ),
     );
+    // Pindahkan data ke halaman ProfilScreen
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 
-  bool validateAndSave() {
-    final form = formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
+  Future<void> saveProfileChanges() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', _newUsername);
+    await prefs.setString('email', _newEmail);
+    await prefs.setString('phoneNumber', _newPhoneNumber);
+    await prefs.setString('profilePicturePath', _imageFile.path);
   }
 }

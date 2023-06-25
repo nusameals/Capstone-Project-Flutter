@@ -4,7 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../themes/constant.dart';
 
 class ProfilScreen extends StatefulWidget {
-  const ProfilScreen({super.key});
+  const ProfilScreen(
+      {super.key,
+      required String username,
+      required String email,
+      required String phoneNumber});
 
   @override
   State<ProfilScreen> createState() => _ProfilScreenState();

@@ -64,7 +64,11 @@ class MyApp extends StatelessWidget {
           '/register': (context) => const RegisterScreen(),
           '/forgot': (context) => const ForgotPasswordScreen(),
           '/change': (context) => const ChangePassword(),
-          '/profile': (context) => const ProfilScreen(),
+          '/profile': (context) => const ProfilScreen(
+                username: '',
+                email: '',
+                phoneNumber: '',
+              ),
           '/search': (context) => const SearchScreen(),
           '/scan': (context) => const ScanScreen(),
           '/cart': (context) => const CartScreen(),
