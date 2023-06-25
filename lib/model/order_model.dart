@@ -1,25 +1,41 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:intl/intl.dart';
+
 class Order {
   final int id;
   final int userId;
   final int menuId;
+  final String menuName;
+  final String menuImages;
+  final String menuCity;
+  final String menuCalories;
+  final int priceMenu;
   final int quantity;
   final String typeOrder;
+  final String tableNumber;
   final int totalPrice;
+  final String paymentMethods;
+  final String paymentStatus;
   final String orderStatus;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
 
   Order({
     required this.id,
     required this.userId,
     required this.menuId,
+    required this.menuName,
+    required this.menuImages,
+    required this.menuCity,
+    required this.menuCalories,
+    required this.priceMenu,
     required this.quantity,
     required this.typeOrder,
+    required this.tableNumber,
     required this.totalPrice,
+    required this.paymentMethods,
+    required this.paymentStatus,
     required this.orderStatus,
     required this.createdAt,
-    required this.updatedAt,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -27,12 +43,19 @@ class Order {
       id: json['id'],
       userId: json['user_id'],
       menuId: json['menu_id'],
+      menuName: json['menu_name'],
+      menuImages: json['menu_images'],
+      menuCity: json['menu_city'],
+      menuCalories: json['menu_calories'],
+      priceMenu: json['price_menu'],
       quantity: json['quantity'],
       typeOrder: json['type_order'],
+      tableNumber: json['table_number'],
       totalPrice: json['total_price'],
       orderStatus: json['order_status'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+      paymentMethods: json['payment_methods'],
+      paymentStatus: json['payment_status'],
+      createdAt: json['created_at'],
     );
   }
 
@@ -41,90 +64,19 @@ class Order {
       'id': id,
       'user_id': userId,
       'menu_id': menuId,
+      'menu_name': menuName,
+      'menu_images': menuImages,
+      'menu_city': menuCity,
+      'menu_calories': menuCalories,
+      'price_menu': priceMenu,
       'quantity': quantity,
       'type_order': typeOrder,
+      'table_number': tableNumber,
       'total_price': totalPrice,
+      'payment_methods': paymentMethods,
+      'payment_status': paymentStatus,
       'order_status': orderStatus,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'created_at': createdAt,
     };
-  }
-}
-
-class MyOrder {
-  String idOrder;
-  String idCustomer;
-  String orderStatus;
-  String orderDate;
-  String totalPrice;
-  String type;
-  String tableNumber;
-  String paymentMethod;
-  List<OrderDetail> orderDetail;
-
-  MyOrder({
-    required this.idOrder,
-    required this.idCustomer,
-    required this.orderStatus,
-    required this.orderDate,
-    required this.totalPrice,
-    required this.type,
-    required this.tableNumber,
-    required this.paymentMethod,
-    required this.orderDetail,
-  });
-  factory MyOrder.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> orderDetailData = json['order_detail'];
-    return MyOrder(
-      idOrder: json['id_order'],
-      idCustomer: json['id_customer'],
-      orderStatus: json['order_status'],
-      orderDate: json['order_date'],
-      totalPrice: json['total_price'],
-      type: json['type'],
-      tableNumber: json['table_number'],
-      paymentMethod: json['payment_method'],
-      orderDetail: orderDetailData
-          .map((orderDetailJson) => OrderDetail.fromJson(orderDetailJson))
-          .toList(),
-    );
-  }
-}
-
-class OrderDetail {
-  String idOrderDetail;
-  String idMenu;
-  String idCategory;
-  String name;
-  String price;
-  String calorie;
-  String city;
-  String qty;
-  String images;
-
-  OrderDetail({
-    required this.idOrderDetail,
-    required this.idMenu,
-    required this.idCategory,
-    required this.name,
-    required this.price,
-    required this.calorie,
-    required this.city,
-    required this.qty,
-    required this.images,
-  });
-
-  factory OrderDetail.fromJson(Map<String, dynamic> json) {
-    return OrderDetail(
-      idOrderDetail: json['id_order_detail'],
-      idMenu: json['id_menu'],
-      idCategory: json['id_category'],
-      name: json['name'],
-      price: json['price'],
-      calorie: json['calorie'],
-      city: json['city'],
-      qty: json['qty'],
-      images: json['images'],
-    );
   }
 }
