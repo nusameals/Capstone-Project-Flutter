@@ -24,7 +24,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<MyOrderViewModel>(context, listen: false).fetchMyOrders();
+      Provider.of<MyOrderViewModel>(context, listen: false).fetchOrders();
     });
   }
 
@@ -90,23 +90,21 @@ class _MyOrderScreenState extends State<MyOrderScreen>
           itemCount: orderedOrders.length,
           itemBuilder: (context, index) {
             final order = orderedOrders[index];
-            final firstOrderDetail =
-                order.orderDetail.isNotEmpty ? order.orderDetail.first : null;
 
             return InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderDetailScreen(order: order),
+                    builder: (context) => OrderDetailScreen(order),
                   ),
                 );
               },
               child: CardMyOrder(
-                  id: order.idOrder.toString(),
-                  dateTime: order.orderDate,
-                  price: order.totalPrice,
-                  imageUrl: firstOrderDetail!.images),
+                  id: order.id.toString(),
+                  dateTime: order.createdAt,
+                  price: order.totalPrice.toString(),
+                  imageUrl: order.menuImages),
             );
           },
         );
@@ -135,23 +133,21 @@ class _MyOrderScreenState extends State<MyOrderScreen>
           itemCount: processedOrders.length,
           itemBuilder: (context, index) {
             final order = processedOrders[index];
-            final firstOrderDetail =
-                order.orderDetail.isNotEmpty ? order.orderDetail.first : null;
 
             return InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderDetailScreen(order: order),
+                    builder: (context) => OrderDetailScreen(order),
                   ),
                 );
               },
               child: CardMyOrder(
-                  id: order.idOrder.toString(),
-                  dateTime: order.orderDate,
-                  price: order.totalPrice,
-                  imageUrl: firstOrderDetail!.images),
+                  id: order.id.toString(),
+                  dateTime: order.createdAt,
+                  price: order.totalPrice.toString(),
+                  imageUrl: order.menuImages),
             );
           },
         );
@@ -180,23 +176,21 @@ class _MyOrderScreenState extends State<MyOrderScreen>
           itemCount: finishedOrders.length,
           itemBuilder: (context, index) {
             final order = finishedOrders[index];
-            final firstOrderDetail =
-                order.orderDetail.isNotEmpty ? order.orderDetail.first : null;
 
             return InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderDetailScreen(order: order),
+                    builder: (context) => OrderDetailScreen(order),
                   ),
                 );
               },
               child: CardMyOrder(
-                  id: order.idOrder.toString(),
-                  dateTime: order.orderDate,
-                  price: order.totalPrice,
-                  imageUrl: firstOrderDetail!.images),
+                  id: order.id.toString(),
+                  dateTime: order.createdAt,
+                  price: order.totalPrice.toString(),
+                  imageUrl: order.menuImages),
             );
           },
         );

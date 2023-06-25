@@ -6,26 +6,31 @@ import '../model/order_model.dart';
 import '../model/payment_model.dart';
 
 class MyOrderViewModel extends ChangeNotifier {
-  List<MyOrder> _myOrders = [];
-  List<MyOrder> get myOrders => _myOrders;
+  // List<MyOrder> _myOrders = [];
+  // List<MyOrder> get myOrders => _myOrders;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   int orderId = 0;
-  Future<void> createOrder(
-      int userId, int menuId, String typeOrder, int quantity) async {
+  Future<void> createOrder(int userId, int menuId, String typeOrder,
+      int quantity, String tableNumber, String paymentMethods) async {
     try {
       final order = await OrderAPI().createOrder(
         userId,
         menuId,
         typeOrder,
         quantity,
+        tableNumber,
+        paymentMethods,
       );
       orderId = order.id;
       debugPrint('Pesanan berhasil dibuat: ${order.id}');
-      // print(order.userId);
-      // print(order.menuId);
-      // print(order.typeOrder);
-      // print(quantity);
+      print(order.userId);
+      print(order.menuId);
+      print(order.typeOrder);
+      print(order.quantity);
+      print(order.tableNumber);
+      print(order.paymentMethods);
+      print(order.createdAt);
     } catch (error) {
       // ignore: avoid_print
       print('Gagal membuat pesanan: $error');
@@ -47,29 +52,46 @@ class MyOrderViewModel extends ChangeNotifier {
       await PaymentAPI().createPayment(payment);
       // ignore: avoid_print
       print('Success Payment');
-      // print(payment.orderId);
-      // print(payment.userId);
-      // print(payment.amount);
-      // print(payment.method);
+      print(payment.orderId);
+      print(payment.userId);
+      print(payment.amount);
+      print(payment.method);
     } catch (error) {
       // ignore: avoid_print
       print('Failed Payment: $error');
     }
   }
 
-  Future<List<MyOrder>> fetchMyOrders() async {
+  List<Order> _myOrders = [];
+  List<Order> get myOrders => _myOrders;
+
+  Future<void> fetchOrders() async {
     _isLoading = true;
     notifyListeners();
     await Future.delayed(const Duration(seconds: 1));
     try {
-      _myOrders = await OrderAPI().fetchMyOrders();
+      _myOrders = await OrderAPI().getMyOrders();
       notifyListeners();
-    } catch (e) {
-      rethrow;
+    } catch (error) {
+      print('Failed to fetch orders: $error');
     } finally {
       _isLoading = false;
       notifyListeners();
     }
-    return _myOrders;
   }
+  // Future<List<MyOrder>> fetchMyOrders() async {
+  //   _isLoading = true;
+  //   notifyListeners();
+  //   await Future.delayed(const Duration(seconds: 1));
+  //   try {
+  //     _myOrders = await OrderAPI().fetchMyOrders();
+  //     notifyListeners();
+  //   } catch (e) {
+  //     rethrow;
+  //   } finally {
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  //   return _myOrders;
+  // }
 }

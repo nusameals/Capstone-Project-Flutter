@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/account/profil_screen.dart';
-import 'package:nusameals/view/account/update_profil_screen.dart';
 import 'package:nusameals/view/auth/change_password_screen.dart';
 import 'package:nusameals/view/auth/forgot_password_screen.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
@@ -65,7 +64,6 @@ class MyApp extends StatelessWidget {
           '/forgot': (context) => const ForgotPasswordScreen(),
           '/change': (context) => const ChangePassword(),
           '/profile': (context) => const ProfilScreen(),
-          '/updateProfile': (context) => const UpdateProfilScreen(),
           '/search': (context) => const SearchScreen(),
           '/scan': (context) => const ScanScreen(),
           '/cart': (context) => const CartScreen(),
