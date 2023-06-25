@@ -6,24 +6,7 @@ import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
 
 import '../../../themes/constant.dart';
 
-class Table {
-  final String name;
-  final String phone;
-  final String date;
-  final String start;
-  final String end;
-  final String agenda;
-  final String people;
 
-  Table(
-      {required this.name,
-      required this.phone,
-      required this.date,
-      required this.start,
-      required this.end,
-      required this.agenda,
-      required this.people});
-}
 
 class DetailMyTable extends StatefulWidget {
   final String imageUrl;
@@ -54,25 +37,10 @@ class DetailMyTable extends StatefulWidget {
 }
 
 class _DetailMyTableState extends State<DetailMyTable> {
-  final List<Table> tables = [
-    Table(
-      name: 'Trina Davis',
-      phone: '+62 8123456789',
-      date: '17/08/2023',
-      start: '20:00',
-      end: '21:00',
-      agenda: 'Dinner',
-      people: '10',
-    )
-  ];
+
   int index = 0;
 
-  void removeTable() {
-    setState(() {
-      tables.removeAt(index);
-    });
-    Navigator.pop(context);
-  }
+
 
   @override
   Widget build(BuildContext context) {
