@@ -6,11 +6,8 @@ import '../../model/order_model.dart';
 import '../../themes/constant.dart';
 
 class OrderDetailScreen extends StatelessWidget {
-  final MyOrder order;
-  const OrderDetailScreen({
-    Key? key,
-    required this.order,
-  }) : super(key: key);
+  final Order orderModel;
+  const OrderDetailScreen(this.orderModel);
 
   @override
   Widget build(BuildContext context) {
@@ -41,99 +38,85 @@ class OrderDetailScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          ListView.builder(
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: order.orderDetail.length,
-            itemBuilder: (context, index) {
-              final orderDetail = order.orderDetail[index];
-              return Container(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Column(
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          child: Image.network(
-                            orderDetail.images,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      orderDetail.name,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: ThemeText.subHeadingB18,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        orderDetail.city,
-                                        style: ThemeText.bodyR14Dark4,
-                                      ),
-                                      Text(
-                                        '${orderDetail.calorie} kkal',
-                                        style: ThemeText.bodyB14Dark4,
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    priceFormat.format(
-                                      int.parse(
-                                        orderDetail.price,
-                                      ),
-                                    ),
-                                    style: ThemeText.bodyB20,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      child: Image.network(
+                        orderModel.menuImages,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                     const SizedBox(
-                      height: 5,
+                      width: 20,
                     ),
-                    const Divider(
-                      thickness: 1,
-                      color: ColorTheme.primaryBlue60,
-                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  orderModel.menuName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: ThemeText.subHeadingB18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    orderModel.menuCity,
+                                    style: ThemeText.bodyR14Dark4,
+                                  ),
+                                  Text(
+                                    '${orderModel.menuCalories} kkal',
+                                    style: ThemeText.bodyB14Dark4,
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                priceFormat.format(
+                                  orderModel.totalPrice,
+                                ),
+                                style: ThemeText.bodyB20,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              );
-            },
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: ColorTheme.primaryBlue60,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 8,
@@ -156,7 +139,7 @@ class OrderDetailScreen extends StatelessWidget {
                       style: ThemeText.bodyR14,
                     ),
                     Text(
-                      order.idOrder.toString(),
+                      orderModel.id.toString(),
                       style: ThemeText.bodyT14,
                     ),
                   ],
@@ -169,7 +152,7 @@ class OrderDetailScreen extends StatelessWidget {
                       style: ThemeText.bodyR14,
                     ),
                     Text(
-                      order.type,
+                      orderModel.typeOrder,
                       style: ThemeText.bodyT14,
                     ),
                   ],
@@ -182,7 +165,7 @@ class OrderDetailScreen extends StatelessWidget {
                       style: ThemeText.bodyR14,
                     ),
                     Text(
-                      order.tableNumber,
+                      orderModel.tableNumber,
                       style: ThemeText.bodyT14,
                     ),
                   ],
@@ -190,30 +173,20 @@ class OrderDetailScreen extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: order.orderDetail.length,
-                  itemBuilder: (context, index) {
-                    final orderDetail = order.orderDetail[index];
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "• ${orderDetail.name} x ${orderDetail.qty}",
-                          style: ThemeText.bodyR14,
-                        ),
-                        Text(
-                          priceFormat.format(
-                            int.parse(
-                              orderDetail.price,
-                            ),
-                          ),
-                          style: ThemeText.bodyR14,
-                        ),
-                      ],
-                    );
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "• ${orderModel.menuName} x ${orderModel.quantity}",
+                      style: ThemeText.bodyR14,
+                    ),
+                    Text(
+                      priceFormat.format(
+                        orderModel.priceMenu,
+                      ),
+                      style: ThemeText.bodyR14,
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,9 +196,7 @@ class OrderDetailScreen extends StatelessWidget {
                       style: ThemeText.bodyB14,
                     ),
                     Text(
-                      priceFormat.format(
-                        int.parse(order.totalPrice),
-                      ),
+                      priceFormat.format(orderModel.totalPrice),
                       style: ThemeText.bodyB14,
                     ),
                   ],
@@ -241,7 +212,7 @@ class OrderDetailScreen extends StatelessWidget {
                       style: ThemeText.bodyR14,
                     ),
                     Text(
-                      order.paymentMethod,
+                      orderModel.paymentMethods,
                       style: ThemeText.bodyT14,
                     ),
                   ],

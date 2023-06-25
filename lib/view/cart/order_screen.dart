@@ -467,20 +467,6 @@ class _OrderScreenState extends State<OrderScreen> {
                   return PrimaryButton(
                     text: "Make an order",
                     onPressed: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      String userId = prefs.getString('id') ?? '';
-                      final menuModel = widget.menuModel;
-                      final menuId = menuModel.idMenu;
-                      // final tableNumber = modelCart.tableNumber;
-                      final typeOrder =
-                          modelCart.dineInSelected ? 'dine in' : 'take away';
-                      final quantity = modelCart.quantity;
-                      // ignore: use_build_context_synchronously
-                      Provider.of<MyOrderViewModel>(context, listen: false)
-                          .createOrder(
-                              int.parse(userId), menuId, typeOrder, quantity);
-
                       // ignore: use_build_context_synchronously
                       showModalBottomSheet(
                         context: context,
@@ -700,13 +686,35 @@ class _OrderScreenState extends State<OrderScreen> {
                                             SharedPreferences prefs =
                                                 await SharedPreferences
                                                     .getInstance();
-                                            String userId =
+                                            final userId =
                                                 prefs.getString('id') ?? '';
                                             int totalAmount = int.parse(widget
                                                     .menuModel.price
                                                     .toString()) *
                                                 modelCart.quantity;
                                             final orderId = modelOrder.orderId;
+                                            final menuModel = widget.menuModel;
+                                            final menuId = menuModel.idMenu;
+                                            final tableNumber = modelCart
+                                                .tableNumber
+                                                .toString();
+                                            final typeOrder =
+                                                modelCart.dineInSelected
+                                                    ? 'Dine In'
+                                                    : 'Take away';
+                                            final quantity = modelCart.quantity;
+                                            // ignore: use_build_context_synchronously
+                                            Provider.of<MyOrderViewModel>(
+                                                    context,
+                                                    listen: false)
+                                                .createOrder(
+                                                    int.parse(userId),
+                                                    menuId,
+                                                    typeOrder,
+                                                    quantity,
+                                                    tableNumber,
+                                                    _selectedPaymentMethod);
+
                                             // ignore: use_build_context_synchronously
                                             Provider.of<MyOrderViewModel>(
                                                     context,
