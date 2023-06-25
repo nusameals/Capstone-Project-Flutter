@@ -5,11 +5,13 @@ import '../model/menu_model.dart';
 import '../view/component/costum_snackbar.dart';
 
 class CartViewModel with ChangeNotifier {
+  // ignore: prefer_final_fields
   List<CartModel> _listMenuCart = [];
   List<CartModel> get listMenuCart => _listMenuCart;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  // ignore: unused_field
   String _selectedPaymentMethod = '';
   bool _dineInSelected = true;
   bool _takeAwaySelected = false;

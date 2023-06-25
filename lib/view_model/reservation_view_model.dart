@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nusameals/model/api/reservation_api.dart';
 import 'package:nusameals/model/reservation_model.dart';
-
 
 class ReservationViewModel extends ChangeNotifier {
   List<ReservationModel> _reservations = [];
@@ -30,5 +28,4 @@ class ReservationViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 }

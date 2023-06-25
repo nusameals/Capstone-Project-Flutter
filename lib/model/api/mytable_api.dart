@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nusameals/model/mytable_model.dart';
 
-
 class myTableAPI {
   Future<List<myTable>> getmyTable() async {
     var categoryUrl = Uri.parse(
@@ -15,5 +14,4 @@ class myTableAPI {
       throw Exception('Failed to load Table');
     }
   }
-
 }

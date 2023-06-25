@@ -43,6 +43,7 @@ class _ScanScreenState extends State<ScanScreen> {
           ),
         );
       } else {
+        // ignore: use_build_context_synchronously
         CustomSnackbar.showSnackbar(context, 'Menu not found');
       }
     }

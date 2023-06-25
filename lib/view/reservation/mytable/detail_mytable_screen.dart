@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/component/costum_snackbar.dart';
 import 'package:nusameals/view/reservation/mytable/edit_mytable_screen.dart';
 
-
 import '../../../themes/constant.dart';
 
 class Table {
@@ -47,7 +46,11 @@ class DetailMyTable extends StatefulWidget {
     required this.seats,
     required this.date,
     required this.timeIn,
-    required this.timeOut, required this.agenda, required this.name, required this.phone, required this.numofpeo,
+    required this.timeOut,
+    required this.agenda,
+    required this.name,
+    required this.phone,
+    required this.numofpeo,
   });
   @override
   State<DetailMyTable> createState() => _DetailMyTableState();
@@ -113,7 +116,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -134,14 +137,16 @@ class _DetailMyTableState extends State<DetailMyTable> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('\u2022 ${widget.seats}', style: GoogleFonts.poppins()),
-                    Text('\u2022 ${widget.position}', style: GoogleFonts.poppins()),
+                    Text('\u2022 ${widget.seats}',
+                        style: GoogleFonts.poppins()),
+                    Text('\u2022 ${widget.position}',
+                        style: GoogleFonts.poppins()),
                     Text('\u2022 ${widget.location}',
                         style: GoogleFonts.poppins()),
-                    Divider(
+                    const Divider(
                       color: Colors.blue,
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
                         Expanded(
@@ -185,7 +190,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
                               borderRadius: BorderRadius.circular(6),
                               color: Colors.blue,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.edit_outlined,
                               color: Colors.white,
                               size: 20,
@@ -194,11 +199,11 @@ class _DetailMyTableState extends State<DetailMyTable> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 200,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,9 +220,9 @@ class _DetailMyTableState extends State<DetailMyTable> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             height: 200,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -251,9 +256,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
                                           ),
                                         ),
                                         Text(
-                                          widget.timeIn +
-                                              "-" +
-                                              widget.timeOut,
+                                          "${widget.timeIn}-${widget.timeOut}",
                                           style: GoogleFonts.poppins(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -287,33 +290,34 @@ class _DetailMyTableState extends State<DetailMyTable> {
                 ),
               ),
             ),
-            Spacer(),
-            Divider(
+            const Spacer(),
+            const Divider(
               thickness: 1,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Container(
+              child: SizedBox(
                 width: 370,
                 child: ElevatedButton(
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
                       builder: (context) => Canceled(),
                     );
                   },
+                  // ignore: sort_child_properties_last
                   child: Text('Canceled Reservation',
                       style: GoogleFonts.poppins(
                           color: Colors.red, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(
-                    side: BorderSide(color: Colors.red),
+                    side: const BorderSide(color: Colors.red),
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(color: Colors.blue),
+                      side: const BorderSide(color: Colors.blue),
                     ),
                   ),
                 ),
@@ -326,6 +330,7 @@ class _DetailMyTableState extends State<DetailMyTable> {
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class Canceled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -342,12 +347,12 @@ class Canceled extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
@@ -359,7 +364,7 @@ class Canceled extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Align(
               alignment: Alignment.bottomLeft,
               child: Text(
@@ -367,7 +372,7 @@ class Canceled extends StatelessWidget {
                 style: ThemeText.bodyR18,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -378,10 +383,11 @@ class Canceled extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
+                      // ignore: deprecated_member_use
                       primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(color: Colors.blue),
+                        side: const BorderSide(color: Colors.blue),
                       ),
                     ),
                     child: Text(
@@ -406,6 +412,7 @@ class Canceled extends StatelessWidget {
                           actionText: '');
                     },
                     style: ElevatedButton.styleFrom(
+                      // ignore: deprecated_member_use
                       primary: ColorTheme.secondaryDanger,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

@@ -19,9 +19,11 @@ class PaymentAPI {
     );
 
     if (response.statusCode == 200) {
+      // ignore: avoid_print
       print('Payment created successfully!');
     } else {
       // Gagal membuat payment
+      // ignore: avoid_print
       print('Failed to create payment.');
     }
   }

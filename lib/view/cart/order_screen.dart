@@ -21,6 +21,7 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
+  // ignore: unused_field
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 
@@ -726,6 +727,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                 Navigator.pop(context);
                                               },
                                             );
+                                            // ignore: use_build_context_synchronously
                                             Navigator.pop(context);
                                           },
                                           style: ElevatedButton.styleFrom(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +23,7 @@ class _CartScreenState extends State<CartScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
 
+  // ignore: unused_field
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 

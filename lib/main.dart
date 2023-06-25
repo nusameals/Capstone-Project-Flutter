@@ -5,7 +5,6 @@ import 'package:nusameals/view/auth/change_password_screen.dart';
 import 'package:nusameals/view/auth/forgot_password_screen.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
-import 'package:nusameals/view/main_screen.dart';
 import 'package:nusameals/view/splash_screen.dart';
 import 'view_model/update_profile_view_model.dart';
 import 'package:nusameals/view_model/my_order_view_model.dart';

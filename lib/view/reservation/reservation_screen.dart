@@ -51,7 +51,7 @@ class _ReservationPageState extends State<ReservationPage> {
               child: TabBar(
                 indicatorColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.tab,
-                indicatorPadding: EdgeInsets.symmetric(horizontal: 16),
+                indicatorPadding: const EdgeInsets.symmetric(horizontal: 16),
                 tabs: [
                   Tab(
                     child: Text(
@@ -93,7 +93,7 @@ class _ReservationPageState extends State<ReservationPage> {
                   Consumer<ReservationViewModel>(
                     builder: (context, viewModel, child) {
                       if (viewModel.isLoading) {
-                        return Center(
+                        return const Center(
                           child: SpinKitCircle(
                             color: ColorTheme.primaryBlue,
                           ),
@@ -212,24 +212,27 @@ class _ReservationPageState extends State<ReservationPage> {
                     },
                   ),
                   ListView(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Consumer<ReservationViewModel>(
                           builder: (context, reservationViewModel, child) {
                             if (reservationViewModel.isLoading) {
-                              return Center(
+                              return const Center(
                                 child: SpinKitCircle(
                                   color: ColorTheme.primaryBlue,
                                 ),
                               );
-                            } else if (reservationViewModel.errorMessage.isNotEmpty) {
+                            } else if (reservationViewModel
+                                .errorMessage.isNotEmpty) {
                               return Center(
                                 child: Text(reservationViewModel.errorMessage),
                               );
                             } else {
-                              var reservation = reservationViewModel.reservations[4];
+                              var reservation =
+                                  reservationViewModel.reservations[4];
                               return GestureDetector(
                                 onTap: () {
                                   if (reservation.status != 'Not Available') {
@@ -237,11 +240,16 @@ class _ReservationPageState extends State<ReservationPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          var tableViewModel = Provider.of<myTableViewModel>(context, listen: false);
-                                          var tableData = tableViewModel.tables[0];
+                                          var tableViewModel =
+                                              Provider.of<myTableViewModel>(
+                                                  context,
+                                                  listen: false);
+                                          var tableData =
+                                              tableViewModel.tables[0];
                                           return DetailMyTable(
                                             imageUrl: reservation.photos,
-                                            title: 'Table ${reservation.numberOfTable}',
+                                            title:
+                                                'Table ${reservation.numberOfTable}',
                                             position: reservation.position,
                                             location: reservation.location,
                                             seats: '${reservation.seat} seats',
@@ -279,7 +287,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                             bottomLeft: Radius.circular(14),
                                           ),
                                           image: DecorationImage(
-                                            image: NetworkImage(reservation.photos),
+                                            image: NetworkImage(
+                                                reservation.photos),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -288,8 +297,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 'Table ${reservation.numberOfTable}',
@@ -302,7 +313,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                               ),
                                               Text(
                                                 '${reservation.position} - ${reservation.seat} seats',
-                                                style: GoogleFonts.poppins(fontSize: 13),
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 13),
                                               ),
                                             ],
                                           ),
@@ -310,29 +322,37 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                       Expanded(
                                         child: Consumer<myTableViewModel>(
-                                          builder: (context, tableViewModel, child) {
+                                          builder:
+                                              (context, tableViewModel, child) {
                                             if (tableViewModel.isLoading) {
-                                              return Center(
+                                              return const Center(
                                                 child: SpinKitCircle(
                                                   color: ColorTheme.primaryBlue,
                                                 ),
                                               );
                                             } else {
-                                              var tableData = tableViewModel.tables[0];
+                                              var tableData =
+                                                  tableViewModel.tables[0];
                                               return Align(
-                                                alignment: Alignment.centerRight,
+                                                alignment:
+                                                    Alignment.centerRight,
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Text(
                                                         tableData.date,
-                                                        style: GoogleFonts.poppins(),
+                                                        style: GoogleFonts
+                                                            .poppins(),
                                                       ),
                                                       Text(
                                                         '${tableData.timeIn}-${tableData.timeOut}',
-                                                        style: GoogleFonts.poppins(),
+                                                        style: GoogleFonts
+                                                            .poppins(),
                                                       ),
                                                     ],
                                                   ),
@@ -352,8 +372,6 @@ class _ReservationPageState extends State<ReservationPage> {
                       ),
                     ],
                   ),
-
-
                 ],
               ),
             ),

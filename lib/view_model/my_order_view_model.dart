@@ -27,6 +27,7 @@ class MyOrderViewModel extends ChangeNotifier {
       // print(order.typeOrder);
       // print(quantity);
     } catch (error) {
+      // ignore: avoid_print
       print('Gagal membuat pesanan: $error');
     }
   }
@@ -44,12 +45,14 @@ class MyOrderViewModel extends ChangeNotifier {
         paymentType: '',
       );
       await PaymentAPI().createPayment(payment);
+      // ignore: avoid_print
       print('Success Payment');
       // print(payment.orderId);
       // print(payment.userId);
       // print(payment.amount);
       // print(payment.method);
     } catch (error) {
+      // ignore: avoid_print
       print('Failed Payment: $error');
     }
   }
