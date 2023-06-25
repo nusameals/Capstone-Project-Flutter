@@ -6,8 +6,8 @@ import '../model/order_model.dart';
 import '../model/payment_model.dart';
 
 class MyOrderViewModel extends ChangeNotifier {
-  // List<MyOrder> _myOrders = [];
-  // List<MyOrder> get myOrders => _myOrders;
+  List<Order> _myOrders = [];
+  List<Order> get myOrders => _myOrders;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   int orderId = 0;
@@ -62,9 +62,6 @@ class MyOrderViewModel extends ChangeNotifier {
     }
   }
 
-  List<Order> _myOrders = [];
-  List<Order> get myOrders => _myOrders;
-
   Future<void> fetchOrders() async {
     _isLoading = true;
     notifyListeners();
@@ -79,19 +76,4 @@ class MyOrderViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-  // Future<List<MyOrder>> fetchMyOrders() async {
-  //   _isLoading = true;
-  //   notifyListeners();
-  //   await Future.delayed(const Duration(seconds: 1));
-  //   try {
-  //     _myOrders = await OrderAPI().fetchMyOrders();
-  //     notifyListeners();
-  //   } catch (e) {
-  //     rethrow;
-  //   } finally {
-  //     _isLoading = false;
-  //     notifyListeners();
-  //   }
-  //   return _myOrders;
-  // }
 }
