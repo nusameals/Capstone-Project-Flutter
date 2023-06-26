@@ -1,4 +1,4 @@
-class myTable {
+class MyTable {
   final String customerName;
   final String phoneNumber;
   final String date;
@@ -8,7 +8,7 @@ class myTable {
   final int numberOfPeople;
   final String idReservation;
 
-  myTable({
+  MyTable({
     required this.customerName,
     required this.phoneNumber,
     required this.date,
@@ -19,8 +19,8 @@ class myTable {
     required this.idReservation,
   });
 
-  factory myTable.fromJson(Map<String, dynamic> json) {
-    return myTable(
+  factory MyTable.fromJson(Map<String, dynamic> json) {
+    return MyTable(
       customerName: json['customer_name'],
       phoneNumber: json['phone_number'],
       date: json['date'],
