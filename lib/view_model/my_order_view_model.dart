@@ -54,8 +54,6 @@ class MyOrderViewModel extends ChangeNotifier {
       await PaymentAPI().createPayment(payment);
       // ignore: avoid_print
       print('Success Payment');
-      print(payment.orderId);
-      print(payment.amount);
     } catch (error) {
       // ignore: avoid_print
       print('Failed Payment: $error');
