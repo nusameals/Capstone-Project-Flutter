@@ -720,11 +720,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                             Provider.of<MyOrderViewModel>(
                                                     context,
                                                     listen: false)
-                                                .payments(
-                                                    orderId,
-                                                    int.parse(userId),
-                                                    totalAmount.toDouble(),
-                                                    _selectedPaymentMethod);
+                                                .payments(orderId, totalAmount);
 
                                             // ignore: use_build_context_synchronously
                                             CustomSnackbar.showSnackbar(

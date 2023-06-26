@@ -982,12 +982,8 @@ class _CartScreenState extends State<CartScreen> {
                                                     Provider.of<MyOrderViewModel>(
                                                             context,
                                                             listen: false)
-                                                        .payments(
-                                                            orderId,
-                                                            int.parse(userId),
-                                                            totalAmount
-                                                                .toDouble(),
-                                                            _selectedPaymentMethod);
+                                                        .payments(orderId,
+                                                            totalAmount);
                                                     modelCart.listMenuCart
                                                         .clear();
                                                     // ignore: use_build_context_synchronously

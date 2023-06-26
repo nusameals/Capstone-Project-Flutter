@@ -38,25 +38,26 @@ class MyOrderViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> payments(
-      int orderId, int userId, double amount, String method) async {
+  Future<void> payments(int orderId, int amount) async {
     try {
       final payment = PaymentModel(
-        id: 0,
-        orderId: orderId,
-        userId: userId,
-        amount: amount,
-        status: '',
-        method: method,
-        paymentType: '',
-      );
+          id: 0,
+          orderId: orderId,
+          userId: 0,
+          username: '',
+          totalPrice: 0,
+          typeOrder: '',
+          tableNumber: '',
+          paymentMethods: '',
+          amount: amount,
+          paymentStatus: '');
       await PaymentAPI().createPayment(payment);
       // ignore: avoid_print
       print('Success Payment');
       print(payment.orderId);
-      print(payment.userId);
+      // print(payment.userId);
       print(payment.amount);
-      print(payment.method);
+      // print(payment.method);
     } catch (error) {
       // ignore: avoid_print
       print('Failed Payment: $error');
