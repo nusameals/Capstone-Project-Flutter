@@ -1,30 +1,30 @@
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility in the flutter_test package. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nusameals/view/auth/register_screen.dart';
+
+import 'package:nusameals/main.dart';
 
 void main() {
-  testWidgets('Register Screen', (WidgetTester tester) async {
-    // Build the RegisterScreen widget
-    await tester.pumpWidget(RegisterScreen());
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
 
-    // Find form fields
-    final usernameField = find.byType(TextFormField).at(0);
-    final emailField = find.byType(TextFormField).at(1);
-    final passwordField = find.byType(TextFormField).at(2);
-    final confirmPasswordField = find.byType(TextFormField).at(3);
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
 
-    // Enter text into the form fields
-    await tester.enterText(usernameField, 'JohnDoe');
-    await tester.enterText(emailField, 'johndoe@example.com');
-    await tester.enterText(passwordField, 'password');
-    await tester.enterText(confirmPasswordField, 'password');
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
 
-    // Submit the form
-    final createAccountButton = find.text('Create Account');
-    await tester.tap(createAccountButton);
-    await tester.pumpAndSettle();
-
-    // Verify the result
-    expect(find.text('Successefully create your account, please wait...'), findsOneWidget);
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
   });
 }
