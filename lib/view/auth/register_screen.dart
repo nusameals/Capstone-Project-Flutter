@@ -342,10 +342,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 backgroundColor: const Color(0xffCDE1F2),
                 behavior: SnackBarBehavior.floating,
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              await Future.delayed(
-                const Duration(seconds: 3),
-              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then((reason) {
+                // Snackbar closed, perform navigation here
+                Navigator.pushNamed(context, '/login');
+              });
+              await Future.delayed(const Duration(seconds: 3));
             }
             // ignore: unused_local_variable
             final isValidForm = _formKey.currentState!.validate();
