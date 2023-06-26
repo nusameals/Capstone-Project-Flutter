@@ -6,10 +6,10 @@ import 'package:nusameals/view/cart/order_screen.dart';
 import 'package:nusameals/view_model/cart_view_model.dart';
 import 'package:provider/provider.dart';
 import '../../model/menu_model.dart';
-import '../component/costum_snackbar.dart';
 
 class DetailMenuScreen extends StatefulWidget {
   final MenuModel menuModel;
+  // ignore: use_key_in_widget_constructors
   const DetailMenuScreen(this.menuModel);
 
   @override

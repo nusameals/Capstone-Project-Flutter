@@ -8,12 +8,19 @@ class DetailReservation extends StatefulWidget {
   final String imageUrl;
   final String title;
   final String position;
-  final String location ;
+  final String location;
   final String seats;
 
-  DetailReservation({required this.imageUrl, required this.title, required this.position, required this.location, required this.seats});
+  // ignore: prefer_const_constructors_in_immutables
+  DetailReservation(
+      {required this.imageUrl,
+      required this.title,
+      required this.position,
+      required this.location,
+      required this.seats});
 
   @override
+  // ignore: library_private_types_in_public_api
   _DetailReservationState createState() => _DetailReservationState();
 }
 
@@ -112,6 +119,7 @@ class _DetailReservationState extends State<DetailReservation> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
+                    // ignore: deprecated_member_use
                     primary: ColorTheme.primaryBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),

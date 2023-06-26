@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nusameals/model/reservation_model.dart';
-import '../menu_model.dart';
 
 class ReservationAPI {
   Future<List<ReservationModel>> getReservation() async {
@@ -15,5 +14,4 @@ class ReservationAPI {
       throw Exception('Failed to load Table');
     }
   }
-
 }

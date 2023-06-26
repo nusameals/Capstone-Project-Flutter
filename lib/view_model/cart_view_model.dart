@@ -1,20 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../model/api/cart_api.dart';
 import '../model/cart_model.dart';
 import '../model/menu_model.dart';
 import '../view/component/costum_snackbar.dart';
-import '../view/home/home_screen.dart';
 
 class CartViewModel with ChangeNotifier {
+  // ignore: prefer_final_fields
   List<CartModel> _listMenuCart = [];
   List<CartModel> get listMenuCart => _listMenuCart;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  // ignore: unused_field
   String _selectedPaymentMethod = '';
   bool _dineInSelected = true;
   bool _takeAwaySelected = false;
@@ -135,39 +132,5 @@ class CartViewModel with ChangeNotifier {
       _totalPrice += itemTotal;
     }
     return _totalPrice;
-  }
-
-  Future<void> checkout(BuildContext context) async {
-    final int timestamp = DateTime.now().millisecondsSinceEpoch;
-    final String idOrder = timestamp.toString();
-    DateTime now = DateTime.now();
-    // String formattedDateTime = DateFormat('HH:mm/yyyy').format(now);
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('idOrder', idOrder);
-      await prefs.setString('dateTimeOrder', now.toString());
-      await prefs.setDouble('totalPrice', _totalPrice.toDouble());
-      await prefs.setInt('quantity', _quantity);
-      await prefs.setString('selectedPaymentMethod', _selectedPaymentMethod);
-
-      List<String> cartData =
-          _listMenuCart.map((item) => json.encode(item.toJson())).toList();
-      await prefs.setStringList('cartData', cartData);
-    } catch (e) {
-      print('Error saving order data: $e');
-      return;
-    }
-
-    listMenuCart.clear();
-    // ignore: use_build_context_synchronously
-    CustomSnackbar.showSnackbar(
-      context,
-      'Thanks for order, please wait...',
-      actionText: 'Order more',
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
-      },
-    );
   }
 }

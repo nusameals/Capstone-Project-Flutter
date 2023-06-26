@@ -66,6 +66,7 @@ class MenuViewModel with ChangeNotifier {
 
   MenuModel? findMenuById(String idMenu) {
     for (MenuModel menu in _listMenu) {
+      // ignore: unrelated_type_equality_checks
       if (menu.idMenu == idMenu) {
         return menu;
       }

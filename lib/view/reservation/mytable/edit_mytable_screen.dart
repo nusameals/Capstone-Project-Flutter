@@ -39,21 +39,20 @@ class _EditMyTableState extends State<EditMyTable> {
   Future<void> _selectDate(
       BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+        context: context,
+        initialDate: selectedDate ?? DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
         builder: (BuildContext context, Widget? child) {
           return Theme(
               data: Theme.of(context).copyWith(
                 colorScheme: Theme.of(context).colorScheme.copyWith(
-                  primary: ColorTheme.primaryBlue80,
-                  secondary: Colors.blue,
-                ),
+                      primary: ColorTheme.primaryBlue80,
+                      secondary: Colors.blue,
+                    ),
               ),
               child: child!);
-        }
-    );
+        });
 
     if (pickedDate != null) {
       setState(() {
@@ -91,20 +90,15 @@ class _EditMyTableState extends State<EditMyTable> {
                   primary: Colors.blue,
                   secondary: Colors.blue,
                 ),
-            scaffoldBackgroundColor: Colors
-                .white,
+            scaffoldBackgroundColor: Colors.white,
             textTheme: Theme.of(context).textTheme.copyWith(
-                  bodyText1: TextStyle(color: Colors.black),
-
+                  // ignore: deprecated_member_use
+                  bodyText1: const TextStyle(color: Colors.black),
                 ),
-            timePickerTheme: TimePickerThemeData(
-              hourMinuteTextColor:
-                  Colors.black,
-              dayPeriodTextColor:
-                  Colors.black,
-              dayPeriodTextStyle: TextStyle(
-                  color:
-                      Colors.black),
+            timePickerTheme: const TimePickerThemeData(
+              hourMinuteTextColor: Colors.black,
+              dayPeriodTextColor: Colors.black,
+              dayPeriodTextStyle: TextStyle(color: Colors.black),
             ),
           ),
           child: MediaQuery(
@@ -138,7 +132,7 @@ class _EditMyTableState extends State<EditMyTable> {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -219,8 +213,10 @@ class _EditMyTableState extends State<EditMyTable> {
                 _selectDate(context, dateController);
               },
               decoration: InputDecoration(
-                  labelText: 'date', suffixIcon: Icon(Icons.calendar_month,
-              ),
+                labelText: 'date',
+                suffixIcon: const Icon(
+                  Icons.calendar_month,
+                ),
                 labelStyle: TextStyle(
                   color: Colors.black.withOpacity(0.7),
                 ),
@@ -248,8 +244,8 @@ class _EditMyTableState extends State<EditMyTable> {
                       _selectTime(context, startTimeController);
                     },
                     decoration: InputDecoration(
-                        labelText: 'Start',
-                        suffixIcon: Icon(Icons.access_time),
+                      labelText: 'Start',
+                      suffixIcon: const Icon(Icons.access_time),
                       labelStyle: TextStyle(
                         color: Colors.black.withOpacity(0.7),
                       ),
@@ -275,9 +271,9 @@ class _EditMyTableState extends State<EditMyTable> {
                     onTap: () {
                       _selectTime(context, endTimeController);
                     },
-                    decoration:  InputDecoration(
-                        labelText: 'End',
-                      suffixIcon: Icon(Icons.access_time),
+                    decoration: InputDecoration(
+                      labelText: 'End',
+                      suffixIcon: const Icon(Icons.access_time),
                       labelStyle: TextStyle(
                         color: Colors.black.withOpacity(0.7),
                       ),
@@ -304,7 +300,7 @@ class _EditMyTableState extends State<EditMyTable> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration:  InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Agenda',
                       labelStyle: TextStyle(
                         color: Colors.black.withOpacity(0.7),
@@ -358,6 +354,7 @@ class _EditMyTableState extends State<EditMyTable> {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
+                  // ignore: deprecated_member_use
                   primary: ColorTheme.primaryBlue,
                 ),
                 child: Text('Submit',

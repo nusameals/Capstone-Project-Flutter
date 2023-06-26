@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:nusameals/themes/constant.dart';
 import 'package:nusameals/view/main_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_model/cart_view_model.dart';
+import '../../view_model/my_order_view_model.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 import '../home/home_screen.dart';
@@ -21,6 +23,7 @@ class _CartScreenState extends State<CartScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
 
+  // ignore: unused_field
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 
@@ -35,6 +38,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final modelCart = Provider.of<CartViewModel>(context);
+    final modelOrder = Provider.of<MyOrderViewModel>(context);
     final bool isLoading = modelCart.isLoading;
     int getTotalPrice() {
       int totalPrice = 0;
@@ -701,7 +705,8 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       child: PrimaryButton(
                           text: "Make an order",
-                          onPressed: () {
+                          onPressed: () async {
+                            // ignore: use_build_context_synchronously
                             showModalBottomSheet(
                                 context: context,
                                 shape: const RoundedRectangleBorder(
@@ -758,6 +763,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   _selectedPaymentMethod =
                                                       value as String;
                                                 });
+                                                modelCart
+                                                    .setSelectedPaymentMethod(
+                                                        _selectedPaymentMethod);
                                               },
                                             ),
                                             contentPadding:
@@ -790,6 +798,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   _selectedPaymentMethod =
                                                       value as String;
                                                 });
+                                                modelCart
+                                                    .setSelectedPaymentMethod(
+                                                        _selectedPaymentMethod);
                                               },
                                             ),
                                             contentPadding:
@@ -822,6 +833,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   _selectedPaymentMethod =
                                                       value as String;
                                                 });
+                                                modelCart
+                                                    .setSelectedPaymentMethod(
+                                                        _selectedPaymentMethod);
                                               },
                                             ),
                                             contentPadding:
@@ -854,6 +868,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   _selectedPaymentMethod =
                                                       value as String;
                                                 });
+                                                modelCart
+                                                    .setSelectedPaymentMethod(
+                                                        _selectedPaymentMethod);
                                               },
                                             ),
                                             contentPadding:
@@ -886,6 +903,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   _selectedPaymentMethod =
                                                       value as String;
                                                 });
+                                                modelCart
+                                                    .setSelectedPaymentMethod(
+                                                        _selectedPaymentMethod);
                                               },
                                             ),
                                             contentPadding:
@@ -922,11 +942,65 @@ class _CartScreenState extends State<CartScreen> {
                                                   ],
                                                 ),
                                                 ElevatedButton(
-                                                  onPressed: () {
-                                                    Provider.of<CartViewModel>(
+                                                  onPressed: () async {
+                                                    SharedPreferences prefs =
+                                                        await SharedPreferences
+                                                            .getInstance();
+                                                    String userId =
+                                                        prefs.getString('id') ??
+                                                            '';
+                                                    int totalAmount =
+                                                        getTotalPrice();
+                                                    final orderId =
+                                                        modelOrder.orderId;
+
+                                                    final tableNumber =
+                                                        modelCart.tableNumber
+                                                            .toString();
+                                                    final item = modelCart
+                                                        .listMenuCart[0];
+                                                    final menuId =
+                                                        int.parse(item.idMenu);
+                                                    final typeOrder =
+                                                        modelCart.dineInSelected
+                                                            ? 'Dine In'
+                                                            : 'Take away';
+                                                    final quantity = modelCart
+                                                        .listMenuCart[0].qty;
+                                                    // ignore: use_build_context_synchronously
+                                                    Provider.of<MyOrderViewModel>(
                                                             context,
                                                             listen: false)
-                                                        .checkout(context);
+                                                        .createOrder(
+                                                            int.parse(userId),
+                                                            menuId,
+                                                            typeOrder,
+                                                            int.parse(quantity),
+                                                            tableNumber,
+                                                            _selectedPaymentMethod);
+                                                    // ignore: use_build_context_synchronously
+                                                    Provider.of<MyOrderViewModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .payments(orderId,
+                                                            totalAmount);
+                                                    modelCart.listMenuCart
+                                                        .clear();
+                                                    // ignore: use_build_context_synchronously
+                                                    CustomSnackbar.showSnackbar(
+                                                      context,
+                                                      'Thanks for order, please wait...',
+                                                      actionText: 'Order more',
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        const HomeScreen()));
+                                                      },
+                                                    );
+                                                    // ignore: use_build_context_synchronously
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(

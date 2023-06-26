@@ -23,8 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
         if (isLoggedIn) {
           // Pengguna sudah yg login, navigasikan ke halaman profil
           // ignore: use_build_context_synchronously
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MainScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const MainScreen()));
         } else {
           // Pengguna belum login atau register, navigasikan ke halaman login
           // ignore: use_build_context_synchronously

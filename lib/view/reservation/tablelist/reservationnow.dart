@@ -26,21 +26,20 @@ class _ReservationNowState extends State<ReservationNow> {
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
         builder: (BuildContext context, Widget? child) {
-        return Theme(
-            data: Theme.of(context).copyWith(
-            colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: ColorTheme.primaryBlue80,
-              secondary: Colors.blue,
-            ),
-            ),
-            child: child!);
-        }
-    );
+          return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                      primary: ColorTheme.primaryBlue80,
+                      secondary: Colors.blue,
+                    ),
+              ),
+              child: child!);
+        });
 
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
@@ -64,11 +63,14 @@ class _ReservationNowState extends State<ReservationNow> {
                 ),
             scaffoldBackgroundColor: Colors.white,
             textTheme: Theme.of(context).textTheme.copyWith(
+                  // ignore: deprecated_member_use
                   bodyText1: const TextStyle(color: ColorTheme.dark1),
                 ),
+            // ignore: prefer_const_constructors
             timePickerTheme: TimePickerThemeData(
               hourMinuteTextColor: ColorTheme.dark1,
               dayPeriodTextColor: ColorTheme.dark1,
+              // ignore: prefer_const_constructors
               dayPeriodTextStyle: TextStyle(color: ColorTheme.dark1),
             ),
           ),
@@ -280,17 +282,25 @@ class _ReservationNowState extends State<ReservationNow> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    // ignore: unused_local_variable
                     final String name = nameController.text;
+                    // ignore: unused_local_variable
                     final String phone = phoneController.text;
                     DateTime? date;
                     try {
-                      date = DateFormat('dd/MM/yyyy').parse(dateController.text);
+                      date =
+                          DateFormat('dd/MM/yyyy').parse(dateController.text);
                     } catch (e) {
+                      // ignore: avoid_print
                       print('Invalid date format: ${dateController.text}');
                     }
+                    // ignore: unused_local_variable
                     final String startTime = startTimeController.text;
+                    // ignore: unused_local_variable
                     final String endTime = endTimeController.text;
+                    // ignore: unused_local_variable
                     final String agenda = agendaController.text;
+                    // ignore: unused_local_variable
                     final String numofpeop = numberOfPeopleController.text;
                     if (date != null) {
                       // final addReservation newReservation = addReservation(
@@ -305,11 +315,10 @@ class _ReservationNowState extends State<ReservationNow> {
                       // provider
 
                       Navigator.pop(context);
-                    } else {
-
-                    }
+                    } else {}
                   },
                   style: ElevatedButton.styleFrom(
+                    // ignore: deprecated_member_use
                     primary: ColorTheme.primaryBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

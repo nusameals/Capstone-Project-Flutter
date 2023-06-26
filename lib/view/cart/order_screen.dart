@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/menu_model.dart';
 import '../../themes/constant.dart';
 import '../../view_model/cart_view_model.dart';
+import '../../view_model/my_order_view_model.dart';
 import '../component/button_primary.dart';
 import '../component/costum_snackbar.dart';
 
@@ -19,12 +21,14 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   final priceFormat =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
+  // ignore: unused_field
   final TextEditingController _controller = TextEditingController();
   String _selectedPaymentMethod = '';
 
   @override
   Widget build(BuildContext context) {
     final modelCart = Provider.of<CartViewModel>(context);
+    final modelOrder = Provider.of<MyOrderViewModel>(context);
 
     return Theme(
       data: Theme.of(context).copyWith(useMaterial3: false),
@@ -463,7 +467,8 @@ class _OrderScreenState extends State<OrderScreen> {
                 child: Builder(builder: (context) {
                   return PrimaryButton(
                     text: "Make an order",
-                    onPressed: () {
+                    onPressed: () async {
+                      // ignore: use_build_context_synchronously
                       showModalBottomSheet(
                         context: context,
                         shape: const RoundedRectangleBorder(
@@ -678,14 +683,46 @@ class _OrderScreenState extends State<OrderScreen> {
                                           ],
                                         ),
                                         ElevatedButton(
-                                          onPressed: () {
-                                            Provider.of<CartViewModel>(context,
+                                          onPressed: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            final userId =
+                                                prefs.getString('id') ?? '';
+                                            int totalAmount = int.parse(widget
+                                                    .menuModel.price
+                                                    .toString()) *
+                                                modelCart.quantity;
+                                            final orderId = modelOrder.orderId;
+                                            final menuModel = widget.menuModel;
+                                            final menuId = menuModel.idMenu;
+                                            final tableNumber = modelCart
+                                                .tableNumber
+                                                .toString();
+                                            final typeOrder =
+                                                modelCart.dineInSelected
+                                                    ? 'Dine In'
+                                                    : 'Take away';
+                                            final quantity = modelCart.quantity;
+                                            // ignore: use_build_context_synchronously
+                                            Provider.of<MyOrderViewModel>(
+                                                    context,
                                                     listen: false)
-                                                .checkout(context);
-                                            _controller.text =
-                                                _selectedPaymentMethod;
-                                            // final selectedPaymentMethod =
-                                            //     _controller.text;
+                                                .createOrder(
+                                                    int.parse(userId),
+                                                    menuId,
+                                                    typeOrder,
+                                                    quantity,
+                                                    tableNumber,
+                                                    _selectedPaymentMethod);
+
+                                            // ignore: use_build_context_synchronously
+                                            Provider.of<MyOrderViewModel>(
+                                                    context,
+                                                    listen: false)
+                                                .payments(orderId, totalAmount);
+
+                                            // ignore: use_build_context_synchronously
                                             CustomSnackbar.showSnackbar(
                                               context,
                                               'Thanks for order, please wait...',
@@ -694,6 +731,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                 Navigator.pop(context);
                                               },
                                             );
+                                            // ignore: use_build_context_synchronously
                                             Navigator.pop(context);
                                           },
                                           style: ElevatedButton.styleFrom(
