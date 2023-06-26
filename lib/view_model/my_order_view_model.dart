@@ -55,9 +55,7 @@ class MyOrderViewModel extends ChangeNotifier {
       // ignore: avoid_print
       print('Success Payment');
       print(payment.orderId);
-      // print(payment.userId);
       print(payment.amount);
-      // print(payment.method);
     } catch (error) {
       // ignore: avoid_print
       print('Failed Payment: $error');
