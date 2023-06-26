@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ReservationViewModel(),
         ),
         ChangeNotifierProvider(
-          create: (context) => myTableViewModel(),
+          create: (context) => MyTableViewModel(),
         ),
       ],
       child: MaterialApp(

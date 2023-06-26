@@ -27,7 +27,7 @@ class _ReservationPageState extends State<ReservationPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ReservationViewModel>(context, listen: false)
           .fetchReservations();
-      Provider.of<myTableViewModel>(context, listen: false).fetchTables();
+      Provider.of<MyTableViewModel>(context, listen: false).fetchTables();
     });
   }
 
@@ -241,7 +241,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                       MaterialPageRoute(
                                         builder: (context) {
                                           var tableViewModel =
-                                              Provider.of<myTableViewModel>(
+                                              Provider.of<MyTableViewModel>(
                                                   context,
                                                   listen: false);
                                           var tableData =
@@ -321,7 +321,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Consumer<myTableViewModel>(
+                                        child: Consumer<MyTableViewModel>(
                                           builder:
                                               (context, tableViewModel, child) {
                                             if (tableViewModel.isLoading) {
