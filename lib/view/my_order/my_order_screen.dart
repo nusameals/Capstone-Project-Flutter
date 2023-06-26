@@ -73,7 +73,7 @@ class _MyOrderScreenState extends State<MyOrderScreen>
     return Consumer<MyOrderViewModel>(
       builder: (context, viewModel, _) {
         final orderedOrders = viewModel.myOrders
-            .where((order) => order.orderStatus == 'Ordered')
+            .where((order) => order.orderStatus == 'New Order')
             .toList();
 
         if (viewModel.isLoading) {

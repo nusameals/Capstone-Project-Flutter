@@ -23,6 +23,7 @@ class MyOrderViewModel extends ChangeNotifier {
         paymentMethods,
       );
       orderId = order.id;
+      _myOrders.add(order);
       debugPrint('Pesanan berhasil dibuat: ${order.id}');
       print(order.userId);
       print(order.menuId);
