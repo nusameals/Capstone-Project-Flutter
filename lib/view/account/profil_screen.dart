@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nusameals/view/account/update_profil_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../themes/constant.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({super.key});
@@ -33,79 +33,78 @@ class _ProfilScreenState extends State<ProfilScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: const Color(0xff0669BD),
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            // Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+    return Theme(
+      data: Theme.of(context).copyWith(useMaterial3: false),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          backgroundColor: const Color(0xff0669BD),
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+          ),
+          title: Text(
+            'Profile',
+            style: ThemeText.subHeadingR20W,
+          ),
         ),
-        title: Text('Profile',
-            style: GoogleFonts.poppins(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.w400)),
-      ),
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              height: 220,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(35),
-                  bottomRight: Radius.circular(35),
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Container(
+                height: 220,
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(35),
+                    bottomRight: Radius.circular(35),
+                  ),
+                  color: Color(0xff0669BD),
                 ),
-                color: Color(0xff0669BD),
               ),
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, top: 18, bottom: 370),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 8, left: 8),
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                          radius: 35,
-                          backgroundImage:
-                              AssetImage('assets/images/user1.jpg'),
-                        ),
-                        const SizedBox(width: 10, height: 21),
-                        Text(
-                          Username,
-                          style: GoogleFonts.poppins(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ],
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                margin: const EdgeInsets.only(
+                    left: 24, right: 24, top: 18, bottom: 370),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 8, left: 8),
+                      child: Row(
+                        children: [
+                          const CircleAvatar(
+                            radius: 35,
+                            backgroundImage:
+                                AssetImage("assets/images/male.png"),
+                          ),
+                          const SizedBox(width: 10, height: 21),
+                          Text(
+                            Username,
+                            style: ThemeText.subHeadingB20,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Divider(
-                    color: Color(0xff6AA5D7),
-                  ),
-                  const SizedBox(height: 20),
-                  profilBuilder(),
-                  const SizedBox(height: 24),
-                  bottomUpdate(),
-                ],
+                    const SizedBox(height: 20),
+                    const Divider(
+                      color: Color(0xff6AA5D7),
+                    ),
+                    const SizedBox(height: 20),
+                    profilBuilder(),
+                    const SizedBox(height: 24),
+                    bottomUpdate(),
+                  ],
+                ),
               ),
-            ),
-            bottomLogout()
-          ],
+              bottomLogout()
+            ],
+          ),
         ),
       ),
     );
@@ -121,19 +120,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
             children: [
               Text(
                 'Username',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               ),
               Text(
                 Username,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               )
             ],
           ),
@@ -143,19 +134,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
             children: [
               Text(
                 'Email',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               ),
               Text(
                 Email,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               )
             ],
           ),
@@ -165,19 +148,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
             children: [
               Text(
                 'Phone',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               ),
               Text(
                 '-',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                style: ThemeText.bodyR14,
               )
             ],
           ),
@@ -205,12 +180,16 @@ class _ProfilScreenState extends State<ProfilScreen> {
               ),
             ),
             context: context,
-            builder: (context) => const UpdateProfilScreen(),
+            builder: (context) => UpdateProfilScreen(
+                username: Username,
+                email: Email,
+                phoneNumber: '-',
+                profilePicturePath: ''),
           );
         },
         child: Text(
           'Update Profile',
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+          style: ThemeText.bodyB145W,
         ),
       ),
     );

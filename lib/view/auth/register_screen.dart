@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print
+// ignore_for_file: non_constant_identifier_names, avoid_print, unused_field
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +23,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isRetypePasswordValid = true;
   late SharedPreferences registerData;
   late bool newUser;
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _confirmpasswordFocusNode = FocusNode();
+  Color _usernameLabelColor = Colors.black;
+  Color _emailLabelColor = Colors.black;
+  Color _passwordLabelColor = Colors.black;
+  Color _confirmpasswordLabelColor = Colors.black;
 
   @override
   void initState() {
     super.initState();
     _checkLoginStatus();
+    _usernameFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _usernameLabelColor =
+            _usernameFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _emailFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _emailLabelColor =
+            _emailFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _passwordLabelColor =
+            _passwordFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _confirmpasswordFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _confirmpasswordLabelColor =
+            _confirmpasswordFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
   }
 
   void _checkLoginStatus() async {
@@ -54,10 +90,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
-    super.dispose();
   }
 
   @override
@@ -73,8 +109,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Container(
                   color: const Color(0xff0669BD),
-                  height: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  height: MediaQuery.of(context).size.height - 40,
+                  padding: const EdgeInsets.only(top: 20),
                   child: Column(children: [
                     Image.asset('assets/images/nusameals.png', height: 100),
                     const SizedBox(height: 30),
@@ -86,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(35, 25, 35, 25),
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height - 40,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -114,18 +150,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _usernameController,
+                                      focusNode: _usernameFocusNode,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                         labelText: 'Username',
                                         labelStyle: GoogleFonts.poppins(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            color: _usernameLabelColor),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.blue),
+                                        ),
                                       ),
-
+                                      cursorColor: Colors.blue,
                                       // ignore: body_might_complete_normally_nullable
                                       validator: (username) {
                                         if (username!.isEmpty) {
-                                          return 'username cannot be empty';
+                                          return 'Username cannot be empty';
                                         } else if (RegExp(r'^[a-z][A-Za-z]*$')
                                             .hasMatch(username)) {
                                           return 'username must start with capital letter';
@@ -135,16 +178,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _emailController,
+                                      focusNode: _emailFocusNode,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                         labelText: 'Email',
                                         labelStyle: GoogleFonts.poppins(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            color: _emailLabelColor),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.blue),
+                                        ),
                                       ),
+                                      cursorColor: Colors.blue,
                                       validator: (email) {
                                         if (email!.isEmpty) {
-                                          return "email cannot be empty";
+                                          return "Email cannot be empty";
                                         } else if (!RegExp(
                                                 "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                             .hasMatch(email)) {
@@ -153,15 +204,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                     ),
+
                                     const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _passwordController,
+                                      focusNode: _passwordFocusNode,
                                       obscureText: _passwordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Password',
                                         labelStyle: GoogleFonts.poppins(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            color: _passwordLabelColor),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.blue),
+                                        ),
                                         suffixIcon: IconButton(
                                           onPressed: showHidePassword,
                                           icon: _passwordSecureText
@@ -177,9 +236,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
+                                      cursorColor: Colors.blue,
                                       validator: (password) {
                                         if (password!.isEmpty) {
                                           return 'Please a Enter Password';
+                                        } else if (password.length < 6) {
+                                          return 'Enter a password with length at least 6';
                                         }
                                         return null;
                                       },
@@ -187,15 +249,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     const SizedBox(height: 10),
                                     TextFormField(
                                       controller: _confirmpasswordController,
+                                      focusNode: _confirmpasswordFocusNode,
                                       obscureText: _confirmPasswordSecureText,
                                       decoration: InputDecoration(
                                         labelText: 'Confirm Password',
                                         errorText: isRetypePasswordValid
                                             ? null
-                                            : 'Field ini harus diisi.',
+                                            : 'Make sure the password entered is correct',
                                         labelStyle: GoogleFonts.poppins(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            color: _confirmpasswordLabelColor),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.blue),
+                                        ),
                                         suffixIcon: IconButton(
                                           onPressed: showHideConfirmPassword,
                                           icon: _confirmPasswordSecureText
@@ -211,12 +280,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                         ),
                                       ),
+                                      cursorColor: Colors.blue,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           setState(() {
                                             isRetypePasswordValid = false;
                                           });
-                                          return 'Field ini harus diisi.';
+                                          return 'Make sure the password entered is correct';
                                         }
                                         setState(() {
                                           isRetypePasswordValid = true;
@@ -272,10 +342,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 backgroundColor: const Color(0xffCDE1F2),
                 behavior: SnackBarBehavior.floating,
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              await Future.delayed(
-                const Duration(seconds: 3),
-              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then((reason) {
+                // Snackbar closed, perform navigation here
+                Navigator.pushNamed(context, '/login');
+              });
+              await Future.delayed(const Duration(seconds: 3));
             }
             // ignore: unused_local_variable
             final isValidForm = _formKey.currentState!.validate();

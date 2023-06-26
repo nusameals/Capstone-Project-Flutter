@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/user_view_model.dart';
+import '../main_screen.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,6 +20,30 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _secureText = true;
   bool validForm = false;
+  // Deklarasikan FocusNode di dalam State
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  Color _usernameLabelColor = Colors.black; // Warna label teks saat tidak aktif
+  Color _passwordLabelColor = Colors.black; // Warna label teks saat tidak aktif
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _usernameLabelColor =
+            _usernameFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        // Mengubah warna label teks menjadi biru saat ditekan atau diklik
+        _passwordLabelColor =
+            _passwordFocusNode.hasFocus ? Colors.blue : Colors.black;
+      });
+    });
+  }
 
   showHide() {
     setState(() {
@@ -28,9 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
-    super.dispose();
   }
 
   @override
@@ -47,8 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Container(
                   color: const Color(0xff0669BD),
-                  height: MediaQuery.of(context).size.height,
-                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  height: MediaQuery.of(context).size.height - 40,
+                  padding: const EdgeInsets.only(top: 40),
                   child: Column(
                     children: [
                       Image.asset('assets/images/nusameals.png', height: 100),
@@ -61,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: Container(
                             padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-                            height: MediaQuery.of(context).size.height,
+                            height: MediaQuery.of(context).size.height - 40,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -90,51 +115,53 @@ class _LoginScreenState extends State<LoginScreen> {
                                       const SizedBox(height: 31),
                                       TextFormField(
                                         controller: _usernameController,
+                                        focusNode: _usernameFocusNode,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
-                                            labelText: 'Username',
-                                            labelStyle: GoogleFonts.poppins(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400)),
-                                        // ignore: body_might_complete_normally_nullable
-                                        // validator: (username) {
-                                        //   if (username!.isEmpty) {
-                                        //     return 'Username masih kosong';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                          labelText: 'Username',
+                                          labelStyle: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: _usernameLabelColor),
+                                          focusedBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue),
+                                          ),
+                                        ),
+                                        cursorColor: Colors.blue,
                                       ),
                                       const SizedBox(height: 20),
                                       TextFormField(
                                         controller: _passwordController,
+                                        focusNode: _passwordFocusNode,
                                         obscureText: _secureText,
                                         decoration: InputDecoration(
                                           labelText: 'Password',
                                           labelStyle: GoogleFonts.poppins(
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w400),
-                                          suffixIcon: IconButton(
-                                            onPressed: showHide,
-                                            icon: _secureText
-                                                ? const Icon(
-                                                    Icons.visibility_outlined,
-                                                    size: 20,
-                                                    color: Colors.black,
-                                                  )
-                                                : const Icon(
-                                                    Icons.visibility_off,
-                                                    size: 20,
-                                                    color: Colors.black,
-                                                  ),
+                                              fontWeight: FontWeight.w400,
+                                              color: _passwordLabelColor),
+                                          focusedBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue),
                                           ),
+                                          suffixIcon: IconButton(
+                                              onPressed: showHide,
+                                              icon: _secureText
+                                                  ? const Icon(
+                                                      Icons.visibility_outlined,
+                                                      size: 20,
+                                                      color: Colors.black,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.visibility_off,
+                                                      size: 20,
+                                                      color: Colors.black,
+                                                    )),
                                         ),
-                                        // ignore: body_might_complete_normally_nullable
-                                        // validator: (password) {
-                                        //   if (password!.isEmpty) {
-                                        //     return 'Password masiih kosong';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                        cursorColor: Colors.blue,
                                       ),
                                       const SizedBox(height: 30),
                                       bottomSheet(),
@@ -172,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .showSnackBar(
                                                     SnackBar(
                                                       content: Text(
-                                                          'Username dan Password wajib di isi !!',
+                                                          'Username dan Password cannot be empty!!',
                                                           style: GoogleFonts
                                                               .poppins(
                                                                   fontSize: 14,
@@ -227,9 +254,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     );
                                                   }
                                                   // ignore: use_build_context_synchronously
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                          context, '/profile');
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const MainScreen()));
                                                 } catch (error) {
                                                   // ignore: use_build_context_synchronously
                                                   ScaffoldMessenger.of(context)
