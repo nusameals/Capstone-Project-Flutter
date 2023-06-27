@@ -219,7 +219,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     email_or_username: username,
                                                     password: password,
                                                   );
-                                                  if (validateAndSave()) {
+                                                  if (responData.containsKey(
+                                                          'success') &&
+                                                      responData['success']) {
                                                     const text =
                                                         'Successfully, please wait...';
                                                     const snackBar = SnackBar(
@@ -241,13 +243,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     await Future.delayed(
                                                         const Duration(
                                                             seconds: 5));
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const MainScreen()),
+                                                    );
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                          'Failed to login. Please check your username and password.',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors.red,
+                                                          ),
+                                                        ),
+                                                        backgroundColor:
+                                                            Color(0xffCDE1F2),
+                                                        behavior:
+                                                            SnackBarBehavior
+                                                                .floating,
+                                                      ),
+                                                    );
                                                   }
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const MainScreen()),
-                                                  );
                                                 } catch (error) {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
