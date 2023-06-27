@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_local_variable, use_build_context_synchronously, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -183,34 +183,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                             onPressed: () async {
-                                              if (validForm = _formKey
-                                                  .currentState!
+                                              if (_formKey.currentState!
                                                   .validate()) {
-                                                final email =
+                                                final username =
                                                     _usernameController.text
                                                         .trim();
                                                 final password =
                                                     _passwordController.text
                                                         .trim();
-                                                if (email.isEmpty ||
+                                                if (username.isEmpty ||
                                                     password.isEmpty) {
-                                                  // ignore: use_build_context_synchronously
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
-                                                    SnackBar(
+                                                    const SnackBar(
                                                       content: Text(
-                                                          'Username dan Password cannot be empty!!',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Colors
-                                                                      .red)),
+                                                        'Username and Password cannot be empty!!',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
                                                       backgroundColor:
-                                                          const Color(
-                                                              0xffCDE1F2),
+                                                          Color(0xffCDE1F2),
                                                       behavior: SnackBarBehavior
                                                           .floating,
                                                     ),
@@ -218,76 +214,62 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   return;
                                                 }
                                                 try {
-                                                  // ignore: unused_local_variable
                                                   final responData =
                                                       await loginUser(
-                                                    email_or_username: email,
+                                                    email_or_username: username,
                                                     password: password,
                                                   );
                                                   if (validateAndSave()) {
-                                                    // ignore: prefer_const_declarations, unused_local_variable
-                                                    final text =
-                                                        'Successefully, please wait...';
-                                                    // ignore: unused_local_variable
-                                                    final snackBar = SnackBar(
+                                                    const text =
+                                                        'Successfully, please wait...';
+                                                    const snackBar = SnackBar(
                                                       content: Text(
                                                         text,
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                fontSize: 14,
-                                                                color: Colors
-                                                                    .black),
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                          Color(0xffCDE1F2),
+                                                      behavior: SnackBarBehavior
+                                                          .floating,
+                                                    );
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(snackBar);
+                                                    await Future.delayed(
+                                                        const Duration(
+                                                            seconds: 5));
+                                                  }
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const MainScreen()),
+                                                  );
+                                                } catch (error) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Failed to login. ${error.toString()}',
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.red,
+                                                        ),
                                                       ),
                                                       backgroundColor:
                                                           const Color(
                                                               0xffCDE1F2),
                                                       behavior: SnackBarBehavior
                                                           .floating,
-                                                    );
-                                                    // ignore: use_build_context_synchronously
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(snackBar);
-                                                    await Future.delayed(
-                                                      const Duration(
-                                                          seconds: 5),
-                                                    );
-                                                  }
-                                                  // ignore: use_build_context_synchronously
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const MainScreen()));
-                                                } catch (error) {
-                                                  // ignore: use_build_context_synchronously
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                          'Failed to login. ${error.toString()}'),
                                                     ),
                                                   );
                                                 }
                                               }
-
-                                              final username =
-                                                  _usernameController.text;
-
-                                              final password =
-                                                  _passwordController.text;
-
-                                              // ignore: unused_local_variable
-                                              final user =
-                                                  // ignore: use_build_context_synchronously
-                                                  Provider.of<UserViewModel>(
-                                                          context,
-                                                          listen: false)
-                                                      .loginUser(
-                                                          email_or_username:
-                                                              username,
-                                                          password: password);
-
                                               _usernameController.clear();
                                               _passwordController.clear();
                                             },

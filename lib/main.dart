@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nusameals/view/account/profil_screen.dart';
 import 'package:nusameals/view/auth/change_password_screen.dart';
 import 'package:nusameals/view/auth/forgot_password_screen.dart';
 import 'package:nusameals/view/auth/login_screen.dart';
 import 'package:nusameals/view/auth/register_screen.dart';
-import 'package:nusameals/view/main_screen.dart';
 import 'package:nusameals/view/splash_screen.dart';
-import 'view_model/update_profile_view_model.dart';
 import 'package:nusameals/view_model/my_order_view_model.dart';
 import 'package:nusameals/view_model/mytable_view_model.dart';
 import 'package:nusameals/view_model/reservation_view_model.dart';
@@ -31,9 +28,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserViewModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => UpdateProfileViewModel(),
         ),
         ChangeNotifierProvider(
           create: (context) => MenuViewModel(),
@@ -64,11 +58,6 @@ class MyApp extends StatelessWidget {
           '/register': (context) => const RegisterScreen(),
           '/forgot': (context) => const ForgotPasswordScreen(),
           '/change': (context) => const ChangePassword(),
-          '/profile': (context) => const ProfilScreen(
-                username: '',
-                email: '',
-                phoneNumber: '',
-              ),
           '/search': (context) => const SearchScreen(),
           '/scan': (context) => const ScanScreen(),
           '/cart': (context) => const CartScreen(),

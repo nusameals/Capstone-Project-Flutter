@@ -1,20 +1,29 @@
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore, unused_field, prefer_final_fields, unused_element
+
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:nusameals/view/account/update_profil_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../themes/constant.dart';
 
 class ProfilScreen extends StatefulWidget {
-  const ProfilScreen(
-      {super.key,
-      required String username,
-      required String email,
-      required String phoneNumber});
+  const ProfilScreen({
+    super.key,
+    required String username,
+    required String email,
+    required String phone_number,
+    required String profilePicturePath,
+  });
 
   @override
   State<ProfilScreen> createState() => _ProfilScreenState();
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
+  String _newUsername = '';
+  String _newEmail = '';
+  String _newPhoneNumber = '';
+  File? _imageFile;
   late SharedPreferences loginData;
   // ignore: non_constant_identifier_names
   String Username = '';
@@ -32,6 +41,30 @@ class _ProfilScreenState extends State<ProfilScreen> {
     setState(() {
       Username = loginData.getString('username').toString();
       Email = loginData.getString('email').toString();
+    });
+  }
+
+  void _onUsernameChanged(String newUsername) {
+    setState(() {
+      _newUsername = newUsername;
+    });
+  }
+
+  void _onEmailChanged(String newEmail) {
+    setState(() {
+      _newEmail = newEmail;
+    });
+  }
+
+  void _onPhoneNumberChanged(String newPhoneNumber) {
+    setState(() {
+      _newPhoneNumber = newPhoneNumber;
+    });
+  }
+
+  void _onImageSelected(File imageFile) {
+    setState(() {
+      _imageFile = imageFile;
     });
   }
 
@@ -187,7 +220,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
             builder: (context) => UpdateProfilScreen(
                 username: Username,
                 email: Email,
-                phoneNumber: '-',
+                phone_number: '-',
                 profilePicturePath: ''),
           );
         },

@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nusameals/view/account/profil_screen.dart';
 import 'package:nusameals/view/menu/menu_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../themes/constant.dart';
@@ -150,7 +152,15 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   padding: const EdgeInsets.only(left: 15),
                   child: IconButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilScreen(
+                                  username: '',
+                                  email: '',
+                                  phone_number: '',
+                                  profilePicturePath: ''),
+                            ));
                       },
                       icon: const Icon(
                         Icons.account_circle_outlined,

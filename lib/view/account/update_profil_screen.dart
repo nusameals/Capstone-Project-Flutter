@@ -1,25 +1,25 @@
-// ignore_for_file: unused_field
-import 'dart:io';
+// ignore_for_file: unused_field, unused_local_variable, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, use_build_context_synchronously, unrelated_type_equality_checks, unused_element, duplicate_ignore, prefer_final_fields
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nusameals/view/account/profil_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../themes/constant.dart';
+import 'profil_screen.dart';
 
 // ignore: must_be_immutable
 class UpdateProfilScreen extends StatefulWidget {
   String email;
   String username;
-  String phoneNumber;
+  String phone_number;
   String profilePicturePath;
 
   UpdateProfilScreen({
     Key? key,
     required this.username,
     required this.email,
-    required this.phoneNumber,
+    required this.phone_number,
     required this.profilePicturePath,
   }) : super(key: key);
 
@@ -29,12 +29,11 @@ class UpdateProfilScreen extends StatefulWidget {
 
 class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
   final formKey = GlobalKey<FormState>();
-  late String _newUsername;
-  late String _newEmail;
-  late String _newPhoneNumber;
-
-  late PickedFile _imageFile;
-  final ImagePicker _picker = ImagePicker();
+  String _newUsername = '';
+  String _newEmail = '';
+  String _newPhoneNumber = '';
+  ImagePicker _picker = ImagePicker();
+  File? _imageFile;
 
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
@@ -48,8 +47,8 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     super.initState();
     _newUsername = widget.username;
     _newEmail = widget.email;
-    _newPhoneNumber = widget.phoneNumber;
-    _imageFile = PickedFile('path/to/default/image.jpg');
+    _newPhoneNumber = widget.phone_number;
+    _imageFile = File('path/to/default/image.jpg');
     _usernameFocusNode.addListener(() {
       setState(() {
         // Mengubah warna label teks menjadi biru saat ditekan atau diklik
@@ -172,21 +171,8 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
             children: [
               IconButton(
                 onPressed: () {
-                  takePhoto(ImageSource.camera);
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.camera),
-              ),
-              Text(
-                'Camera',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
                   takePhoto(ImageSource.gallery);
+                  // Camera();
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.image),
@@ -211,7 +197,7 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
       source: source,
     );
     setState(() {
-      _imageFile = pickedFile!;
+      _imageFile = pickedFile! as File?;
     });
   }
 
@@ -322,8 +308,9 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     setState(() {
       widget.username = _newUsername;
       widget.email = _newEmail;
-      widget.phoneNumber = _newPhoneNumber;
+      widget.phone_number = _newPhoneNumber;
       // ignore: unnecessary_null_comparison
+      final _imageFile = this._imageFile;
       if (_imageFile != null) {
         widget.profilePicturePath = _imageFile.path;
       }
@@ -344,7 +331,17 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     );
     // Pindahkan data ke halaman ProfilScreen
     // ignore: use_build_context_synchronously
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfilScreen(
+          username: _newUsername,
+          email: _newEmail,
+          phone_number: _newPhoneNumber,
+          profilePicturePath: _imageFile?.path ?? '',
+        ),
+      ),
+    );
   }
 
   Future<void> saveProfileChanges() async {
@@ -352,6 +349,6 @@ class _UpdateProfilScreenState extends State<UpdateProfilScreen> {
     await prefs.setString('username', _newUsername);
     await prefs.setString('email', _newEmail);
     await prefs.setString('phoneNumber', _newPhoneNumber);
-    await prefs.setString('profilePicturePath', _imageFile.path);
+    await prefs.setString('profilePicturePath', _imageFile?.path ?? '');
   }
 }

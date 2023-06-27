@@ -1,6 +1,9 @@
+// ignore_for_file: unused_local_variable, duplicate_ignore, unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:nusameals/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'api_constants.dart';
 
@@ -33,7 +36,12 @@ class UserAPI {
         await prefs.setString('token', responData['token']);
         return responData;
       } else {
-        throw Exception('user or email not found');
+        final responData = jsonDecode(response.body);
+        if (responData['error'] == 'user_or_email_not_found') {
+          throw Exception('user or email not found');
+        } else {
+          throw Exception('Unknown error occurred');
+        }
       }
     } catch (error) {
       // ignore: avoid_print
@@ -73,6 +81,20 @@ class UserAPI {
       }
     } catch (error) {
       throw Exception('Error: $error');
+    }
+  }
+
+  Future<ProfilDataModel> fetchUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var idUser = prefs.getString('id');
+    final response =
+        await http.get(Uri.parse('${ApiConstants.baseUrl}/$idUser'));
+
+    if (response.statusCode == 200) {
+      return ProfilDataModel.fromJson(jsonDecode(response.body));
+    } else {
+      String message = 'user not found with ${idUser}';
+      throw Exception(message);
     }
   }
 }
